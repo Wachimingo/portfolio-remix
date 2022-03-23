@@ -1,4 +1,11 @@
 import { json, useLoaderData } from "remix";
+import NavBar from "~/components/NavBar";
+
+export function links() {
+    return [
+
+    ]
+}
 
 export const loader = async () => {
     const res = await fetch(`${process.env.managementBackend}/dishes?select=' name '`)

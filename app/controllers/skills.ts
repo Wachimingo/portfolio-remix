@@ -3,6 +3,6 @@ import dbConnect from '../utils/dbConnection';
 
 export const getSkills = async (props: any) => {
     await dbConnect();
-    const skills = await Skills.find({}).where('locale').equals(props.locale)
+    const skills = await Skills.find({}).where('locale').equals(props.locale).limit(props.limit)
     return skills;
 }

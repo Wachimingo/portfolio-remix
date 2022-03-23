@@ -125,10 +125,11 @@ export const OrderControls = ({ role, token, orderId, currentStatus, locale }: a
     )
 }
 
-export const SkillCard = ({ item }: any) => {
+export const SkillCard = ({ item, index }: any) => {
     return (
         <div
             className="card mb-3 d-inline-block skills"
+            key={index}
         >
             <div className="row g-0">
                 <div className="col-md-4">
@@ -140,11 +141,12 @@ export const SkillCard = ({ item }: any) => {
                         }
                         className="img-fluid rounded-start"
                         alt={item.name}
+                        loading="lazy"
                     />
                 </div>
                 <div className="col-md-8">
                     <div className="card-body">
-                        <h5 className="card-title">{item.name ?? <div className="bg-slate-200 text-slate-200">_________</div>}</h5>
+                        <h5 className="card-title">{item.name ?? <div className="">_________</div>}</h5>
                         <div className="progress">
                             {/* @ts-ignore */}
                             <div className="progress-bar progress-bar-striped" role="progressbar" style={{ width: `${item.level}%` }} aria-valuenow={item.level} aria-valuemin="0" aria-valuemax="100"></div>
@@ -157,15 +159,33 @@ export const SkillCard = ({ item }: any) => {
     );
 }
 
-export const CertCard = ({ item }: any) => {
+export const CertCard = ({ item, index }: any) => {
     return (
-        <Link to={item.link ?? ''} >
-            <div className='rounded shadow-lg inline-block overflow-hidden w-80 h-fit ml-8 break-words hover:cursor-pointer hover:bg-slate-300'>
-                <br />
-                <img className="w-8 inline-block" src={item.icon} alt={item.name} />
-                <h2 className="inline-block">{item.name ?? <div className="bg-slate-200 text-slate-200">_________</div>}</h2>
-                <p>{item.description}</p>
-                <br />
+        <Link to={item.link ?? ''} key={index}>
+            <div
+                className="card mb-3 d-inline-block skills"
+                key={index}
+            >
+                <div className="row g-0">
+                    <div className="col-md-4">
+                        <img
+                            src={
+                                item.icon
+                                    ? item.icon
+                                    : 'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png'
+                            }
+                            className="img-fluid rounded-start"
+                            alt={item.name}
+                            loading="lazy"
+                        />
+                    </div>
+                    <div className="col-md-8">
+                        <div className="card-body">
+                            <h5 className="card-title">{item.name ?? <div className="">_________</div>}</h5>
+                            <p className="card-text">{item.description}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </Link>
     );
