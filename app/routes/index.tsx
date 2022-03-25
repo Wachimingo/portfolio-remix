@@ -5,7 +5,7 @@ import { getCategories } from '../controllers/categories'
 import rootStyles from '../styles/root.css'
 import { Link } from "remix";
 import { FaArrowDown } from "react-icons/fa";
-import NavBar from "~/components/NavBar";
+import NavBar from "~/components/navbar";
 import Footer from "~/components/Footer";
 import { getCerts } from "~/controllers/certs";
 

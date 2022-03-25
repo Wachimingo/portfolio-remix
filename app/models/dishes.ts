@@ -53,15 +53,6 @@ const dishSchema = new mongoose.Schema(
   }
 );
 
-dishSchema.pre(/^find/, function (next: any) {
-  dishSchema.populate({
-    path: 'category',
-    select: 'name -_id',
-  })
-
-  next();
-});
-
 // Virtual populate
 dishSchema.virtual('reviews', {
   ref: 'Review',
