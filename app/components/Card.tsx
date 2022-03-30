@@ -1,5 +1,4 @@
-import { Dish, Order } from "../interfaces/Dish";
-import { updateStatus } from "../controllers/orders";
+import { Dish } from "../interfaces/Dish";
 import { Link } from "remix";
 
 type CardProps = {
@@ -26,109 +25,35 @@ export const Card = ({ item }: CardProps) => {
     )
 }
 
-type OrderCardProps = {
-    order: Order,
-    role: string,
-    token: string,
-    locale?: string,
-}
 
-export const OrderCard = ({ order, role, token, locale }: OrderCardProps) => {
+export const OrderCard = ({ orders }: any) => {
     return (
-        <div key={'order' + order._id} className="max-w-sm rounded overflow-hidden shadow-lg card inline-block mx-2 xsm:w-screen" >
-            <div className="px-6 py-4">
-                {
-                    role === 'admin'
-                        ?
-                        <div className="font-bold text-xl mb-2" >
-                            <h5>
-                                {locale === 'en' ? 'Submitter:' : 'Pedido por:'} {order.user.name}
-                            </h5>
-                        </div>
-                        : undefined
-                }
-
-                <p className="text-gray-700 text-base text-sm" >
-                    {locale === 'en' ? 'Total dishes' : 'Total de platos'}: {order.totalDishes}
-                </p>
-                <p className="text-gray-700 text-base" >
-                    {locale === 'en' ? 'Payment' : 'Total a pagar'}: ${order.totalPrice}
-                </p>
-                <p className="text-gray-700 text-base" >
-                    {locale === 'en' ? 'Date' : 'Fecha'}: {order.createdAt}
-                </p>
-                {
-                    order.status === 'isPending'
-                        ?
-                        <p className="text-red-700 text-base" >
-                            <span className="text-gray-700">{locale === 'en' ? 'Status' : 'Estado'}:</span> {locale === 'en' ? 'Pending' : 'Pendiente'}
-                        </p> : undefined
-                }
-                {
-                    order.status === 'isReady'
-                        ?
-                        <p className="text-green-700 text-base" >
-                            <span className="text-gray-700">{locale === 'en' ? 'Status' : 'Estado'}:</span> {locale === 'en' ? 'Ready' : 'Lista'}
-                        </p> : undefined
-                }
-                {
-                    order.status === 'completed'
-                        ?
-                        <p className="text-black text-base" >
-                            <span className="text-gray-700">{locale === 'en' ? 'Status' : 'Estado'}:</span> {locale === 'en' ? 'Completed' : 'Completado'}
-                        </p> : undefined
-                }
-                <p className={`text-base ${order.isPaid ? 'text-green-700' : 'text-red-700'}`} >
-                    {order.isPaid ? locale === 'en' ? 'Payed' : 'Pagado' : locale === 'en' ? 'Payment pending' : 'Pago pendiente'}
-                </p>
-            </div>
-            <ul className="text-left">
-                {
-                    order.body.map((dish: any, j: number) => {
-                        return (
-                            <li key={"dishName" + j}>{dish.name}</li>
-                        )
-                    })
-                }
-            </ul>
-            <br />
-            <OrderControls role={role} token={token} orderId={order._id} currentStatus={order.status} locale={locale} />
-            <br />
-        </div>
-    )
-}
-
-export const OrderControls = ({ role, token, orderId, currentStatus, locale }: any) => {
-    return (
-        <div>
+        <>
             {
-                role !== 'user'
-                    ?
-                    currentStatus === "completed" ? undefined
-                        :
-                        <button
-                            onClick={() => currentStatus === "isPending" ? updateStatus(token, orderId, 'isReady') : updateStatus(token, orderId, 'completed')}
-                            className="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
-                        >
-                            {currentStatus === "isPending" ? locale === 'en' ? 'Set Ready' : 'Lista' : locale === 'en' ? 'Complete' : 'Copmletar'}
-                        </button> : undefined
+                orders.map((order: any, i: number) => {
+                    return (
+                        <div key={order.id + i} className="card d-inline-block mb-2 ms-2" style={{ width: "18rem" }}>
+                            <div className="card-body">
+                                <h5 className="card-title">{order.user.name}</h5>
+                                <h6 className="card-subtitle mb-2 text-muted">{order.status}</h6>
+                                <p className="card-text">Dishes: {order.totalDishes} Payment: {order.totalPrice}</p>
+                                <p className="card-text">Payment status: {order.isPaid ? 'Success' : 'Pending'}</p>
+                                <button className="btn btn-success m-2">{order.status === 'isPending' ? 'Ready' : 'Complete'}</button>
+                                <button className="btn btn-danger">Cancel</button>
+                            </div>
+                        </div>
+                    )
+                })
             }
+        </>
 
-            <button
-                // onClick={() => processTransaction(props.totalPrice, props.totalDishes, props.token, props.userId, props.customer, props.selectedDishes, props.dishCounters, props.items)}
-                className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-                style={{ marginLeft: "2vw" }}
-            >
-                {locale === 'en' ? 'Cancel' : 'Cancelar'}
-            </button>
-        </div>
     )
 }
 
 export const SkillCard = ({ item, index }: any) => {
     return (
         <div
-            className="card mb-3 d-inline-block skills"
+            className="card ms-3 mb-3 d-inline-block skills"
             key={index}
         >
             <div className="row g-0">
@@ -163,7 +88,7 @@ export const CertCard = ({ item, index }: any) => {
     return (
         <Link to={item.link ?? ''} key={index}>
             <div
-                className="card mb-3 d-inline-block skills"
+                className="card ms-3 mb-3 d-inline-block skills"
                 key={index}
             >
                 <div className="row g-0">

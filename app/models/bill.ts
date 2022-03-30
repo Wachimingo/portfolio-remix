@@ -1,4 +1,5 @@
 import mongoose, { Types } from 'mongoose';
+import User from './user';
 
 const billingSchema = new mongoose.Schema(
   {
@@ -6,7 +7,7 @@ const billingSchema = new mongoose.Schema(
     //Logged user ['Admin', 'Helper']
     user: {
       type: Types.ObjectId,
-      ref: 'User',
+      ref: User,
       required: [true, 'El recibo debe contener el ID del vendedor o comprador'],
     },
     createdAt: {
