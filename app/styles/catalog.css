@@ -1,0 +1,63 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+@media only screen and (min-width: 360px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+@media only screen and (min-width: 1200px) {
+    .cardStyle {
+        height: 55vh;
+        width: 20vw;
+        overflow: hidden;
+    }
+
+    .imgContainer {
+        height: 150px;
+        width: 250px;
+        margin: 10px auto
+    }
+
+    .innerBody {
+        text-overflow: ellipsis;
+        display: flex;
+        word-break: break-word;
+        /* overflow: hidden;
+        white-space: nowrap; */
+        height: fit-content;
+        width: 95%;
+        margin: 10px auto;
+        /* border: solid 1px; */
+    }
+
+    .topButtons {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .topButtons:hover {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: gray;
+        color: white;
+    }
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}

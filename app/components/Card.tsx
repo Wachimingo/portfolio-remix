@@ -1,32 +1,92 @@
-import { Dish } from "../interfaces/Dish";
-import { Link } from "remix";
+import { useState } from "react";
+import { FaTrash, FaCog, FaAngleUp, FaRegFolderOpen, FaStar, FaAngleDown } from "react-icons/fa";
+import { Link, useFetcher } from "remix";
 
-type CardProps = {
-    item: Dish,
+export const Card = ({ dishes, fetcher }: any) => {
+    return (
+        <>
+            {
+                dishes.map((dish: any) => {
+                    return (
+                        <div key={dish.name} className="card ms-2 d-inline-block cardStyle">
+                            {CatalogControls(dish, fetcher)}
+                            <div className="imgContainer">
+                                <img src={dish.image} className="card-img-top" alt={dish.name} height='150px' />
+                            </div>
+                            <div className="card-body">
+                                <h5 className="card-title">{dish.name}</h5>
+                                <div className="innerBody">
+                                    <p className="card-text">{dish.description}</p>
+                                </div>
+                                <p className="card-text">${dish.price}</p>
+                            </div>
+                        </div>
+                    );
+                })
+            }
+        </>
+    )
 }
 
-export const Card = ({ item }: CardProps) => {
+const CatalogRowButtons = (props: any) => {
     return (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg samsungS8:w-32 content-center">
-            <img className="w-screen" id={`img_${item?._id}`} src={`${item?.image}`} alt={item?.name} />
-            <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2" id={`title_${item?._id}`}>{item?.name}</div>
-                <p className="text-gray-700 text-base text-sm" id={`description_${item?._id}`}>
-                    {item?.description}
-                </p>
-                <p className="text-gray-700 text-base" id={`price_${item?._id}`}>
-                    ${item?.price}
-                </p>
-            </div>
-            <div className="px-6 pt-4 pb-2">
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{item?.category?.name}</span>
-            </div>
+        <span
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title={props.title}
+            className={`d-inline-block border ms-1 topButtons ${props.styleButton}`}
+            onClick={() => props.fetcher ? props.fetcher.submit({ ...props }, { method: props.method }) : undefined}
+        >
+            {props.icon}
+        </span>
+    )
+}
+
+export const CatalogControls = (item: any, fetcher: any) => {
+    const [state] = useState(!item!.forToday)
+    return (
+        <div className="mt-3 mb-3">
+            <CatalogRowButtons
+                title="Delete"
+                icon={<FaTrash />}
+                styleButton='red'
+                fetcher={fetcher}
+                dishId={item.id}
+                method={'DELETE'}
+            />
+            <CatalogRowButtons
+                title="Modify"
+                icon={<FaCog data-bs-toggle="modal" data-bs-target="#CatalogModal" />}
+            />
+            <CatalogRowButtons
+                title={item?.forToday ? "Desactivar" : "Activar"}
+                icon={item?.forToday ? <FaAngleDown /> : <FaAngleUp />}
+                styleButton={item?.forToday ? "red" : "green"}
+                fetcher={fetcher}
+                dishId={item.id}
+                state={state}
+                method={'PATCH'}
+                type={'forToday'}
+            />
+            <CatalogRowButtons
+                title='Review'
+                icon={
+                    <Link to={`/projects/restaurant/review/${item?._id}`} >
+                        <FaRegFolderOpen />
+                    </Link>
+                }
+                fetcher={fetcher}
+            />
+            <CatalogRowButtons
+                title="Mark as favorite"
+                icon={<FaStar />}
+                fetcher={fetcher}
+            />
         </div>
     )
 }
 
-
-export const OrderCard = ({ orders }: any) => {
+export const OrderCard = ({ orders, status }: any) => {
     return (
         <>
             {
@@ -38,16 +98,60 @@ export const OrderCard = ({ orders }: any) => {
                                 <h6 className="card-subtitle mb-2 text-muted">{order.status}</h6>
                                 <p className="card-text">Dishes: {order.totalDishes} Payment: {order.totalPrice}</p>
                                 <p className="card-text">Payment status: {order.isPaid ? 'Success' : 'Pending'}</p>
-                                <button className="btn btn-success m-2">{order.status === 'isPending' ? 'Ready' : 'Complete'}</button>
-                                <button className="btn btn-danger">Cancel</button>
+                                {CardControls(order._id, order.status)}
                             </div>
                         </div>
                     )
                 })
             }
         </>
-
     )
+}
+
+const CardControls = (id: string, status: string) => {
+    const fetcher = useFetcher();
+    const renderButtons: any = {
+        "isPending": (id: string) => {
+            return (
+                <>
+                    <button
+                        className="btn btn-success m-2"
+                        onClick={() => fetcher.submit({ id, type: 'status', status: 'isReady' }, { method: "patch" })}
+                    >
+                        Ready
+                    </button>
+                    <button
+                        className="btn btn-danger"
+                        onClick={() => fetcher.submit({ id, type: 'status', status: 'cancelled' }, { method: "patch" })}
+                    >
+                        Cancel
+                    </button>
+                </>
+            )
+        },
+        "isReady": (id: string) => {
+            return (
+                <>
+                    <button
+                        className="btn btn-success m-2"
+                        onClick={() => fetcher.submit({ id, type: 'status', status: 'completed' }, { method: "patch" })}
+                    >
+                        Complete
+                    </button>
+                    <button
+                        className="btn btn-danger"
+                        onClick={() => fetcher.submit({ id, type: 'status', status: 'cancelled' }, { method: "patch" })}
+                    >
+                        Cancel
+                    </button>
+                </>
+            )
+        },
+        "completed": () => undefined,
+        "cancelled": () => undefined,
+        "default": () => undefined
+    }
+    return renderButtons[status ?? 'default'](id);
 }
 
 export const SkillCard = ({ item, index }: any) => {
