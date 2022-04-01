@@ -1,8 +1,8 @@
 import { json, useLoaderData } from "remix";
 import { CertCard, SkillCard } from "~/components/Card";
-import { getSkills } from '../controllers/skills'
-import { getCategories } from '../controllers/categories'
-import rootStyles from '../styles/root.css'
+import { getSkills } from '../controllers/skills';
+import { getCategories } from '../controllers/categories';
+import rootStyles from '../styles/root.css';
 import { Link } from "remix";
 import { FaArrowDown } from "react-icons/fa";
 import NavBar from "~/components/navbar";
@@ -38,9 +38,8 @@ export default function Index() {
   return (
     <>
       <NavBar />
-      <div className='curve'></div>
       <main className="main">
-        <div className='welcome'>
+        <div className='welcome curve'>
           <h1 className="">Wachimingo</h1>
           <br />
           <p className="">Welcome</p>
@@ -57,20 +56,18 @@ export default function Index() {
             categories.map((cat: any) => {
               if (cat.relatedTo === 'skills') {
                 return (
-                  <>
-                    <section key={cat.name} className="">
-                      <h3 className="">{cat.name}</h3>
-                      {
-                        skills.filter((skill: any) => skill.category === cat._id).map((item: any, i: number) => {
-                          return (
-                            <SkillCard key={i} index={i} item={item} />
-                          )
-                        })
-                      }
-                    </section>
-                  </>
+                  <section key={cat.name} className="">
+                    <h3 className="">{cat.name}</h3>
+                    {
+                      skills.filter((skill: any) => skill.category === cat._id).map((item: any, i: number) => {
+                        return (
+                          <SkillCard key={i} index={i} item={item} />
+                        )
+                      })
+                    }
+                  </section>
                 )
-              } else <></>
+              } else return undefined
             })
           }
           <div className=''>
@@ -82,10 +79,11 @@ export default function Index() {
             </Link>
           </div>
         </div>
-        <div className="semicircle">
-          <h3 className=''>Certifications</h3>
-        </div>
-        <div className="grid">
+
+        <div className="grid certs">
+          <div className="semicircle">
+            <h3 className=''>Certifications</h3>
+          </div>
           {
             certs.map((item: any, i: number) => {
               return (

@@ -1,12 +1,3 @@
-import carousel from '~/styles/carousel.css'
-
-export function links() {
-    return [
-        { rel: "stylesheet", href: carousel },
-    ]
-}
-
-
 const Carousel = ({ items }: any) => {
     return (
         <div className="d-inline-block">
