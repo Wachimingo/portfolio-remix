@@ -1,8 +1,6 @@
 import { json, useLoaderData } from "remix";
 import { CertCard } from "~/components/Card";
-import rootStyles from '../styles/root.css'
-import NavBar from "~/components/NavBar";
-import Footer from "~/components/Footer";
+import rootStyles from '~/styles/root.css'
 import { getCerts } from "~/controllers/certs";
 
 export function links() {
@@ -24,7 +22,6 @@ export default function Index() {
     const certs = useLoaderData<any>();
     return (
         <>
-            <NavBar />
             <main className="main">
                 <div className=''>
                     <h1 className="">Certifications</h1>
@@ -40,7 +37,6 @@ export default function Index() {
                     }
                 </div>
             </main>
-            <Footer />
         </>
     );
 }

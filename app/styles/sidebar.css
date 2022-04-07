@@ -1,70 +1,186 @@
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-
-}
-
-@media only screen and (min-width: 360px) {
-    .sideBar{
+    .sideBar {
         z-index: 10;
         border-radius: 4%;
         border: solid 1px;
         width: 35vw;
         position: fixed;
+        top: 25vh;
     }
-    .sideBarButton{
-        border:none;
+
+    .sideBarButton {
+        border: none;
         background: none;
         font-size: 3rem;
     }
-    .open{
+
+    .open {
+        z-index: 11;
+        position: fixed;
+        top: 22vh;
+        left: 0vw;
+    }
+
+    .close {
+        z-index: 11;
+        position: fixed;
+        top: 22vh;
+        left: 30vw;
+    }
+}
+
+@media only screen and (min-width: 360px) {
+    .sideBar {
+        z-index: 10;
+        border-radius: 4%;
+        border: solid 1px;
+        width: 35vw;
+        position: fixed;
+        top: 25vh;
+    }
+
+    .sideBarButton {
+        border: none;
+        background: none;
+        font-size: 3rem;
+    }
+
+    .open {
         z-index: 11;
         position: fixed;
         top: 7vh;
         left: 0vw;
     }
-    .close{
+
+    .close {
         z-index: 11;
         position: fixed;
         top: 7vh;
         left: 30vw;
     }
 }
-    
+
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-
-} 
-
-@media only screen and (min-width: 1200px) {
-    .sideBar{
+    .sideBar {
         z-index: 10;
         border-radius: 4%;
         border: solid 1px;
         width: 15vw;
         position: fixed;
+        top: 10vh;
     }
-    .sideBarButton{
-        border:none;
+
+    .sideBarButton {
+        border: none;
         background: none;
         font-size: 2rem;
     }
-    .open{
+
+    .open {
         z-index: 11;
         position: fixed;
         top: 7vh;
         left: 0vw;
     }
-    .close{
+
+    .close {
+        z-index: 11;
+        position: fixed;
+        top: 7vh;
+        left: 14vw;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .sideBar {
+        z-index: 10;
+        border-radius: 4%;
+        border: solid 1px;
+        width: 15vw;
+        position: fixed;
+        top: 10vh;
+    }
+
+    .sideBarButton {
+        border: none;
+        background: none;
+        font-size: 2rem;
+    }
+
+    .open {
+        z-index: 11;
+        position: fixed;
+        top: 7vh;
+        left: 0vw;
+    }
+
+    .close {
+        z-index: 11;
+        position: fixed;
+        top: 7vh;
+        left: 14vw;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .sideBar {
+        z-index: 10;
+        border-radius: 4%;
+        border: solid 1px;
+        width: 15vw;
+        position: fixed;
+        top: 10vh;
+    }
+
+    .sideBarButton {
+        border: none;
+        background: none;
+        font-size: 2rem;
+    }
+
+    .open {
+        z-index: 11;
+        position: fixed;
+        top: 7vh;
+        left: 0vw;
+    }
+
+    .close {
+        z-index: 11;
+        position: fixed;
+        top: 7vh;
+        left: 14vw;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .sideBar {
+        z-index: 10;
+        border-radius: 4%;
+        border: solid 1px;
+        width: 15vw;
+        position: fixed;
+        top: 10vh;
+    }
+
+    .sideBarButton {
+        border: none;
+        background: none;
+        font-size: 2rem;
+    }
+
+    .open {
+        z-index: 11;
+        position: fixed;
+        top: 7vh;
+        left: 0vw;
+    }
+
+    .close {
         z-index: 11;
         position: fixed;
         top: 7vh;

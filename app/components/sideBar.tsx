@@ -20,7 +20,7 @@ const SideBar = () => {
                 hide ?
                     undefined
                     :
-                    <nav className="position-fixed bg-light sideBar" style={{ top: "10vh" }}>
+                    <nav className="position-fixed bg-light sideBar">
                         <div className="">
                             <h3 className="">Go to:</h3>
                         </div>
@@ -32,7 +32,7 @@ const SideBar = () => {
                                 <Link className="nav-link" to="/projects/restaurant/catalog">Catalog</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/projects/restaurant/sell">Sell</Link>
+                                <Link className="nav-link" to="/projects/restaurant/billing/sell">Sell</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/projects/restaurant/orders/isPending">Orders</Link>

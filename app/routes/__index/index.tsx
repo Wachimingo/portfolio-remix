@@ -1,12 +1,10 @@
 import { json, useLoaderData } from "remix";
 import { CertCard, SkillCard } from "~/components/Card";
-import { getSkills } from '../controllers/skills';
-import { getCategories } from '../controllers/categories';
-import rootStyles from '../styles/root.css';
+import { getSkills } from '~/controllers/skills';
+import { getCategories } from '~/controllers/categories';
+import rootStyles from '~/styles/root.css';
 import { Link } from "remix";
 import { FaArrowDown } from "react-icons/fa";
-import NavBar from "~/components/navbar";
-import Footer from "~/components/Footer";
 import { getCerts } from "~/controllers/certs";
 
 export function links() {
@@ -37,7 +35,7 @@ export default function Index() {
   const { categories, skills, certs } = useLoaderData<any>();
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <main className="main">
         <div className='welcome curve'>
           <h1 className="">Wachimingo</h1>
@@ -102,7 +100,7 @@ export default function Index() {
           </div>
         </div>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

@@ -1,6 +1,4 @@
 import { json, Link, useLoaderData } from "remix";
-import Footer from "~/components/Footer";
-import Navbar from "~/components/navbar";
 import { getProjects } from "~/controllers/projects";
 import projectStyles from "~/styles/projects.css"
 
@@ -19,7 +17,6 @@ const Projects = () => {
     const projects = useLoaderData();
     return (
         <>
-            <Navbar />
             <h1 className="">Projects</h1>
             <br />
             <section className="">
@@ -38,7 +35,6 @@ const Projects = () => {
                     })
                 }
             </section>
-            <Footer />
         </>
     )
 }

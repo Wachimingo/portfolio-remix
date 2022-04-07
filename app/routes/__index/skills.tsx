@@ -1,9 +1,7 @@
 import { json, useLoaderData } from "remix";
 import { SkillCard } from "~/components/Card";
-import { getSkills } from '../controllers/skills'
-import rootStyles from '../styles/root.css'
-import NavBar from "~/components/NavBar";
-import Footer from "~/components/Footer";
+import { getSkills } from '~/controllers/skills'
+import rootStyles from '~/styles/root.css'
 
 export function links() {
     return [
@@ -24,7 +22,6 @@ export default function Index() {
     const skills = useLoaderData<any>();
     return (
         <>
-            <NavBar />
             <main className="main">
                 <div className=''>
                     <h1 className="">Skillset</h1>
@@ -41,7 +38,6 @@ export default function Index() {
                     }
                 </div>
             </main>
-            <Footer />
         </>
     );
 }

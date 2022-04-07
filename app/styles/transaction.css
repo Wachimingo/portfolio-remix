@@ -1,0 +1,207 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .cardStyle {
+        height: 55vh;
+        width: auto;
+        overflow: hidden;
+        display: block;
+        position: inherit;
+        margin-bottom: 2vh;
+        left: 0;
+    }
+
+    .imgContainer {
+        height: 150px;
+        width: 250px;
+        margin: 10px auto
+    }
+
+    .innerBody {
+        text-overflow: ellipsis;
+        display: flex;
+        word-break: break-word;
+        /* overflow: hidden;
+        white-space: nowrap; */
+        height: fit-content;
+        width: 95%;
+        margin: 10px auto;
+        /* border: solid 1px; */
+    }
+
+    .transactionButton {
+        width: 13vw;
+    }
+}
+
+@media only screen and (min-width: 360px) {
+    .cardStyle {
+        height: 55vh;
+        width: auto;
+        overflow: hidden;
+        display: block;
+        position: inherit;
+        margin-bottom: 2vh;
+        left: 0;
+    }
+
+    .imgContainer {
+        height: 150px;
+        width: 250px;
+        margin: 10px auto
+    }
+
+    .innerBody {
+        text-overflow: ellipsis;
+        display: flex;
+        word-break: break-word;
+        /* overflow: hidden;
+        white-space: nowrap; */
+        height: fit-content;
+        width: 95%;
+        margin: 10px auto;
+        /* border: solid 1px; */
+    }
+
+    .transactionButton {
+        width: 13vw;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .cardStyle {
+        height: 55vh;
+        width: 30vw;
+        overflow: hidden;
+        display: block;
+        position: inherit;
+        margin-bottom: 2vh;
+        left: 0;
+    }
+
+    .imgContainer {
+        height: 150px;
+        width: 250px;
+        margin: 10px auto
+    }
+
+    .innerBody {
+        text-overflow: ellipsis;
+        display: flex;
+        word-break: break-word;
+        /* overflow: hidden;
+        white-space: nowrap; */
+        height: fit-content;
+        width: 95%;
+        margin: 10px auto;
+        /* border: solid 1px; */
+    }
+
+    .transactionButton {
+        width: 13vw;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .cardStyle {
+        height: 55vh;
+        width: 30vw;
+        overflow: hidden;
+        display: inline-block;
+        position: inherit;
+        margin-bottom: 2vh;
+        left: 0;
+    }
+
+    .imgContainer {
+        height: 150px;
+        width: 250px;
+        margin: 10px auto
+    }
+
+    .innerBody {
+        text-overflow: ellipsis;
+        display: flex;
+        word-break: break-word;
+        /* overflow: hidden;
+        white-space: nowrap; */
+        height: fit-content;
+        width: 95%;
+        margin: 10px auto;
+        /* border: solid 1px; */
+    }
+
+    .transactionButton {
+        width: 13vw;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .cardStyle {
+        height: 60vh;
+        width: 30vw;
+        overflow: hidden;
+        display: inline-block;
+        position: inherit;
+        margin-bottom: 2vh;
+        left: 0;
+    }
+
+    .imgContainer {
+        height: 150px;
+        width: 250px;
+        margin: 10px auto
+    }
+
+    .innerBody {
+        text-overflow: ellipsis;
+        display: flex;
+        word-break: break-word;
+        /* overflow: hidden;
+        white-space: nowrap; */
+        height: fit-content;
+        width: 95%;
+        margin: 10px auto;
+        /* border: solid 1px; */
+    }
+
+    .transactionButton {
+        width: 13vw;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .cardStyle {
+        height: 55vh;
+        width: 30vw;
+        overflow: hidden;
+        display: inline-block;
+        position: inherit;
+        margin-bottom: 2vh;
+        left: 0;
+    }
+
+    .imgContainer {
+        height: 150px;
+        width: 250px;
+        margin: 10px auto
+    }
+
+    .innerBody {
+        text-overflow: ellipsis;
+        display: flex;
+        word-break: break-word;
+        /* overflow: hidden;
+        white-space: nowrap; */
+        height: fit-content;
+        width: 95%;
+        margin: 10px auto;
+        /* border: solid 1px; */
+    }
+
+    .transactionButton {
+        width: 13vw;
+    }
+}
