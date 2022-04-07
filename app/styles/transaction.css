@@ -5,7 +5,7 @@
         width: auto;
         overflow: hidden;
         display: block;
-        position: relative;
+        position: inherit;
         margin-bottom: 2vh;
         left: 0;
     }
@@ -28,41 +28,20 @@
         /* border: solid 1px; */
     }
 
-    .topButtons {
-        padding-left: 1px;
-        padding-right: 1px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .topButtons:hover {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        background-color: gray;
-        color: white;
-    }
-
-    .bubbleButton {
-        position: fixed;
-        right: 1vw;
-        bottom: 15vh;
-        border-radius: 100%;
-        width: 3rem;
-        font-size: 1.5em;
+    .transactionButton {
+        width: 13vw;
     }
 }
 
 @media only screen and (min-width: 360px) {
     .cardStyle {
         height: 55vh;
-        width: 75vw;
+        width: auto;
         overflow: hidden;
         display: block;
-        position: relative;
+        position: inherit;
         margin-bottom: 2vh;
-        left: 10vw;
+        left: 0;
     }
 
     .imgContainer {
@@ -83,29 +62,8 @@
         /* border: solid 1px; */
     }
 
-    .topButtons {
-        padding-left: 1px;
-        padding-right: 1px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .topButtons:hover {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        background-color: gray;
-        color: white;
-    }
-
-    .bubbleButton {
-        position: fixed;
-        right: 1vw;
-        bottom: 15vh;
-        border-radius: 100%;
-        width: 3rem;
-        font-size: 1.5em;
+    .transactionButton {
+        width: 13vw;
     }
 }
 
@@ -113,12 +71,12 @@
 @media only screen and (min-width: 600px) {
     .cardStyle {
         height: 55vh;
-        width: 45vw;
+        width: 30vw;
         overflow: hidden;
         display: block;
-        position: relative;
+        position: inherit;
         margin-bottom: 2vh;
-        left: 30vw;
+        left: 0;
     }
 
     .imgContainer {
@@ -139,29 +97,8 @@
         /* border: solid 1px; */
     }
 
-    .topButtons {
-        padding-left: 1px;
-        padding-right: 1px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .topButtons:hover {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        background-color: gray;
-        color: white;
-    }
-
-    .bubbleButton {
-        position: fixed;
-        right: 1vw;
-        bottom: 15vh;
-        border-radius: 100%;
-        width: 3rem;
-        font-size: 1.5em;
+    .transactionButton {
+        width: 13vw;
     }
 }
 
@@ -169,7 +106,7 @@
 @media only screen and (min-width: 768px) {
     .cardStyle {
         height: 55vh;
-        width: 35vw;
+        width: 30vw;
         overflow: hidden;
         display: inline-block;
         position: inherit;
@@ -195,37 +132,16 @@
         /* border: solid 1px; */
     }
 
-    .topButtons {
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .topButtons:hover {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        background-color: gray;
-        color: white;
-    }
-
-    .bubbleButton {
-        position: fixed;
-        right: 1vw;
-        bottom: 15vh;
-        border-radius: 100%;
-        width: 3rem;
-        font-size: 1.5em;
+    .transactionButton {
+        width: 13vw;
     }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     .cardStyle {
-        height: 55vh;
-        width: 35vw;
+        height: 60vh;
+        width: 30vw;
         overflow: hidden;
         display: inline-block;
         position: inherit;
@@ -251,29 +167,8 @@
         /* border: solid 1px; */
     }
 
-    .topButtons {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-    }
-
-    .topButtons:hover {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        background-color: gray;
-        color: white;
-    }
-
-    .bubbleButton {
-        position: fixed;
-        right: 1vw;
-        bottom: 15vh;
-        border-radius: 100%;
-        width: 3rem;
-        font-size: 1.5em;
+    .transactionButton {
+        width: 13vw;
     }
 }
 
@@ -306,36 +201,7 @@
         /* border: solid 1px; */
     }
 
-    .topButtons {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+    .transactionButton {
+        width: 13vw;
     }
-
-    .topButtons:hover {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        background-color: gray;
-        color: white;
-    }
-
-    .bubbleButton {
-        position: fixed;
-        right: 1vw;
-        bottom: 15vh;
-        border-radius: 100%;
-        width: 3rem;
-        font-size: 1.5em;
-    }
-}
-
-.red {
-    color: red;
-}
-
-.green {
-    color: green;
 }

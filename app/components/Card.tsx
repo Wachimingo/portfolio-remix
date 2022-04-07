@@ -1,17 +1,19 @@
-import { useState } from "react";
 import { FaTrash, FaCog, FaAngleUp, FaRegFolderOpen, FaStar, FaAngleDown } from "react-icons/fa";
 import { Link, useFetcher } from "remix";
 
-export const Card = ({ dishes, fetcher }: any) => {
+export const Card = (props: any) => {
     return (
         <>
             {
-                dishes.map((dish: any) => {
+                props.dishes.map((dish: any) => {
                     return (
-                        <div key={dish.name} className="card ms-2 d-inline-block cardStyle">
-                            {CatalogControls(dish, fetcher)}
+                        <div key={dish.name} className="card ms-2 cardStyle">
+                            {CatalogControls(dish, props.fetcher, props.setDishToModify)}
                             <div className="imgContainer">
-                                <img src={dish.image} className="card-img-top" alt={dish.name} height='150px' />
+                                <img
+                                    src={`https://images.weserv.nl/?url=${dish.image}&w=150&h=150`}
+                                    className="card-img-top"
+                                    alt={dish.name} />
                             </div>
                             <div className="card-body">
                                 <h5 className="card-title">{dish.name}</h5>
@@ -35,15 +37,18 @@ const CatalogRowButtons = (props: any) => {
             data-bs-placement="top"
             title={props.title}
             className={`d-inline-block border ms-1 topButtons ${props.styleButton}`}
-            onClick={() => props.fetcher ? props.fetcher.submit({ ...props }, { method: props.method }) : undefined}
+            onClick={() => props.fetcher ? props.fetcher.submit({ ...props }, { method: props.method }) : props.action(props.item)}
         >
             {props.icon}
         </span>
     )
 }
 
-export const CatalogControls = (item: any, fetcher: any) => {
-    const [state] = useState(!item!.forToday)
+export const CatalogControls = (
+    item: any,
+    fetcher: any,
+    setDishToModify: Function
+) => {
     return (
         <div className="mt-3 mb-3">
             <CatalogRowButtons
@@ -57,6 +62,10 @@ export const CatalogControls = (item: any, fetcher: any) => {
             <CatalogRowButtons
                 title="Modify"
                 icon={<FaCog data-bs-toggle="modal" data-bs-target="#CatalogModal" />}
+                action={() => {
+                    setDishToModify(item)
+                }}
+                item={item}
             />
             <CatalogRowButtons
                 title={item?.forToday ? "Desactivar" : "Activar"}
@@ -64,7 +73,7 @@ export const CatalogControls = (item: any, fetcher: any) => {
                 styleButton={item?.forToday ? "red" : "green"}
                 fetcher={fetcher}
                 dishId={item.id}
-                state={state}
+                state={!item.forToday}
                 method={'PATCH'}
                 type={'forToday'}
             />
@@ -165,8 +174,8 @@ export const SkillCard = ({ item, index }: any) => {
                     <img
                         src={
                             item.icon
-                                ? item.icon
-                                : 'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png'
+                                ? `https://images.weserv.nl/?url=${item.icon}&w=250&h=250`
+                                : 'https://images.weserv.nl/?url=https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png&w=250&h=250'
                         }
                         className="img-fluid rounded-start"
                         alt={item.name}
@@ -200,8 +209,8 @@ export const CertCard = ({ item, index }: any) => {
                         <img
                             src={
                                 item.icon
-                                    ? item.icon
-                                    : 'https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png'
+                                    ? `https://images.weserv.nl/?url=${item.icon}&w=250&h=250`
+                                    : 'https://images.weserv.nl/?url=https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png&w=250&h=250'
                             }
                             className="img-fluid rounded-start"
                             alt={item.name}

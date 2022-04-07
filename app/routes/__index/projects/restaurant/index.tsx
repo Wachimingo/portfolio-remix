@@ -19,7 +19,7 @@ const Restaurant = () => {
         <>
             <style >{`
                 body {
-                    background: url("https://i2.wp.com/diplomartbrussels.com/wp-content/uploads/2020/09/food-background-images-94-images-in-co-381169-png-images-pngio-food-background-png-1440_619.png?ssl=1");
+                    background: url("https://images.weserv.nl/?url=https://diplomartbrussels.com/wp-content/uploads/2020/09/food-background-images-94-images-in-co-381169-png-images-pngio-food-background-png-1440_619.png?ssl=1");
                     background-repeat: no-repeat;
                     background-size: 100%;
                     background-color: #fcf8f5;
@@ -28,9 +28,9 @@ const Restaurant = () => {
             </style>
             <section className="">
                 <div className="">
-                    <h1 className="text-2xl">Restaurant</h1>
+                    <h1 className="">Restaurant</h1>
                 </div>
-                <img src='https://api.globaldatabase.com/logo/www.uwink.com/' alt="logo" width="250" height="250" />
+                <img src='https://images.weserv.nl/?url=https://api.globaldatabase.com/logo/www.uwink.com/&w=150&h=150' alt="logo" />
                 <h2>Enjoy!</h2>
                 <br />
                 <p>Today's Menu</p>
@@ -40,28 +40,22 @@ const Restaurant = () => {
                 <div className="d-inline-block">
                     <h4>Breakfast</h4>
                     <img
-                        src='https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/english-breakfast.jpg'
+                        src='https://images.weserv.nl/?url=https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/english-breakfast.jpg&w=300&h=300'
                         alt="breakfast"
-                        width="300"
-                        height="300"
                     />
                 </div>
                 <div className="d-inline-block block ms-2">
                     <h4>Lunch</h4>
                     <img
-                        src='https://ipcdn.freshop.com/resize?url=https://images.freshop.com/2022776539896086690/aeb9b0d3526652a7479aef0a91fa91ae_large.png&width=256&type=webp&quality=80'
+                        src='https://images.weserv.nl/?url=https://images.freshop.com/2022776539896086690/aeb9b0d3526652a7479aef0a91fa91ae_large.png&type=webp&w=300&h=300'
                         alt="breakfast"
-                        width="300"
-                        height="300"
                     />
                 </div>
                 <div className="d-inline-block ms-2">
                     <h4>Dinner</h4>
                     <img
-                        src='https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/cheesy-hash-brown-skillet-dinner.jpg'
+                        src='https://images.weserv.nl/?url=https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/cheesy-hash-brown-skillet-dinner.jpg&w=300&h=300'
                         alt="breakfast"
-                        width="300"
-                        height="300"
                     />
                 </div>
             </section>
