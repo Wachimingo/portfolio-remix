@@ -1,5 +1,5 @@
 import { Outlet } from "remix";
-import SideBar from "~/components/Sidebar";
+import SideBar from "~/components/SideBar";
 import sidebarStyles from "~/styles/sidebar.css";
 
 export function links() {
