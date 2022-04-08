@@ -1,45 +1,47 @@
-import { toast } from 'react-toastify';
-import { Login, Register } from '../interfaces/Auth';
+import { json } from 'remix';
+import User from '~/models/user';
+export const actions: any = {
+    "POST": {
+        "signin": async (body: any) => {
+            try {
+                const jwt = require('jsonwebtoken');
+                const user = await User.findOne({ email: body.email[0] }).select('+password');
 
-export const signin = async (credentials: Login, setSession: Function, router: any) => {
-    const response = await fetch('/api/mainAuth', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
+                if (!user || user.password === undefined || !(await user.correctPassword(body.password[0], user.password))) {
+                    return json({ status: 'error', message: 'Not found' }, { status: 404 });
+                }
+                //remove password from output
+                user.password = undefined;
+                const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+                    expiresIn: process.env.JWT_EXPIRES_IN,
+                });
+                return json({ status: 'success', user, token }, { status: 200 });
+            } catch (error) {
+                return json({ status: 'error', message: 'Upps, something went wrong' }, { status: 500 });
+            }
         },
-        body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-            type: 'signin'
-        })
-    })
-    const data = await response.json();
-    if (response.ok) {
-        setSession(data);
-        if (router.query.page) {
-            router.push(`${router.query.page}`);
-        } else {
-            router.push('/');
-        }
-    } else {
-        toast.error(data.message);
-    }
-}
+        "signup": async (body: any) => {
 
-export const signup = async (input: Register, signIn: Function) => {
-    const response = await fetch('/api/mainAuth', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
         },
-        body: JSON.stringify({
-            name: input.name.trim(),
-            email: input.email,
-            password: input.password,
-            passwordConfirm: input.passwordConfirm,
-            type: 'signup'
-        })
-    })
-    const data = await response.json();
-    signIn("email", { email: input.email });
+        // "external": async (req: NextApiRequest, res: NextApiResponse) => {
+        //     const response = await fetch(`${process.env.managementBackend}/api/v1/users/login`, {
+        //         method: 'POST',
+        //         mode: 'cors',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             email: req.body.email,
+        //             password: req.body.password
+        //         })
+        //     });
+        //     const data = await response.json();
+        //     // console.log("response: ", data)
+        //     if (response.ok) {
+        //         res.status(200).json(data)
+        //     } else {
+        //         res.status(400).json(data)
+        //     }
+        // },
+    },
 }

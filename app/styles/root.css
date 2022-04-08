@@ -4,129 +4,149 @@
   height: 400px;
   background-color: #34495E;
   clip-path: ellipse(300% 100% at 275% 0%);
-}
-
-.semicircle {
-  background: #34495E;
-  color: white
+  overflow: visible;
 }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  .profilePic{
+  .profilePic {
     width: 10rem;
     height: 10rem;
   }
-  .skills{
+
+  .skills {
     width: auto;
   }
-  .skills > img{
+
+  .skills>img {
     width: '50px';
     height: '50px';
   }
+
   .grid {
     display: inline-block;
   }
-  .welcome{
+
+  .welcome {
     position: relative;
     top: 0;
     color: white;
   }
-  .itemsContainer{
+
+  .itemsContainer {
     position: relative;
     top: 0;
   }
 }
 
 @media only screen and (min-width: 360px) {
-  .profilePic{
+  .profilePic {
     width: 10rem;
     height: 10rem;
   }
-  .skills{
+
+  .skills {
     width: auto;
   }
-  .skills > img{
+
+  .skills>img {
     width: '50px';
     height: '50px';
   }
+
   .grid {
     display: inline-block;
   }
-  .welcome{
+
+  .welcome {
     position: relative;
     top: 0;
     color: white;
   }
-  .itemsContainer{
+
+  .itemsContainer {
     position: relative;
     top: 0;
   }
 }
-  
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-    .skills{
-      width: 45vw;
-    }
-    .grid {
-      display: block;
-    }
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .skills {
+    width: 45vw;
   }
-  
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-    .skills{
-      width: 45vw;
-    }
-    .grid {
-      display: block;
-    }}
-  
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    .profilePic{
-      width: 10rem;
-      height: 10rem;
-    }
-    .skills{
-      width: 45vw;
-    }
-    .grid {
-      display: block;
-    }
-    .welcome{
-      position: relative;
-      top: 0;
-    }
-    .itemsContainer{
-      position: relative;
-      top: 0;
-    }
-  } 
-  
-  @media only screen and (min-width: 1200px) {
-    .profilePic{
-      width: 10rem;
-      height: 10rem;
-    }
-    .skills{
-      width: 45vw;
-    }
-    .grid {
-      display: block;
-    }
-    .welcome{
-      position: relative;
-      top: 0;
-      color: white;
-    }
-    .itemsContainer{
-      position: relative;
-      top: 0vh;
-    }
-    .certs{
-      position: relative;
-      top: 0vh;
-    }
+
+  .grid {
+    display: block;
   }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .skills {
+    width: 45vw;
+  }
+
+  .grid {
+    display: block;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .profilePic {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .skills {
+    width: 45vw;
+  }
+
+  .grid {
+    display: block;
+  }
+
+  .welcome {
+    position: relative;
+    top: 0;
+  }
+
+  .itemsContainer {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .profilePic {
+    width: 10rem;
+    height: 10rem;
+    z-index: 10;
+  }
+
+  .skills {
+    width: 45vw;
+  }
+
+  .grid {
+    display: block;
+  }
+
+  .welcome {
+    position: relative;
+    top: 0;
+    color: white;
+    overflow: visible;
+  }
+
+  .itemsContainer {
+    position: relative;
+    top: 0vh;
+  }
+
+  .certs {
+    position: relative;
+    top: 0vh;
+  }
+}

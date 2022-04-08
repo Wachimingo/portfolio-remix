@@ -1,5 +1,6 @@
 import { Link } from "remix";
-const NavBar = () => {
+
+const NavBar = (props: any) => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -32,13 +33,15 @@ const NavBar = () => {
                     </ul>
                     <ul className="navbar-nav position-relative right-0">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/signup">Sign Up</Link>
+                            <Link className="nav-link" to="/auth/signup">Sign Up</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/signin">Sign In</Link>
+                            <Link className="nav-link" to="/auth/signin">Sign In</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/auth/signout">Sign Out</Link>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </nav>

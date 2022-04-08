@@ -1,22 +1,23 @@
 import { Outlet } from "remix";
 import Footer from "~/components/Footer";
-import Navbar from "~/components/navbar";
+import Navbar from "~/components/NavBar";
 import sidebarStyles from "~/styles/sidebar.css";
-
+//@ts-ignore
+import Cookies from 'js-cookie'
 export function links() {
     return [
         { rel: "stylesheet", href: sidebarStyles }
     ]
 }
 
-const Restaurant = () => {
+const Portfolio = () => {
     return (
         <>
-            <Navbar />
+            <Navbar {...Cookies.get()} />
             <Outlet />
             <Footer />
         </>
     )
 }
 
-export default Restaurant;
+export default Portfolio;
