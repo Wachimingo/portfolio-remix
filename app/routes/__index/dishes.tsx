@@ -1,5 +1,4 @@
 import { json, useLoaderData } from "remix";
-import NavBar from "~/components/NavBar";
 
 export function links() {
     return [

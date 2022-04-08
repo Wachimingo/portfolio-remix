@@ -23,14 +23,14 @@ export const action = async ({ request }: any) => {
     if (body._fields.type) {
         const handler = actions[request.method][body._fields.type[0]]
         if (!handler) return json({ status: "error", message: "No method or action found" })
-        //first propery or [] is the HTTP method (POST,PUT,DELETE), the second property or [] is for the nested action
-        return await actions[request.method ?? 'default'][body._fields.type[0] ?? 'default']({ ...body._fields })
+        //first property or [] is the HTTP method (POST,PUT,DELETE), the second property or [] is for the nested action
+        return await actions[request.method][body._fields.type[0]]({ ...body._fields })
     }
     else {
         const handler = actions[request.method]
         if (!handler) return json({ status: "error", message: "No method or action found" }, { status: 404 })
         //Properties for the object are HTTP methods (POST,PUT,DELETE)
-        return await actions[request.method ?? 'default']({ ...body._fields })
+        return await actions[request.method]({ ...body._fields })
     }
     // return json({})
 }
