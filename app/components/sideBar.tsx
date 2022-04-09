@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { Link } from "remix";
 
-const SideBar = () => {
+export const SideBar = () => {
     const [hide, setHide] = useState(false)
     return (
         <>
@@ -43,5 +43,3 @@ const SideBar = () => {
         </>
     )
 }
-
-export default SideBar;
