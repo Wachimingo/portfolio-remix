@@ -1,6 +1,7 @@
 import { json } from 'remix';
 import Dishes from '../models/dishes';
 import dbConnect from '../utils/dbConnection';
+import { requestErrorHandler } from './errors';
 
 export const getForToday = async (props: any) => {
     await dbConnect();
@@ -19,7 +20,7 @@ export const actions: any = {
             await dbConnect();
             return await Dishes.find().where('locale').equals('en');
         } catch (error) {
-            return json({ status: 'error', message: error }, { status: 500 });
+            requestErrorHandler(error);
         }
     },
     "POST": async (body: any) => {
@@ -34,7 +35,7 @@ export const actions: any = {
             await newDish.save();
             return json({ status: 'success', message: 'Posted succesfuly', newDish }, { status: 201 });
         } catch (error) {
-            return json({ status: 'error', message: error }, { status: 500 });
+            requestErrorHandler(error);
         }
     },
     "PATCH": {
@@ -45,7 +46,7 @@ export const actions: any = {
                 if (!res) return { status: 'error', message: 'No ID provided' }
                 return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
             } catch (error) {
-                return json({ status: 'error', message: error }, { status: 500 });
+                requestErrorHandler(error);
             }
         },
         "update": async (body: any) => {
@@ -62,7 +63,7 @@ export const actions: any = {
                 if (!res) return json({ status: 'error', message: 'No ID provided' }, { status: 500 })
                 return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
             } catch (error) {
-                return json({ status: 'error', message: error }, { status: 500 });
+                requestErrorHandler(error);
             }
         },
     },
@@ -73,7 +74,7 @@ export const actions: any = {
             if (!res) return { status: 'error', message: 'No ID provided' }
             return json({ status: 'success', message: 'Deleted succesfuly' }, { status: 201 });
         } catch (error) {
-            return json({ status: 'error', message: error }, { status: 500 });
+            requestErrorHandler(error);
         }
     },
 }

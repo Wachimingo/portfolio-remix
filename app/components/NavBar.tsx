@@ -1,7 +1,9 @@
+
 import { Link } from "remix";
 
-const NavBar = (props: any) => {
+export const NavBar = (props: any) => {
     return (
+        // renderNavBar[props.token ? 'out' : 'in']
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">Wachimingo</Link>
@@ -32,15 +34,25 @@ const NavBar = (props: any) => {
                         </li>
                     </ul>
                     <ul className="navbar-nav position-relative right-0">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/auth/signup">Sign Up</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/auth/signin">Sign In</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/auth/signout">Sign Out</Link>
-                        </li>
+                        {
+                            !props.logged
+                                ?
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/auth/signup">Sign Up</Link>
+                                </li>
+                                : undefined
+                        }
+                        {
+                            props.logged
+                                ?
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/auth/signout">Sign Out</Link>
+                                </li>
+                                :
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/auth/signin">Sign In</Link>
+                                </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -48,5 +60,4 @@ const NavBar = (props: any) => {
     )
 }
 
-export default NavBar;
 
