@@ -12,7 +12,7 @@ const renderForm: any = {
                         name='email'
                         id="typeEmailX"
                         className="form-control form-control-lg"
-                        value='joshuaguillen.adoc@live.com'
+                        // value='joshuaguillen.adoc@live.com'
                     />
                     <label className="form-label" htmlFor="typeEmailX">Email</label>
                 </div>
@@ -22,7 +22,7 @@ const renderForm: any = {
                         name="password"
                         id="typePasswordX"
                         className="form-control form-control-lg"
-                        value='123456'
+                        // value='123456'
                     />
                     <label className="form-label" htmlFor="typePasswordX">Password</label>
                 </div>
