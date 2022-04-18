@@ -1,3 +1,5 @@
+import { json } from 'remix'
+
 export const requestErrorHandler = (error: any) => {
     if (process.env.NODE_ENV === 'production') {
         //@ts-ignore

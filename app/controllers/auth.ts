@@ -59,7 +59,7 @@ export const actions: any = {
                     isActive: false
                 })
                 await newUser.save();
-                mail(body.email[0]);
+                mail(body.email[0]).catch(console.error);
                 return json({ status: 'success', message: 'Success', user: {} }, { status: 201 });
             } catch (error) {
                 requestErrorHandler(error);

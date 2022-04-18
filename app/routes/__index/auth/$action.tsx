@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { json, Link, useActionData, useLoaderData } from "remix";
+import { json, useActionData, useLoaderData } from "remix";
 import { authForm } from "~/components/authComponents";
 import { actions } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
