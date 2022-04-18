@@ -1,4 +1,4 @@
-import { Form } from "remix"
+import { Form, Link } from "remix"
 
 const renderForm: any = {
     "signin": (action: string) => {
@@ -25,6 +25,13 @@ const renderForm: any = {
                         value='123456'
                     />
                     <label className="form-label" htmlFor="typePasswordX">Password</label>
+                </div>
+                <div className="d-flex justify-content-center text-center pt-1">
+
+                </div>
+                <div>
+                    <p className="mb-0">Don't have an account? <Link to="/auth/signup" className="text-white-50 fw-bold">Sign Up</Link>
+                    </p>
                 </div>
                 {/* <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p> */}
                 <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
@@ -75,6 +82,13 @@ const renderForm: any = {
                         className="form-control form-control-lg"
                         value='123456'
                     />
+                </div>
+                <div className="d-flex justify-content-center text-center pt-1">
+
+                </div>
+                <div>
+                    <p className="mb-0">Don't have an account? <Link to="/auth/signup" className="text-white-50 fw-bold">Sign Up</Link>
+                    </p>
                 </div>
                 {/* <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p> */}
                 <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>

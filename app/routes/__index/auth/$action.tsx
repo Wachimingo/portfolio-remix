@@ -76,13 +76,6 @@ const Auth = () => {
                     <div className="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
                         <div className="card-body p-5 text-center">
                             {authForm(data.action)}
-                            <div className="d-flex justify-content-center text-center pt-1">
-
-                            </div>
-                            <div>
-                                <p className="mb-0">Don't have an account? <Link to="/auth/signup" className="text-white-50 fw-bold">Sign Up</Link>
-                                </p>
-                            </div>
                         </div>
                     </div>
                 </div>
