@@ -34,73 +34,69 @@ export const loader = async () => {
 export default function Index() {
   const { categories, skills, certs } = useLoaderData<any>();
   return (
-    <>
-      {/* <NavBar /> */}
-      <main className="main">
-        <div className='welcome curve'>
-          <h1 className="">Wachimingo</h1>
-          <br />
-          <p className="">Welcome</p>
-          <img
-            className="profilePic"
-            src="https://media-exp1.licdn.com/dms/image/C4E03AQHzPruWkSCQiA/profile-displayphoto-shrink_800_800/0/1555775304131?e=1653523200&v=beta&t=mteZIG0Tts7K7TGudZRMAOSul0SFATk1pbEu8cJnwBU"
-            alt="profile"
-            loading="lazy"
-          />
-        </div>
-        <div className="grid itemsContainer">
-          {
-            // eslint-disable-next-line array-callback-return
-            categories.map((cat: any) => {
-              if (cat.relatedTo === 'skills') {
-                return (
-                  <section key={cat.name} className="">
-                    <h3 className="">{cat.name}</h3>
-                    {
-                      skills.filter((skill: any) => skill.category === cat._id).map((item: any, i: number) => {
-                        return (
-                          <SkillCard key={i} index={i} item={item} />
-                        )
-                      })
-                    }
-                  </section>
-                )
-              } else return undefined
-            })
-          }
-          <div className=''>
-            <div className=''>
-              <FaArrowDown />
-            </div>
-            <Link to={'/skills'} className='btn btn-outline-primary'>
-              See More
-            </Link>
-          </div>
-        </div>
-
-        <div className="grid certs">
-          <div className="semicircle">
-            <h3 className=''>Certifications</h3>
-          </div>
-          {
-            certs.map((item: any, i: number) => {
+    <main className="main">
+      <div className='welcome curve'>
+        <h1 className="">Wachimingo</h1>
+        <br />
+        <p className="">Welcome</p>
+        <img
+          className="profilePic"
+          src="https://media-exp1.licdn.com/dms/image/C4E03AQHzPruWkSCQiA/profile-displayphoto-shrink_800_800/0/1555775304131?e=1653523200&v=beta&t=mteZIG0Tts7K7TGudZRMAOSul0SFATk1pbEu8cJnwBU"
+          alt="profile"
+          loading="lazy"
+        />
+      </div>
+      <div className="grid itemsContainer">
+        {
+          // eslint-disable-next-line array-callback-return
+          categories.map((cat: any) => {
+            if (cat.relatedTo === 'skills') {
               return (
-                <CertCard key={i} index={i} item={item} />
+                <section key={cat.name} className="">
+                  <h3 className="">{cat.name}</h3>
+                  {
+                    skills.filter((skill: any) => skill.category === cat._id).map((item: any, i: number) => {
+                      return (
+                        <SkillCard key={i} index={i} item={item} />
+                      )
+                    })
+                  }
+                </section>
               )
-            })
-          }
-
+            } else return undefined
+          })
+        }
+        <div className=''>
           <div className=''>
-            <div className=''>
-              <FaArrowDown />
-            </div>
-            <Link to={'/certs'} className='btn btn-outline-primary'>
-              See More
-            </Link>
+            <FaArrowDown />
           </div>
+          <Link to={'/skills'} className='btn btn-outline-primary'>
+            See More
+          </Link>
         </div>
-      </main>
-      {/* <Footer /> */}
-    </>
+      </div>
+
+      <div className="grid certs">
+        <div className="semicircle">
+          <h3 className=''>Certifications</h3>
+        </div>
+        {
+          certs.map((item: any, i: number) => {
+            return (
+              <CertCard key={i} index={i} item={item} />
+            )
+          })
+        }
+
+        <div className=''>
+          <div className=''>
+            <FaArrowDown />
+          </div>
+          <Link to={'/certs'} className='btn btn-outline-primary'>
+            See More
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 }

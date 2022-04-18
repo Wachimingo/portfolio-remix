@@ -5,22 +5,27 @@ import mail from '~/controllers/mail';
 import { requestErrorHandler } from './errors';
 const bcrypt = require('bcryptjs');
 
+export const activateUser = async (email: string) => {
+    try {
+        await dbConnect();
+        const jwt = require('jsonwebtoken');
+        const user = await User.findOneAndUpdate({ email }, { isActive: true }).select('name email role isActive');
+        if (!user) throw 'Not Found'
+        // if (user.isActive) return { status: "error", message: "Cannot re-use link" }
+        if (user.isActive) throw 'Cannot re-use link'
+        user.isActive = undefined;
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXPIRES_IN,
+        });
+        return { user, token };
+    } catch (error) {
+        return { error, status: "error" }
+    }
+}
+
 export const actions: any = {
     "GET": {
-        "activateUser": async (email: string) => {
-            try {
-                await dbConnect();
-                const jwt = require('jsonwebtoken');
-                const user = await User.findOneAndUpdate({ email }, { isActive: true });
-                if (!user) requestErrorHandler({ message: 'Not found', statusCode: 404 })
-                const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-                    expiresIn: process.env.JWT_EXPIRES_IN,
-                });
-                return json({ status: 'success', user, token }, { status: 200 });
-            } catch (error) {
-                requestErrorHandler(error);
-            }
-        }
+
     },
     "POST": {
         "signin": async (body: any) => {

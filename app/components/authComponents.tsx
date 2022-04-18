@@ -12,7 +12,7 @@ const renderForm: any = {
                         name='email'
                         id="typeEmailX"
                         className="form-control form-control-lg"
-                        // value='joshuaguillen.adoc@live.com'
+                        value='joshuaguillen.adoc@live.com'
                     />
                     <label className="form-label" htmlFor="typeEmailX">Email</label>
                 </div>
@@ -22,7 +22,7 @@ const renderForm: any = {
                         name="password"
                         id="typePasswordX"
                         className="form-control form-control-lg"
-                        // value='123456'
+                        value='123456'
                     />
                     <label className="form-label" htmlFor="typePasswordX">Password</label>
                 </div>
@@ -43,7 +43,7 @@ const renderForm: any = {
                         name='name'
                         id="name"
                         className="form-control form-control-lg"
-                    // value='test'
+                        value='test'
                     />
                 </div>
                 <div className="form-outline form-white">
@@ -53,7 +53,7 @@ const renderForm: any = {
                         name='email'
                         id="typeEmailX"
                         className="form-control form-control-lg"
-                    // value='alexanderguillen.adoc@gmail.com'
+                        value='alexanderguillen.adoc@gmail.com'
                     />
                 </div>
                 <div className="form-outline form-white">
@@ -63,7 +63,7 @@ const renderForm: any = {
                         name="password"
                         id="typePasswordX"
                         className="form-control form-control-lg"
-                    // value='123456'
+                        value='123456'
                     />
                 </div>
                 <div className="form-outline form-white mb-4">
@@ -73,12 +73,19 @@ const renderForm: any = {
                         name="confirmPassword"
                         id="typeConfrimPasswordX"
                         className="form-control form-control-lg"
-                    // value='123456'
+                        value='123456'
                     />
                 </div>
                 {/* <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p> */}
                 <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
             </Form>
+        )
+    },
+    "confirmationEmailSent": (action: string) => {
+        return (
+            <div className="md-5">
+                <>Confirmation email sent.</>
+            </div>
         )
     },
     "signout": () => {

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { json, useActionData, useLoaderData } from "remix";
+import { json, Link, useActionData, useLoaderData } from "remix";
 import { authForm } from "~/components/authComponents";
 import { actions } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
@@ -49,14 +49,17 @@ const Auth = () => {
         }
         if (result) {
             if (result.status === 'success') {
-                if (data.action === 'signup') window.location.href = "/";
-                Cookies.set('name', result.user?.name);
-                Cookies.set('email', result.user?.email);
-                Cookies.set('token', result?.token);
-                Cookies.set('role', result.user?.role);
-                window.location.href = "/";
-                // //@ts-ignore
-                // toast[result.status](`Succes! Welcome ${result.user.name}!`);
+                if (data.action === 'signup') {
+                    window.location.href = "/auth/confirmationEmailSent"
+                } else {
+                    Cookies.set('name', result.user?.name);
+                    Cookies.set('email', result.user?.email);
+                    Cookies.set('token', result?.token);
+                    Cookies.set('role', result.user?.role);
+                    window.location.href = "/";
+                    // //@ts-ignore
+                    // toast[result.status](`Succes! Welcome ${result.user.name}!`);
+                }
             } else {
                 if (result.status) {
                     //@ts-ignore
@@ -67,20 +70,18 @@ const Auth = () => {
     }, [result, data.action])
 
     return (
-        <section className="">
-            <div className="container mb-4 mt-4">
-                <div className="row d-flex justify-content-center align-items-center">
-                    <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div className="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
-                            <div className="card-body p-5 text-center">
-                                {authForm(data.action)}
-                                <div className="d-flex justify-content-center text-center pt-1">
+        <section className="container mb-4 mt-4">
+            <div className="row d-flex justify-content-center align-items-center">
+                <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div className="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
+                        <div className="card-body p-5 text-center">
+                            {authForm(data.action)}
+                            <div className="d-flex justify-content-center text-center pt-1">
 
-                                </div>
-                                <div>
-                                    <p className="mb-0">Don't have an account? <a href="#!" className="text-white-50 fw-bold">Sign Up</a>
-                                    </p>
-                                </div>
+                            </div>
+                            <div>
+                                <p className="mb-0">Don't have an account? <Link to="/auth/signup" className="text-white-50 fw-bold">Sign Up</Link>
+                                </p>
                             </div>
                         </div>
                     </div>
