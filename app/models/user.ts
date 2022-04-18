@@ -48,6 +48,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    externalId: {
+        type: String,
+    }
 });
 
 // userSchema.pre('save', async function (next: any) {

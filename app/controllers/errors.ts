@@ -1,6 +1,7 @@
 import { json } from 'remix'
 
 export const requestErrorHandler = (error: any) => {
+    console.log("TCL: error", error)
     if (process.env.NODE_ENV === 'production') {
         //@ts-ignore
         return json({

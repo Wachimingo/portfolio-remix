@@ -1,11 +1,13 @@
-import { lazy, Suspense, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 import { json, useActionData, useLoaderData } from "remix";
+import { useSubmit } from "@remix-run/react";
 import { Card, InfoTable } from "~/components/billingComponents";
-import { actions, getForToday } from "~/controllers/dishes";
+import { getForToday } from "~/controllers/dishes";
 import transactionStyles from "~/styles/transaction.css";
-const TransactionModal = lazy(() => import("~/components/modals/TransactionModal"));
-
+// const TransactionModal = lazy(() => import("~/components/modals/TransactionModal"));
+// Set your secret key. Remember to switch to your live secret key in production.
+// See your keys here: https://dashboard.stripe.com/apikeys
+const stripe = require('stripe')("sk_test_51KPTBHCqE0Zs1JMwRNuPNrCgsj4T3WT8WQjuBJnBpwYTc41MMW8sq0mCqtwPAShoExVDjW63FbQLwP5NTkQ3Kecp003ZrsgpsI");
 
 export const links = () => {
     return [
@@ -19,21 +21,16 @@ export const loader = async () => {
 }
 
 export const action = async ({ request }: any) => {
-    const body = await request.formData();
-    // If there is a nested action inside a HTTP method, then the object will have a type property
-    if (body._fields.type) {
-        const handler = actions[request.method][body._fields.type[0]]
-        if (!handler) return json({ status: "error", message: "No method or action found" })
-        //first propery or [] is the HTTP method (POST,PUT,DELETE), the second property or [] is for the nested action
-        return await actions[request.method ?? 'default'][body._fields.type[0] ?? 'default']({ ...body._fields })
+    if (request.method === 'POST') {
+        const formData = await request.formData();
+        const session = await stripe.checkout.sessions.create({
+            line_items: JSON.parse(formData.get('selectedDishes')),
+            mode: 'payment',
+            success_url: `https://wachimingo.vercel.app?success=true`,
+            cancel_url: `https://wachimingo.vercel.app?canceled=true`,
+        });
+        return json({ session })
     }
-    else {
-        const handler = actions[request.method]
-        if (!handler) return json({ status: "error", message: "No method or action found" }, { status: 404 })
-        //Properties for the object are HTTP methods (POST,PUT,DELETE)
-        return await actions[request.method ?? 'default']({ ...body._fields })
-    }
-    // return json({})
 }
 
 export function ErrorBoundary({ error }: any) {
@@ -52,18 +49,17 @@ export function ErrorBoundary({ error }: any) {
 const Transaction = () => {
     const dishes = useLoaderData();
     const results = useActionData();
+    const submit = useSubmit();
     const [dishCounters, setDishCounters] = useState(() => dishes.map((dish: any) => 0));
     const [selectedDishes, setSelectedDishes] = useState<any>([]);
     const [totalDishes, setTotalDishes] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [agreed, setAgreed] = useState(false)
     useEffect(() => {
         if (results) {
-            //@ts-ignore
-            toast[results.status](results.message);
-            document.getElementById('billingModalClose')?.click()
+            window.open(results.session.url, '_blank');
         }
-    }, [results])
+    }, [results]);
+
     return (
         <>
             <h3>Billing</h3>
@@ -82,9 +78,24 @@ const Transaction = () => {
             </section>
             <button
                 className="btn btn-info my-4 mx-2"
-                data-bs-toggle={selectedDishes.length > 0 ? "modal" : ""}
-                data-bs-target="#TransactionModal"
-                onClick={() => selectedDishes.length > 0 ? undefined : toast.info('No dish selected')}
+                onClick={() => {
+                    const formData = new FormData();
+                    let formattedList = selectedDishes.map((dish: any, i: number) => {
+                        // const index = items.indexOf(item); // as the counter state position of the items is based in the items array, we need to get the position in that variable, else the render won't find what to render
+                        const indexArray = dishes.map((OldItem: any, i: number) => {
+                            if (OldItem!.name === dish.name) {
+                                return i;
+                            } return undefined;
+                        })
+                        const index: any = indexArray.filter((x: any) => { return x !== undefined })
+                        return {
+                            price: dish.externalId,
+                            quantity: dishCounters[index]
+                        }
+                    })
+                    formData.append('selectedDishes', JSON.stringify(formattedList))
+                    submit(formData, { method: "post", action: "/projects/restaurant/billing/sell" })
+                }}
             >
                 Checkout
             </button>
@@ -97,17 +108,6 @@ const Transaction = () => {
                     dishes={dishes}
                 />
             </section>
-            <Suspense fallback={<></>}>
-                <TransactionModal
-                    selectedDishes={selectedDishes}
-                    totalDishes={totalDishes}
-                    totalPrice={totalPrice}
-                    dishCounters={dishCounters}
-                    dishes={dishes}
-                    agreed={agreed}
-                    setAgreed={setAgreed}
-                />
-            </Suspense>
         </>
     )
 }

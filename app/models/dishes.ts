@@ -45,6 +45,9 @@ const dishSchema = new mongoose.Schema(
     category: {
       type: mongoose.Schema.ObjectId,
       ref: 'Category'
+    },
+    externalId: {
+      type: String
     }
   },
   {

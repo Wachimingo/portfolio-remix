@@ -8,12 +8,11 @@ const TransactionModal = (props: any) => {
             modalId='TransactionModal'
             title="Checkout"
             body={
-
                 props.agreed
                     ?
-                    <>
+                    <button type="button" className="btn btn-info">
                         Waiting for stripe to update package to work with React 18
-                    </>
+                    </button>
                     :
                     <>
                         <InfoTable

@@ -4,14 +4,15 @@ import dbConnect from '~/utils/dbConnection';
 import mail from '~/controllers/mail';
 import { requestErrorHandler } from './errors';
 const bcrypt = require('bcryptjs');
-
+// Set your secret key. Remember to switch to your live secret key in production.
+// See your keys here: https://dashboard.stripe.com/apikeys
+const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 export const activateUser = async (email: string) => {
     try {
         await dbConnect();
         const jwt = require('jsonwebtoken');
         const user = await User.findOneAndUpdate({ email }, { isActive: true }).select('name email role isActive');
         if (!user) throw 'Not Found'
-        // if (user.isActive) return { status: "error", message: "Cannot re-use link" }
         if (user.isActive) throw 'Cannot re-use link'
         user.isActive = undefined;
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -51,12 +52,18 @@ export const actions: any = {
             try {
                 if (body.password[0] !== body.confirmPassword[0]) return json({ status: 'error', message: "Passwords don't match" }, { status: 400 })
                 await dbConnect();
+                const stripeUser = await stripe.customers.create({
+                    name: body.name[0],
+                    email: body.email[0],
+                    description: 'Test Customer',
+                });
                 const newUser = new User({
                     name: body.name[0],
                     email: body.email[0],
                     password: await bcrypt.hash(body.password[0], 2),
                     role: 'user',
-                    isActive: false
+                    isActive: false,
+                    externalId: stripeUser.id
                 })
                 await newUser.save();
                 mail(body.email[0]).catch(console.error);

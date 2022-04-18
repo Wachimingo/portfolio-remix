@@ -12,6 +12,7 @@ const renderForm: any = {
                         name='email'
                         id="typeEmailX"
                         className="form-control form-control-lg"
+                        required={true}
                     // value='joshuaguillen.adoc@live.com'
                     />
                     <label className="form-label" htmlFor="typeEmailX">Email</label>
@@ -22,6 +23,7 @@ const renderForm: any = {
                         name="password"
                         id="typePasswordX"
                         className="form-control form-control-lg"
+                        required={true}
                     // value='123456'
                     />
                     <label className="form-label" htmlFor="typePasswordX">Password</label>
