@@ -1,5 +1,7 @@
 import { useEffect, useState, Suspense, lazy } from "react";
 import { toast } from "react-toastify";
+import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer } from "react-toastify";
 import { json, useActionData, useFetcher, useLoaderData } from "remix";
 import { Card } from "~/components/Card";
 import { getAllDishes, actions } from "~/controllers/dishes";
@@ -8,7 +10,8 @@ const CatalogModal = lazy(() => import("~/components/modals/CatalogModal"));
 
 export const links = () => {
     return [
-        { rel: 'stylesheet', href: catalogStyles }
+        { rel: 'stylesheet', href: catalogStyles },
+        { rel: "stylesheet", href: toastStyle }
     ]
 }
 
@@ -87,6 +90,7 @@ const Catalog = () => {
             <Suspense fallback={<></>}>
                 <CatalogModal dishToModify={dishToModify} />
             </Suspense>
+            <ToastContainer />
         </>
     )
 }

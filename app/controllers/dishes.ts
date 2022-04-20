@@ -29,8 +29,7 @@ export const actions: any = {
     },
     "POST": async (body: any) => {
         try {
-            await dbConnect();
-            const product = await stripe.products.create({ name: body.name[0] });
+            const [, product] = await Promise.all([dbConnect(), stripe.products.create({ name: body.name[0] })])
             const price = await stripe.prices.create({
                 product: product.id,
                 unit_amount: body.price[0],
@@ -54,7 +53,7 @@ export const actions: any = {
             try {
                 await dbConnect();
                 const res = await Dishes.findByIdAndUpdate({ _id: body.dishId[0] }, { forToday: body.state[0] })
-                if (!res) return { status: 'error', message: 'No ID provided' }
+                if (!res) throw 'No ID provided';
                 return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
             } catch (error) {
                 requestErrorHandler(error);
@@ -63,6 +62,12 @@ export const actions: any = {
         "update": async (body: any) => {
             try {
                 await dbConnect();
+                if (body.price[0]) {
+                    await stripe.prices.update(
+                        body.externalId,
+                        { unit_amount: body.price[0] }
+                    );
+                }
                 const res = await Dishes.findByIdAndUpdate({ _id: body.dishId[0] },
                     {
                         name: body.name[0],
@@ -71,7 +76,7 @@ export const actions: any = {
                         image: body.image[0]
                     }
                 )
-                if (!res) return json({ status: 'error', message: 'No ID provided' }, { status: 500 })
+                if (!res) throw 'No ID provided';
                 return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
             } catch (error) {
                 requestErrorHandler(error);
@@ -82,7 +87,7 @@ export const actions: any = {
         try {
             await dbConnect();
             const res = await Dishes.findByIdAndDelete({ _id: body.dishId[0] })
-            if (!res) return { status: 'error', message: 'No ID provided' }
+            if (!res) throw 'No ID provided';
             return json({ status: 'success', message: 'Deleted succesfuly' }, { status: 201 });
         } catch (error) {
             requestErrorHandler(error);

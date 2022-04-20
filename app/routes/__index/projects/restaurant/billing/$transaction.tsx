@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { json, useActionData, useLoaderData } from "remix";
 import { useSubmit } from "@remix-run/react";
-import { Card, InfoTable } from "~/components/billingComponents";
+import { Card } from "~/components/billingComponents";
 import { getForToday } from "~/controllers/dishes";
 import transactionStyles from "~/styles/transaction.css";
 // const TransactionModal = lazy(() => import("~/components/modals/TransactionModal"));
@@ -99,14 +99,9 @@ const Transaction = () => {
             >
                 Checkout
             </button>
-            <section id='informationSection' className="d-inline-block">
-                <InfoTable
-                    selectedDishes={selectedDishes}
-                    totalDishes={totalDishes}
-                    totalPrice={totalPrice}
-                    dishCounters={dishCounters}
-                    dishes={dishes}
-                />
+            <section>
+                <p>This is a test enviroment, you can test the payments using any of the test cards from the link below</p>
+                <a href="https://stripe.com/docs/testing#cards">Stripe Test Cards</a>
             </section>
         </>
     )

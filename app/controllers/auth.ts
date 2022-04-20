@@ -50,17 +50,16 @@ export const actions: any = {
         },
         "signup": async (body: any) => {
             try {
-                if (body.password[0] !== body.confirmPassword[0]) return json({ status: 'error', message: "Passwords don't match" }, { status: 400 })
-                await dbConnect();
-                const stripeUser = await stripe.customers.create({
+                if (body.password[0] !== body.confirmPassword[0]) throw "Passwords don't match";
+                const [, stripeUser, pass] = await Promise.all([dbConnect(), stripe.customers.create({
                     name: body.name[0],
                     email: body.email[0],
                     description: 'Test Customer',
-                });
+                }), bcrypt.hash(body.password[0], 2)])
                 const newUser = new User({
                     name: body.name[0],
                     email: body.email[0],
-                    password: await bcrypt.hash(body.password[0], 2),
+                    password: pass,
                     role: 'user',
                     isActive: false,
                     externalId: stripeUser.id

@@ -1,15 +1,9 @@
 import { Outlet } from "remix";
 import Footer from "~/components/Footer";
 import { NavBar } from "~/components/NavBar";
-import sidebarStyles from "~/styles/sidebar.css";
 import { useEffect, useState } from "react";
 //@ts-ignore
 import Cookies from 'js-cookie'
-export function links() {
-    return [
-        { rel: "stylesheet", href: sidebarStyles }
-    ]
-}
 
 const Portfolio = () => {
     const [logged, setLogged] = useState(false)

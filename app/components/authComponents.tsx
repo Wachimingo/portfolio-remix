@@ -79,7 +79,7 @@ const renderForm: any = {
                     />
                 </div>
                 <div className="form-outline form-white mb-4">
-                    <label className="form-label" htmlFor="typePasswordX">Confirm Password</label>
+                    <label className="form-label" htmlFor="typeConfrimPasswordX">Confirm Password</label>
                     <input
                         type="password"
                         name="confirmPassword"
@@ -92,12 +92,7 @@ const renderForm: any = {
                 <div className="d-flex justify-content-center text-center pt-1">
 
                 </div>
-                <div>
-                    <p className="mb-0">Don't have an account? <Link to="/auth/signup" className="text-white-50 fw-bold">Sign Up</Link>
-                    </p>
-                </div>
-                {/* <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p> */}
-                <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                <button className="btn btn-outline-light btn-lg px-5" type="submit">Sign Up</button>
             </Form>
         )
     },

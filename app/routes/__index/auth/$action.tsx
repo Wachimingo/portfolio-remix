@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer } from "react-toastify";
 import { json, useActionData, useLoaderData } from "remix";
 import { authForm } from "~/components/authComponents";
 import { actions } from "~/controllers/auth";
@@ -8,7 +10,8 @@ import authStyles from "~/styles/auth.css";
 import Cookies from 'js-cookie';
 export function links() {
     return [
-        { rel: "stylesheet", href: authStyles }
+        { rel: "stylesheet", href: authStyles },
+        { rel: "stylesheet", href: toastStyle }
     ]
 }
 
@@ -80,6 +83,7 @@ const Auth = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </section>
     )
 }

@@ -179,7 +179,7 @@ export const SkillCard = ({ item, index }: any) => {
                         }
                         className="img-fluid rounded-start"
                         alt={item.name}
-                        loading="lazy"
+                    // loading="lazy"
                     />
                 </div>
                 <div className="col-md-8">
@@ -214,7 +214,7 @@ export const CertCard = ({ item, index }: any) => {
                             }
                             className="img-fluid rounded-start"
                             alt={item.name}
-                            loading="lazy"
+                        // loading="lazy"
                         />
                     </div>
                     <div className="col-md-8">
