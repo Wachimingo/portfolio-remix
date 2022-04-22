@@ -3,6 +3,14 @@ import { CertCard } from "~/components/Card";
 import rootStyles from '~/styles/root.css'
 import { getCerts } from "~/controllers/certs";
 
+export const meta = () => {
+    return {
+        title: "Certifications",
+        description:
+            "Learning path",
+    };
+};
+
 export function links() {
     return [
         { rel: "stylesheet", href: rootStyles },

@@ -2,6 +2,14 @@ import { json, Link, useLoaderData } from "remix";
 import { getProjects } from "~/controllers/projects";
 import projectStyles from "~/styles/projects.css"
 
+export const meta = () => {
+    return {
+        title: "Projects",
+        description:
+            "Catalog of projects",
+    };
+};
+
 export function links() {
     return [
         { rel: 'stylesheet', href: projectStyles }

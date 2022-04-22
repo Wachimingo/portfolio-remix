@@ -5,9 +5,14 @@ import { Card } from "~/components/billingComponents";
 import { getForToday } from "~/controllers/dishes";
 import transactionStyles from "~/styles/transaction.css";
 // const TransactionModal = lazy(() => import("~/components/modals/TransactionModal"));
-// Set your secret key. Remember to switch to your live secret key in production.
-// See your keys here: https://dashboard.stripe.com/apikeys
-const stripe = require('stripe')("sk_test_51KPTBHCqE0Zs1JMwRNuPNrCgsj4T3WT8WQjuBJnBpwYTc41MMW8sq0mCqtwPAShoExVDjW63FbQLwP5NTkQ3Kecp003ZrsgpsI");
+
+export const meta = () => {
+    return {
+        title: "Restaurant | Transactions",
+        description:
+            "Sell/Buy dishes online",
+    };
+};
 
 export const links = () => {
     return [
@@ -22,6 +27,9 @@ export const loader = async () => {
 
 export const action = async ({ request }: any) => {
     if (request.method === 'POST') {
+        // Set your secret key. Remember to switch to your live secret key in production.
+        // See your keys here: https://dashboard.stripe.com/apikeys
+        const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
         const formData = await request.formData();
         const session = await stripe.checkout.sessions.create({
             line_items: JSON.parse(formData.get('selectedDishes')),

@@ -8,6 +8,14 @@ import { getAllDishes, actions } from "~/controllers/dishes";
 import catalogStyles from "~/styles/catalog.css";
 const CatalogModal = lazy(() => import("~/components/modals/CatalogModal"));
 
+export const meta = () => {
+    return {
+        title: "Restaurant | Catalog",
+        description:
+            "Dishes we offere",
+    };
+};
+
 export const links = () => {
     return [
         { rel: 'stylesheet', href: catalogStyles },

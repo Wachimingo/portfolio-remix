@@ -7,6 +7,14 @@ import { Link } from "remix";
 import { FaArrowDown } from "react-icons/fa";
 import { getCerts } from "~/controllers/certs";
 
+export const meta = () => {
+  return {
+    title: "Welcome",
+    description:
+      "Welcome to my portfolio",
+  };
+};
+
 export function links() {
   return [
     { rel: "stylesheet", href: rootStyles },

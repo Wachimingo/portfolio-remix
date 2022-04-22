@@ -3,7 +3,6 @@ import { Link } from "remix";
 
 export const NavBar = (props: any) => {
     return (
-        // renderNavBar[props.token ? 'out' : 'in']
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">Wachimingo</Link>

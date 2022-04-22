@@ -3,6 +3,14 @@ import { SkillCard } from "~/components/Card";
 import { getSkills } from '~/controllers/skills'
 import rootStyles from '~/styles/root.css'
 
+export const meta = () => {
+    return {
+        title: "Skills",
+        description:
+            "Skillset",
+    };
+};
+
 export function links() {
     return [
         { rel: "stylesheet", href: rootStyles },

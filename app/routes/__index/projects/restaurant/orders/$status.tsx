@@ -2,6 +2,14 @@ import { json, Link, LoaderFunction, useLoaderData } from "remix";
 import { OrderCard } from "~/components/Card";
 import { getOrders, actions } from "~/controllers/orders";
 
+export const meta = () => {
+    return {
+        title: "Restaurant | Orders",
+        description:
+            "Check order status",
+    };
+};
+
 export const loader: LoaderFunction = async ({ params }) => {
     const orders = await getOrders({ status: params.status, limit: 5 });
     return json({ orders, status: params.status })

@@ -25,9 +25,6 @@ export const activateUser = async (email: string) => {
 }
 
 export const actions: any = {
-    "GET": {
-
-    },
     "POST": {
         "signin": async (body: any) => {
             try {

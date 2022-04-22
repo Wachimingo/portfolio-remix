@@ -8,6 +8,15 @@ import { actions } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
 //@ts-ignore
 import Cookies from 'js-cookie';
+
+export const meta = () => {
+    return {
+        title: "Wachimingo | Auth",
+        description:
+            "User authentication to use this site features",
+    };
+};
+
 export function links() {
     return [
         { rel: "stylesheet", href: authStyles },

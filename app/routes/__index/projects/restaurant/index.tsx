@@ -2,6 +2,15 @@ import { json, useLoaderData } from "remix";
 import Carousel from "~/components/Carousel";
 import caruselStyle from "~/styles/carousel.css"
 import { getForToday } from "~/controllers/dishes";
+
+export const meta = () => {
+    return {
+        title: "Restaurant",
+        description:
+            "Welcome to the restaurant app",
+    };
+};
+
 export function links() {
     return [
         { rel: "stylesheet", href: caruselStyle },
@@ -19,7 +28,7 @@ const Restaurant = () => {
         <>
             <style >{`
                 body {
-                    background: url("https://images.weserv.nl/?url=https://diplomartbrussels.com/wp-content/uploads/2020/09/food-background-images-94-images-in-co-381169-png-images-pngio-food-background-png-1440_619.png?ssl=1");
+                    background: url(https://images.weserv.nl/?url=https://diplomartbrussels.com/wp-content/uploads/2020/09/food-background-images-94-images-in-co-381169-png-images-pngio-food-background-png-1440_619.png?ssl=1);
                     background-repeat: no-repeat;
                     background-size: 100%;
                     background-color: #fcf8f5;
@@ -30,7 +39,7 @@ const Restaurant = () => {
                 <div className="">
                     <h1 className="">Restaurant</h1>
                 </div>
-                <img src='https://images.weserv.nl/?url=https://api.globaldatabase.com/logo/www.uwink.com/&w=150&h=150' alt="logo" />
+                <img src='https://images.weserv.nl/?url=https://account.globaldatabase.com/logo/www.uwink.com/' alt="logo" />
                 <h2>Enjoy!</h2>
                 <br />
                 <p>Today's Menu</p>
