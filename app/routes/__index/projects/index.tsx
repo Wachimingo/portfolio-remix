@@ -1,4 +1,4 @@
-import { json, Link, useLoaderData } from "remix";
+import { json, useLoaderData } from "remix";
 import { getProjects } from "~/controllers/projects";
 import projectStyles from "~/styles/projects.css"
 
@@ -7,6 +7,8 @@ export const meta = () => {
         title: "Projects",
         description:
             "Catalog of projects",
+        "og:title": "Projects",
+        "og:image": "https://ia.media-imdb.com/images/rock.jpg",
     };
 };
 
@@ -27,16 +29,23 @@ const Projects = () => {
         <>
             <h1 className="">Projects</h1>
             <br />
-            <section className="">
+            <section className="d-inline-block">
                 {
                     projects.map((project: any, i: number) => {
                         return (
-                            <div key={i} className="card projectItem">
-                                <img src={project.image} className="card-img-top" alt="..." width='250px' height='250px' />
+                            <div key={project.name} className="card ms-2 cardStyle">
+                                <div className="imgContainer">
+                                    <img
+                                        src={project.image}
+                                        className="card-img-top"
+                                        alt={project.name} />
+                                </div>
                                 <div className="card-body">
                                     <h5 className="card-title">{project.name}</h5>
-                                    <p className="card-text">{project.description}</p>
-                                    <Link className='btn btn-outline-primary' to={project.link}>Checkout</Link>
+                                    <div className="innerBody">
+                                        <p className="card-text">{project.description}</p>
+                                    </div>
+                                    <a className='btn btn-outline-primary' href={project.link}>Checkout</a>
                                 </div>
                             </div>
                         )
