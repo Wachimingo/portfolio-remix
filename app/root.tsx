@@ -6,7 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { MetaFunction } from "remix";
+import type { MetaFunction } from "@remix-run/node";
 import appStyle from './styles/app.css';
 // import { Partytown } from '@builder.io/partytown/react';
 

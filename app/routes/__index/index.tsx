@@ -1,4 +1,4 @@
-import { json } from 'remix';
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Link } from "@remix-run/react";
 import { CertCard, SkillCard } from "~/components/Card";

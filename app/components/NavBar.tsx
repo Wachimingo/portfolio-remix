@@ -1,5 +1,5 @@
 
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 
 export const NavBar = (props: any) => {
     return (

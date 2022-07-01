@@ -2,7 +2,7 @@ import { useEffect, useState, Suspense, lazy } from "react";
 import { toast } from "react-toastify";
 import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer } from "react-toastify";
-import { json } from 'remix';
+import { json } from "@remix-run/node";
 import { useActionData, useFetcher, useLoaderData } from "@remix-run/react";
 import { Card } from "~/components/Card";
 import { getAllDishes, actions } from "~/controllers/dishes";

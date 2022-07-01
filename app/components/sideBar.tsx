@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 
 export const SideBar = () => {
     const [hide, setHide] = useState(false)

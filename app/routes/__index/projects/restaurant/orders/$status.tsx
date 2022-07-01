@@ -1,5 +1,5 @@
-import { json } from "remix";
-import type { LoaderFunction } from 'remix';
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Link, useLoaderData } from '@remix-run/react'
 import { OrderCard } from "~/components/Card";
 import { getOrders, actions } from "~/controllers/orders";

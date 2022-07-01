@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer } from "react-toastify";
-import { json } from "remix";
+import { json } from "@remix-run/node";
 import { useActionData, useLoaderData } from '@remix-run/react';
 import { authForm } from "~/components/authComponents";
 import { actions } from "~/controllers/auth";

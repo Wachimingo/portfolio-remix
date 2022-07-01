@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import { json, Link, useLoaderData } from "remix";
+import { json } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 import { activateUser } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
 //@ts-ignore

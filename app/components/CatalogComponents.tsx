@@ -1,4 +1,4 @@
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 import { useState } from "react"
 import { FaTrash, FaCog, FaAngleUp, FaRegFolderOpen, FaStar } from "react-icons/fa"
 import { deleteItem, updateItem, changeStateOfItem, removeFavorite, setAsFavorite } from "../controllers/menu"

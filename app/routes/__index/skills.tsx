@@ -1,4 +1,4 @@
-import { json } from 'remix';
+import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { SkillCard } from "~/components/Card";
 import { getSkills } from '~/controllers/skills'

@@ -1,5 +1,5 @@
 import { FaTrash, FaCog, FaAngleUp, FaRegFolderOpen, FaStar, FaAngleDown } from "react-icons/fa";
-import { Link, useFetcher } from "remix";
+import { Link, useFetcher } from "@remix-run/react";
 
 export const Card = (props: any) => {
     return (

@@ -1,4 +1,4 @@
-import { json } from 'remix';
+import { json } from "@remix-run/node";
 import Projects from '~/models/projects';
 import dbConnect from '~/utils/dbConnection';
 import { requestErrorHandler } from './errors';

@@ -1,4 +1,4 @@
-import { json } from 'remix';
+import { json } from "@remix-run/node";
 import User from '~/models/user';
 import dbConnect from '~/utils/dbConnection';
 import mail from '~/controllers/mail';

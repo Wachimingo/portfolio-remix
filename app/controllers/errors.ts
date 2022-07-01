@@ -1,4 +1,4 @@
-import { json } from 'remix'
+import { json } from "@remix-run/node";
 
 export const requestErrorHandler = (error: any) => {
     console.log("TCL: error", error)
