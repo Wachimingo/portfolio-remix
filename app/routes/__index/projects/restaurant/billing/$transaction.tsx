@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { json, useActionData, useLoaderData } from "remix";
-import { useSubmit } from "@remix-run/react";
+import { json, } from "remix";
+import { useSubmit, useActionData, useLoaderData } from "@remix-run/react";
 import { Card } from "~/components/billingComponents";
 import { getForToday } from "~/controllers/dishes";
 import transactionStyles from "~/styles/transaction.css";

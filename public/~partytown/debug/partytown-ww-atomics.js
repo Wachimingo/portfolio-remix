@@ -1,4 +1,4 @@
-/* Partytown 0.5.2 - MIT builder.io */
+/* Partytown 0.6.2 - MIT builder.io */
 (self => {
     const WinIdKey = Symbol();
     const InstanceIdKey = Symbol();
@@ -37,8 +37,18 @@
     const noop = () => {};
     const len = obj => obj.length;
     const getConstructorName = obj => {
+        var _a, _b, _c;
         try {
-            return obj.constructor.name;
+            const constructorName = null === (_a = null == obj ? void 0 : obj.constructor) || void 0 === _a ? void 0 : _a.name;
+            if (constructorName) {
+                return constructorName;
+            }
+        } catch (e) {}
+        try {
+            const zoneJsConstructorName = null === (_c = null === (_b = null == obj ? void 0 : obj.__zone_symbol__originalInstance) || void 0 === _b ? void 0 : _b.constructor) || void 0 === _c ? void 0 : _c.name;
+            if (zoneJsConstructorName) {
+                return zoneJsConstructorName;
+            }
         } catch (e) {}
         return "";
     };
@@ -152,7 +162,7 @@
                 return deserializeRefFromMain(applyPath, serializedValue);
             }
             if (6 === serializedType) {
-                return noop;
+                return winId && applyPath.length > 0 ? (...args) => callMethod(environments[winId].$window$, applyPath, args, 1) : noop;
             }
             if (3 === serializedType) {
                 return getOrCreateSerializedInstance(serializedValue);
@@ -165,6 +175,9 @@
             }
             if (1 === serializedType) {
                 return serializedValue.map((v => deserializeFromMain(winId, instanceId, applyPath, v)));
+            }
+            if (14 === serializedType) {
+                return new CustomError(serializedValue);
             }
             obj = {};
             for (key in serializedValue) {
@@ -203,6 +216,14 @@
         }, $refId$);
         return webWorkerRefsByRefId[$refId$];
     };
+    class CustomError extends Error {
+        constructor(errorObject) {
+            super(errorObject.message);
+            this.name = errorObject.name;
+            this.message = errorObject.message;
+            this.stack = errorObject.stack;
+        }
+    }
     const NodeList = class {
         constructor(nodes) {
             (this._ = nodes).map(((node, index) => this[index] = node));
@@ -682,7 +703,7 @@
             type: type
         })))));
     };
-    const resolveToUrl = (env, url, noUserHook, baseLocation, resolvedUrl, configResolvedUrl) => {
+    const resolveToUrl = (env, url, type, baseLocation, resolvedUrl, configResolvedUrl) => {
         baseLocation = env.$location$;
         while (!baseLocation.host) {
             env = environments[env.$parentWinId$];
@@ -692,16 +713,16 @@
             }
         }
         resolvedUrl = new URL(url || "", baseLocation);
-        if (!noUserHook && webWorkerCtx.$config$.resolveUrl) {
-            configResolvedUrl = webWorkerCtx.$config$.resolveUrl(resolvedUrl, baseLocation);
+        if (type && webWorkerCtx.$config$.resolveUrl) {
+            configResolvedUrl = webWorkerCtx.$config$.resolveUrl(resolvedUrl, baseLocation, type);
             if (configResolvedUrl) {
                 return configResolvedUrl;
             }
         }
         return resolvedUrl;
     };
-    const resolveUrl = (env, url, noUserHook) => resolveToUrl(env, url, noUserHook) + "";
-    const getPartytownScript = () => `<script src="${partytownLibUrl("partytown.js?v=0.5.2")}"><\/script>`;
+    const resolveUrl = (env, url, type) => resolveToUrl(env, url, type) + "";
+    const getPartytownScript = () => `<script src="${partytownLibUrl("partytown.js?v=0.6.2")}"><\/script>`;
     const createImageConstructor = env => class HTMLImageElement {
         constructor() {
             this.s = "";
@@ -712,9 +733,11 @@
             return this.s;
         }
         set src(src) {
-            webWorkerCtx.$config$.logImageRequests && logWorker(`Image() request: ${resolveUrl(env, src)}`, env.$winId$);
-            fetch(resolveUrl(env, src, true), {
+            webWorkerCtx.$config$.logImageRequests && logWorker(`Image() request: ${resolveUrl(env, src, null)}`, env.$winId$);
+            this.s = src;
+            fetch(resolveUrl(env, src, null), {
                 mode: "no-cors",
+                credentials: "include",
                 keepalive: true
             }).then((rsp => {
                 rsp.ok || 0 === rsp.status ? this.l.map((cb => cb({
@@ -799,8 +822,8 @@
                     return getInstanceStateValue(this, 4) || "";
                 },
                 set(url) {
-                    const orgUrl = resolveUrl(env, url, true);
-                    url = resolveUrl(env, url);
+                    const orgUrl = resolveUrl(env, url, null);
+                    url = resolveUrl(env, url, "script");
                     setInstanceStateValue(this, 4, url);
                     setter(this, [ "src" ], url);
                     orgUrl !== url && setter(this, [ "dataset", "ptsrc" ], orgUrl);
@@ -1005,7 +1028,12 @@
                             callMethod(this, [ "implementation", "createHTMLDocument" ], [ title ], 1, {
                                 $winId$: $winId$
                             });
-                            const docEnv = createWindow($winId$, $winId$, env.$location$ + "", "hidden", true, true);
+                            const docEnv = createEnvironment({
+                                $winId$: $winId$,
+                                $parentWinId$: $winId$,
+                                $url$: env.$location$ + "",
+                                $visibilityState$: "hidden"
+                            }, true, true);
                             return docEnv.$document$;
                         }
                     };
@@ -1088,12 +1116,29 @@
                         setInstanceStateValue(this, 4, href);
                         value = new URL(href)[anchorProp];
                     }
-                    return resolveToUrl(env, value)[anchorProp];
+                    return resolveToUrl(env, value, null)[anchorProp];
                 },
                 set(value) {
-                    let href = getInstanceStateValue(this, 4);
-                    let url = resolveToUrl(env, href);
-                    url[anchorProp] = new URL(value + "", url.href);
+                    let url;
+                    if ("href" === anchorProp) {
+                        if ((url => {
+                            try {
+                                new URL(url);
+                                return true;
+                            } catch (_) {
+                                return false;
+                            }
+                        })(value)) {
+                            url = new URL(value);
+                        } else {
+                            const baseHref = env.$location$.href;
+                            url = resolveToUrl(env, baseHref, null);
+                            url.href = new URL(value + "", url.href);
+                        }
+                    } else {
+                        url = resolveToUrl(env, this.href, null);
+                        url[anchorProp] = value;
+                    }
                     setInstanceStateValue(this, 4, url.href);
                     setter(this, [ "href" ], url.href);
                 }
@@ -1130,7 +1175,7 @@
                             let xhr = new XMLHttpRequest;
                             let xhrStatus;
                             let env = getIframeEnv(this);
-                            env.$location$.href = src = resolveUrl(env, src);
+                            env.$location$.href = src = resolveUrl(env, src, "iframe");
                             env.$isLoading$ = 1;
                             setInstanceStateValue(this, 1, void 0);
                             xhr.open("GET", src, false);
@@ -1233,7 +1278,7 @@
                         (() => {
                             if (!webWorkerCtx.$initWindowMedia$) {
                                 self.$bridgeToMedia$ = [ getter, setter, callMethod, constructGlobal, definePrototypePropertyDescriptor, randomId, WinIdKey, InstanceIdKey, ApplyPathKey ];
-                                webWorkerCtx.$importScripts$(partytownLibUrl("partytown-media.js?v=0.5.2"));
+                                webWorkerCtx.$importScripts$(partytownLibUrl("partytown-media.js?v=0.6.2"));
                                 webWorkerCtx.$initWindowMedia$ = self.$bridgeFromMedia$;
                                 delete self.$bridgeFromMedia$;
                             }
@@ -1363,8 +1408,9 @@
                     $parentWinId$: $parentWinId$,
                     $window$: new Proxy(win, {
                         get: (win, propName) => {
+                            var _a;
                             if ("string" != typeof propName || isNaN(propName)) {
-                                return win[propName];
+                                return (null === (_a = webWorkerCtx.$config$.mainWindowAccessors) || void 0 === _a ? void 0 : _a.includes(propName)) ? getter(this, [ propName ]) : win[propName];
                             }
                             {
                                 let frame = getChildEnvs()[propName];
@@ -1410,6 +1456,16 @@
                         },
                         length: 0
                     };
+                    win.indexeddb = void 0;
+                } else {
+                    const originalPushState = win.history.pushState.bind(win.history);
+                    const originalReplaceState = win.history.replaceState.bind(win.history);
+                    win.history.pushState = (stateObj, _, newUrl) => {
+                        false !== env.$propagateHistoryChange$ && originalPushState(stateObj, _, newUrl);
+                    };
+                    win.history.replaceState = (stateObj, _, newUrl) => {
+                        false !== env.$propagateHistoryChange$ && originalReplaceState(stateObj, _, newUrl);
+                    };
                 }
                 win.Worker = void 0;
             }
@@ -1429,7 +1485,7 @@
             }
             fetch(input, init) {
                 input = "string" == typeof input || input instanceof URL ? String(input) : input.url;
-                return fetch(resolveUrl(env, input), init);
+                return fetch(resolveUrl(env, input, "fetch"), init);
             }
             get frames() {
                 return env.$window$;
@@ -1462,13 +1518,13 @@
                         sendBeacon: (url, body) => {
                             if (webWorkerCtx.$config$.logSendBeaconRequests) {
                                 try {
-                                    logWorker(`sendBeacon: ${resolveUrl(env, url, true)}${body ? ", data: " + JSON.stringify(body) : ""}`);
+                                    logWorker(`sendBeacon: ${resolveUrl(env, url, null)}${body ? ", data: " + JSON.stringify(body) : ""}`);
                                 } catch (e) {
                                     console.error(e);
                                 }
                             }
                             try {
-                                fetch(resolveUrl(env, url, true), {
+                                fetch(resolveUrl(env, url, null), {
                                     method: "POST",
                                     body: body,
                                     mode: "no-cors",
@@ -1529,7 +1585,7 @@
                 const str = String(Xhr);
                 const ExtendedXhr = defineConstructorName(class extends Xhr {
                     open(...args) {
-                        args[1] = resolveUrl(env, args[1]);
+                        args[1] = resolveUrl(env, args[1], "xhr");
                         super.open(...args);
                     }
                     set withCredentials(_) {}
@@ -1567,9 +1623,9 @@
         DOMStringMap: 1,
         NamedNodeMap: 1
     };
-    const createEnvironment = ({$winId$: $winId$, $parentWinId$: $parentWinId$, $url$: $url$, $visibilityState$: $visibilityState$}, isIframeWindow) => {
+    const createEnvironment = ({$winId$: $winId$, $parentWinId$: $parentWinId$, $url$: $url$, $visibilityState$: $visibilityState$}, isIframeWindow, isDocumentImplementation) => {
         if (!environments[$winId$]) {
-            environments[$winId$] = createWindow($winId$, $parentWinId$, $url$, $visibilityState$, isIframeWindow);
+            environments[$winId$] = createWindow($winId$, $parentWinId$, $url$, $visibilityState$, isIframeWindow, isDocumentImplementation);
             {
                 const winType = $winId$ === $parentWinId$ ? "top" : "iframe";
                 logWorker(`Created ${winType} window ${normalizedWinId($winId$)} environment`, $winId$);
@@ -1597,7 +1653,7 @@
                     let rsp;
                     if (scriptSrc) {
                         try {
-                            scriptSrc = resolveToUrl(env, scriptSrc) + "";
+                            scriptSrc = resolveToUrl(env, scriptSrc, "script") + "";
                             setInstanceStateValue(instance, 4, scriptSrc);
                             webWorkerCtx.$config$.logScriptExecution && logWorker(`Execute script src: ${scriptOrgSrc}`, winId);
                             rsp = await fetch(scriptSrc);
@@ -1655,8 +1711,33 @@
                 }
                 environments[msgValue].$isInitialized$ = 1;
                 environments[msgValue].$isLoading$ = 0;
+            } else if (14 === msgType) {
+                environments[msgValue].$visibilityState$ = msg[2];
+            } else if (13 === msgType) {
+                const $winId$ = msgValue.$winId$;
+                const env = environments[$winId$];
+                env.$location$.href = msgValue.url;
+                !function($winId$, env, data) {
+                    const history = env.$window$.history;
+                    switch (data.type) {
+                      case 0:
+                        env.$propagateHistoryChange$ = false;
+                        try {
+                            history.pushState(data.state, "", data.newUrl);
+                        } catch (e) {}
+                        env.$propagateHistoryChange$ = true;
+                        break;
+
+                      case 1:
+                        env.$propagateHistoryChange$ = false;
+                        try {
+                            history.replaceState(data.state, "", data.newUrl);
+                        } catch (e) {}
+                        env.$propagateHistoryChange$ = true;
+                    }
+                }(msgValue.$winId$, env, msgValue);
             } else {
-                14 === msgType ? environments[msgValue].$visibilityState$ = msg[2] : 13 === msgType ? environments[msgValue].$location$.href = msg[2] : 15 === msgType && ((_type, winId, instanceId, callbackName, args) => {
+                15 === msgType && ((_type, winId, instanceId, callbackName, args) => {
                     const elm = getOrCreateNodeInstance(winId, instanceId);
                     elm && "function" == typeof elm[callbackName] && elm[callbackName].apply(elm, args);
                 })(...msg);

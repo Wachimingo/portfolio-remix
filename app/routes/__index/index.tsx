@@ -1,9 +1,10 @@
-import { json, useLoaderData } from "remix";
+import { json } from 'remix';
+import { useLoaderData } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import { CertCard, SkillCard } from "~/components/Card";
 import { getSkills } from '~/controllers/skills';
 import { getCategories } from '~/controllers/categories';
 import rootStyles from '~/styles/root.css';
-import { Link } from "remix";
 import { FaArrowDown } from "react-icons/fa";
 import { getCerts } from "~/controllers/certs";
 
@@ -47,12 +48,12 @@ export default function Index() {
         <h1 className="">Wachimingo</h1>
         <br />
         <p className="">Welcome</p>
-        <img
+        {/* <img
           className="profilePic"
           src="https://media-exp1.licdn.com/dms/image/C4E03AQHzPruWkSCQiA/profile-displayphoto-shrink_800_800/0/1555775304131?e=1653523200&v=beta&t=mteZIG0Tts7K7TGudZRMAOSul0SFATk1pbEu8cJnwBU"
           alt="profile"
           loading="lazy"
-        />
+        /> */}
       </div>
       <div className="grid itemsContainer">
         {

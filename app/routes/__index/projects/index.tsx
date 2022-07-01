@@ -1,4 +1,5 @@
-import { json, useLoaderData } from "remix";
+import { json } from 'remix';
+import { useLoaderData } from "@remix-run/react";
 import { getProjects } from "~/controllers/projects";
 import projectStyles from "~/styles/projects.css"
 

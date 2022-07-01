@@ -1,4 +1,4 @@
-import { Outlet } from "remix";
+import { Outlet } from "@remix-run/react";
 import Footer from "~/components/Footer";
 import { NavBar } from "~/components/NavBar";
 import { useEffect, useState } from "react";

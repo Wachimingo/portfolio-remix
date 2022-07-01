@@ -1,4 +1,5 @@
-import { json, useLoaderData } from "remix";
+import { json } from 'remix';
+import { useLoaderData } from "@remix-run/react";
 import Carousel from "~/components/Carousel";
 import caruselStyle from "~/styles/carousel.css"
 import { getForToday } from "~/controllers/dishes";

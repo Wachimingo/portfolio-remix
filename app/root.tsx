@@ -5,7 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "remix";
+} from "@remix-run/react";
 import type { MetaFunction } from "remix";
 import appStyle from './styles/app.css';
 // import { Partytown } from '@builder.io/partytown/react';

@@ -1,4 +1,5 @@
-import { json, useLoaderData } from "remix";
+import { json } from 'remix';
+import { useLoaderData } from "@remix-run/react";
 import { CertCard } from "~/components/Card";
 import rootStyles from '~/styles/root.css'
 import { getCerts } from "~/controllers/certs";
