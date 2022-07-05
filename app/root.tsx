@@ -8,7 +8,7 @@ import {
 } from "@remix-run/react";
 import type { MetaFunction } from "@remix-run/node";
 import appStyle from './styles/app.css';
-// import { Partytown } from '@builder.io/partytown/react';
+import { Partytown } from '@builder.io/partytown/react';
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -29,7 +29,7 @@ export default function App() {
     <html lang="en">
       <head>
         <Meta />
-        {/* <Partytown debug={true} forward={['dataLayer.push']} /> */}
+        <Partytown debug={true} forward={['dataLayer.push']} />
         <Links />
       </head>
       <body>
@@ -49,7 +49,21 @@ export default function App() {
           integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
           crossOrigin="anonymous"
           async={true}></script>
+        <script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=G-8HZS5V5W5W`} />
+        <script
+          type="text/partytown"
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-8HZS5V5W5W', {
+            page_path: window.location.pathname,
+            });
+        `
+          }}
+        />
       </body>
-    </html>
+    </html >
   );
 }
