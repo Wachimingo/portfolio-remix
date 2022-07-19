@@ -1,14 +1,13 @@
 import { Form } from "@remix-run/react";
-import Modal from "../Modal";
+import { Modal } from "~/components";
 
 const CatalogModal = (props: any) => {
     return (
-        <Modal
-            modalId={'CatalogModal'}
-            title={props.dishToModify ? 'Modify dish' : 'Add dish'}
-            body={
-                <Form method={props.dishToModify ? 'patch' : 'post'} action="/projects/restaurant/catalog" >
-                    <div className="mb-3">
+        <Modal isOpen={props.isModalOpen} closeModal={props.setIsModalOpen} wrapperId='catalog-modal'>
+            <h1>{props.dishToModify ? 'Modify dish' : 'Add dish'}</h1>
+            <Form method={props.dishToModify ? 'patch' : 'post'} action="/projects/restaurant/catalog">
+                <section>
+                    <div>
                         <label htmlFor="dishName" className="form-label">Dish Name</label>
                         <input
                             type="text"
@@ -20,10 +19,10 @@ const CatalogModal = (props: any) => {
                             defaultValue={props.dishToModify ? props.dishToModify.name : undefined}
                         />
                     </div>
-                    <div className="mb-3">
+                    <div>
                         <label htmlFor="dishDescrption" className="form-label">Description</label>
                         <input
-                            type="string"
+                            type="text"
                             className="form-control"
                             name="description"
                             id="dishDescrption"
@@ -31,7 +30,7 @@ const CatalogModal = (props: any) => {
                             defaultValue={props.dishToModify ? props.dishToModify.description : undefined}
                         />
                     </div>
-                    <div className="mb-3">
+                    <div>
                         <label htmlFor="dishPrice" className="form-label">Price</label>
                         <input
                             type="number"
@@ -44,10 +43,10 @@ const CatalogModal = (props: any) => {
                             defaultValue={props.dishToModify ? props.dishToModify.price : undefined}
                         />
                     </div>
-                    <div className="mb-3">
+                    <div>
                         <label htmlFor="dishImage" className="form-label">Image</label>
                         <input
-                            type="string"
+                            type="text"
                             className="form-control"
                             id="dishImage"
                             name="image"
@@ -67,11 +66,21 @@ const CatalogModal = (props: any) => {
                             :
                             undefined
                     }
-                    <button type="button" className="btn btn-danger ms-2" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
-                    <button type="submit" className="btn btn-primary ms-2">Submit</button>
-                </Form>
-            }
-        />
+                </section>
+                <div className="form-controls">
+                    <button
+                        type="button"
+                        className="form-cancel-button"
+                        // data-bs-dismiss="modal" 
+                        // aria-label="Close"
+                        onClick={() => props.setIsModalOpen(false)}
+                    >
+                        Cancel
+                    </button>
+                    <input type="submit" />
+                </div>
+            </Form>
+        </Modal>
     )
 }
 

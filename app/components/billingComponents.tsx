@@ -1,7 +1,7 @@
 import { FaCartPlus, FaTrash } from "react-icons/fa";
 import { decreaseCount, increaseCount } from "~/controllers/billing";
 
-export const Card = (props: any) => {
+export const CardBilling = (props: any) => {
     return (
         <>
             {

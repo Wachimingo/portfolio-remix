@@ -1,4 +1,5 @@
 .curve {
+  position: relative;
   z-index: -100;
   box-sizing: border-box;
   height: 400px;
@@ -7,146 +8,58 @@
   overflow: visible;
 }
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .profilePic {
-    width: 10rem;
-    height: 10rem;
-  }
-
-  .skills {
-    width: auto;
-  }
-
-  .skills>img {
-    width: '50px';
-    height: '50px';
-  }
-
-  .grid {
-    display: inline-block;
-  }
-
-  .welcome {
-    position: relative;
-    top: 0;
-    color: white;
-  }
-
-  .itemsContainer {
-    position: relative;
-    top: 0;
-  }
+main {
+  position: relative;
+  top: 9vh;
+  padding: 0;
+  margin: 0;
 }
 
-@media only screen and (min-width: 360px) {
-  .profilePic {
-    width: 10rem;
-    height: 10rem;
-  }
-
-  .skills {
-    width: auto;
-  }
-
-  .skills>img {
-    width: '50px';
-    height: '50px';
-  }
-
-  .grid {
-    display: inline-block;
-  }
-
-  .welcome {
-    position: relative;
-    top: 0;
-    color: white;
-  }
-
-  .itemsContainer {
-    position: relative;
-    top: 0;
-  }
+.profile-pic {
+  position: relative;
+  top: 2vh;
+  width: 10rem;
+  height: 10rem;
+  z-index: 10;
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  .skills {
-    width: 45vw;
-  }
-
-  .grid {
-    display: block;
-  }
+.skills {
+  width: 45vw;
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  .skills {
-    width: 45vw;
-  }
-
-  .grid {
-    display: block;
-  }
+.grid {
+  display: flex;
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  .profilePic {
-    width: 10rem;
-    height: 10rem;
-  }
-
-  .skills {
-    width: 45vw;
-  }
-
-  .grid {
-    display: block;
-  }
-
-  .welcome {
-    position: relative;
-    top: 0;
-  }
-
-  .itemsContainer {
-    position: relative;
-    top: 0;
-  }
+.welcome {
+  color: white;
+  overflow: visible;
 }
 
-@media only screen and (min-width: 1200px) {
-  .profilePic {
-    width: 10rem;
-    height: 10rem;
-    z-index: 10;
-  }
+.items-container {
+  position: relative;
+  top: -15vh;
+}
 
-  .skills {
-    width: 45vw;
-  }
+.items-container2 {
+  position: relative;
+  padding: 5vh 0;
+  margin: 5vh 0;
+}
 
-  .grid {
-    display: block;
-  }
+.certs {
+  position: relative;
+  top: 0vh;
+}
 
-  .welcome {
-    position: relative;
-    top: 0;
-    color: white;
-    overflow: visible;
-  }
+h1 {
+  font-size: 2rem;
+}
 
-  .itemsContainer {
-    position: relative;
-    top: 0vh;
-  }
+h2 {
+  font-size: 1.7rem;
+}
 
-  .certs {
-    position: relative;
-    top: 0vh;
-  }
+h3 {
+  font-size: 1rem;
 }

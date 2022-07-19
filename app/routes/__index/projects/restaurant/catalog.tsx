@@ -1,13 +1,14 @@
-import { useEffect, useState, Suspense, lazy } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer } from "react-toastify";
 import { json } from "@remix-run/node";
 import { useActionData, useFetcher, useLoaderData } from "@remix-run/react";
-import { Card } from "~/components/Card";
+import { Card, CatalogControls } from "~/components/Card";
 import { getAllDishes, actions } from "~/controllers/dishes";
 import catalogStyles from "~/styles/catalog.css";
-const CatalogModal = lazy(() => import("~/components/modals/CatalogModal"));
+import formStyles from "~/styles/form.css";
+import CatalogModal from "~/components/modals/CatalogModal";
 
 export const meta = () => {
     return {
@@ -20,6 +21,7 @@ export const meta = () => {
 export const links = () => {
     return [
         { rel: 'stylesheet', href: catalogStyles },
+        { rel: 'stylesheet', href: formStyles },
         { rel: "stylesheet", href: toastStyle }
     ]
 }
@@ -29,34 +31,28 @@ export const loader = async () => {
     return json(dishes)
 }
 
-export const action = async ({ request }: any) => {
+export const action = async ({ request }) => {
+    /* Taking the form data from the request and putting it into an object. */
     const body = await request.formData();
-    // If there is a nested action inside a HTTP method, then the object will have a type property
-    if (body._fields.type) {
-        const handler = actions[request.method][body._fields.type[0]]
-        if (!handler) return json({ status: "error", message: "No method or action found" })
-        //first property or [] is the HTTP method (POST,PUT,DELETE), the second property or [] is for the nested action
-        return await actions[request.method][body._fields.type[0]]({ ...body._fields })
+    const data: any = {};
+
+    for (const pair of body.entries()) {
+        data[pair[0]] = pair[1]
     }
-    else {
-        const handler = actions[request.method]
-        if (!handler) return json({ status: "error", message: "No method or action found" }, { status: 404 })
-        //Properties for the object are HTTP methods (POST,PUT,DELETE)
-        return await actions[request.method]({ ...body._fields })
-    }
-    // return json({})
+
+    /* Checking if the request method is in the actions object. If it is, it will return the data. If
+    not, it will return an error. */
+    const handler = actions[request.method];
+    if (!handler) return json({ status: "error", message: "No method or action found" }, { status: 404 });
+    return await actions[request.method](data);
+    // return json({});
 }
 
 export function ErrorBoundary({ error }: any) {
-    console.log(error);
     return (
-        <html>
-            <head>
-                <title>Oh no!</title>
-            </head>
-            <body>
-            </body>
-        </html>
+        <main>
+            <h1>{error.message}</h1>
+        </main>
     );
 }
 
@@ -64,42 +60,57 @@ const Catalog = () => {
     const dishes = useLoaderData();
     const fetcher = useFetcher();
     const results = useActionData();
-    const [dishToModify, setDishToModify] = useState<any>(undefined)
+    const [dishToModify, setDishToModify] = useState<any>(undefined);
+    const [isOpen, setIsOpen] = useState(false);
     const { data } = fetcher;
     useEffect(() => {
         if (data) {
             //@ts-ignore
             toast[data.status](data.message)
-            document.getElementById('CatalogModalClose')?.click()
+            setIsOpen(isOpen => !isOpen);
         } else if (results) {
             //@ts-ignore
             toast[results.status](results.message);
-            document.getElementById('CatalogModalClose')?.click()
+            setIsOpen(isOpen => !isOpen);
         }
-    }, [data, results])
+    }, [data, results]);
     return (
         <>
-            <h3>Catalog</h3>
-            <div className="d-inline-block">
-                <Card
-                    dishes={dishes ?? []}
-                    fetcher={fetcher}
-                    setDishToModify={setDishToModify}
-                />
-            </div>
+            <main>
+                <h1>Catalog</h1>
+            </main>
+            <section className="items-container">
+                {
+                    dishes?.map((dish: any) => {
+                        return (
+                            <Card key={dish.name}>
+                                {CatalogControls(dish, fetcher, dishToModify, setDishToModify, isOpen, setIsOpen)}
+                                <img
+                                    src={`https://images.weserv.nl/?url=${dish.image}&w=150&h=150`}
+                                    alt={dish.name}
+                                />
+                                <div>
+                                    <h1>{dish.name}</h1>
+                                    <p className="card-text">{dish.description}</p>
+                                    <p className="card-text">${dish.price}</p>
+                                </div>
+                            </Card>
+                        );
+                    })
+                }
+            </section>
+            <CatalogModal dishToModify={dishToModify} isModalOpen={isOpen} setIsModalOpen={setIsOpen} />
+            <ToastContainer />
             <button
                 type='button'
-                className="btn btn-info bubbleButton"
-                data-bs-toggle="modal"
-                data-bs-target="#CatalogModal"
-                onClick={() => setDishToModify(undefined)}
+                className="bubble-btn"
+                onClick={() => {
+                    setDishToModify(dishToModify => undefined)
+                    setIsOpen(isOpen => !isOpen)
+                }}
             >
                 +
             </button>
-            <Suspense fallback={<></>}>
-                <CatalogModal dishToModify={dishToModify} />
-            </Suspense>
-            <ToastContainer />
         </>
     )
 }

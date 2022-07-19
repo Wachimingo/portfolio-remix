@@ -1,21 +1,21 @@
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
+import { Card } from "~/components";
 import { getProjects } from "~/controllers/projects";
-import projectStyles from "~/styles/projects.css"
+import projectsStyle from '~/styles/projects.css';
+import buttonsStyle from '~/styles/buttons.css';
 
 export const meta = () => {
     return {
         title: "Projects",
-        description:
-            "Catalog of projects",
-        "og:title": "Projects",
-        "og:image": "https://ia.media-imdb.com/images/rock.jpg",
+        description: "Catalog of projects", "og:title": "Projects",
     };
 };
 
 export function links() {
     return [
-        { rel: 'stylesheet', href: projectStyles }
+        { rel: "stylesheet", href: projectsStyle },
+        { rel: "stylesheet", href: buttonsStyle },
     ]
 }
 
@@ -28,27 +28,28 @@ const Projects = () => {
     const projects = useLoaderData();
     return (
         <>
-            <h1 className="">Projects</h1>
-            <br />
-            <section className="d-inline-block">
+            <main>
+                <h1>Projects</h1>
+            </main>
+            <section className="items-container">
                 {
                     projects.map((project: any, i: number) => {
                         return (
-                            <div key={project.name} className="card ms-2 cardStyle">
-                                <div className="imgContainer">
-                                    <img
-                                        src={project.image}
-                                        className="card-img-top"
-                                        alt={project.name} />
+                            <Card key={project.name}>
+                                <img
+                                    src={project.image}
+                                    alt={project.name} />
+                                <div>
+                                    <h1>{project.name}</h1>
+                                    <p>{project.description}</p>
                                 </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">{project.name}</h5>
-                                    <div className="innerBody">
-                                        <p className="card-text">{project.description}</p>
-                                    </div>
-                                    <a className='btn btn-outline-primary' href={project.link}>Checkout</a>
-                                </div>
-                            </div>
+                                {
+                                    project.link.includes('http' || 'https') ?
+                                        <a href={project.link} className="button success" target="_blank" rel='noreferrer' role="button">Checkout</a>
+                                        :
+                                        <Link to={project.link} className="button success">Checkout</Link>
+                                }
+                            </Card>
                         )
                     })
                 }

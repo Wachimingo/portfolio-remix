@@ -1,6 +1,6 @@
 // import { Form } from "remix";
 import { InfoTable } from "../billingComponents";
-import Modal from "../Modal";
+import { Modal } from "../Modal";
 
 const TransactionModal = (props: any) => {
     return (

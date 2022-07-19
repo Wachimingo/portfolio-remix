@@ -7,8 +7,9 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import type { MetaFunction } from "@remix-run/node";
-import appStyle from './styles/app.css';
-import { Partytown } from '@builder.io/partytown/react';
+import appStyle from '~/styles/app.css';
+import navBarStyle from '~/styles/navbar.css';
+import footerStyle from '~/styles/footer.css';
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -20,7 +21,8 @@ export const meta: MetaFunction = () => ({
 export function links() {
   return [
     { rel: "stylesheet", href: appStyle },
-    { rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" },
+    { rel: "stylesheet", href: navBarStyle },
+    { rel: "stylesheet", href: footerStyle },
   ]
 }
 
@@ -29,7 +31,6 @@ export default function App() {
     <html lang="en">
       <head>
         <Meta />
-        <Partytown debug={true} forward={['dataLayer.push']} />
         <Links />
       </head>
       <body>
@@ -37,32 +38,6 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-        <script
-          // type="text/partytown"
-          src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-          integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-          crossOrigin="anonymous"
-          async={true}></script>
-        <script
-          // type="text/partytown"
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-          integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-          crossOrigin="anonymous"
-          async={true}></script>
-        <script type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=G-8HZS5V5W5W`} />
-        <script
-          type="text/partytown"
-          dangerouslySetInnerHTML={{
-            __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-8HZS5V5W5W', {
-            page_path: window.location.pathname,
-            });
-        `
-          }}
-        />
       </body>
     </html >
   );

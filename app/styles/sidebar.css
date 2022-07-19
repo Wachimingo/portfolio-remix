@@ -1,189 +1,66 @@
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-    .sideBar {
-        z-index: 10;
-        border-radius: 4%;
-        border: solid 1px;
-        width: 35vw;
-        position: fixed;
-        top: 25vh;
-    }
-
-    .sideBarButton {
-        border: none;
-        background: none;
-        font-size: 3rem;
-    }
-
-    .open {
-        z-index: 11;
-        position: fixed;
-        top: 22vh;
-        left: 0vw;
-    }
-
-    .close {
-        z-index: 11;
-        position: fixed;
-        top: 22vh;
-        left: 30vw;
-    }
+.sidebar-wrapper {
+    background-color: white;
+    z-index: 1;
+    border-radius: 4%;
+    border: solid 1px;
+    width: 15vw;
+    position: fixed;
+    top: 10vh;
 }
 
-@media only screen and (min-width: 360px) {
-    .sideBar {
-        z-index: 10;
-        border-radius: 4%;
-        border: solid 1px;
-        width: 35vw;
-        position: fixed;
-        top: 25vh;
-    }
-
-    .sideBarButton {
-        border: none;
-        background: none;
-        font-size: 3rem;
-    }
-
-    .open {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 0vw;
-    }
-
-    .close {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 30vw;
-    }
+.sidebar-container>div {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-    .sideBar {
-        z-index: 10;
-        border-radius: 4%;
-        border: solid 1px;
-        width: 15vw;
-        position: fixed;
-        top: 10vh;
-    }
+/* .sidebar-container>div>a {
+    color: red;
+} */
 
-    .sideBarButton {
-        border: none;
-        background: none;
-        font-size: 2rem;
-    }
-
-    .open {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 0vw;
-    }
-
-    .close {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 14vw;
-    }
+.sidebar-button {
+    color: rgb(241, 241, 243);
+    border: 2px solid black;
+    border-radius: 100%;
+    background: none;
+    font-size: 2rem;
+    width: 25px;
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-    .sideBar {
-        z-index: 10;
-        border-radius: 4%;
-        border: solid 1px;
-        width: 15vw;
-        position: fixed;
-        top: 10vh;
-    }
-
-    .sideBarButton {
-        border: none;
-        background: none;
-        font-size: 2rem;
-    }
-
-    .open {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 0vw;
-    }
-
-    .close {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 14vw;
-    }
+.sidebar-button:hover {
+    color: rgb(66, 66, 245);
+    border: 2px solid black;
+    border-radius: 100%;
+    background: none;
+    font-size: 2rem;
+    width: 25px;
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-    .sideBar {
-        z-index: 10;
-        border-radius: 4%;
-        border: solid 1px;
-        width: 15vw;
-        position: fixed;
-        top: 10vh;
-    }
-
-    .sideBarButton {
-        border: none;
-        background: none;
-        font-size: 2rem;
-    }
-
-    .open {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 0vw;
-    }
-
-    .close {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 14vw;
-    }
+.sidebar-link {
+    display: block;
+    padding: 4px 8px;
+    box-sizing: border-box;
+    margin: auto 0;
+    font-weight: normal;
+    color: rgb(54, 53, 53);
+    text-decoration: none;
 }
 
-@media only screen and (min-width: 1200px) {
-    .sideBar {
-        z-index: 10;
-        border-radius: 4%;
-        border: solid 1px;
-        width: 15vw;
-        position: fixed;
-        top: 10vh;
-    }
+.sidebar-link:hover {
+    cursor: pointer;
+    font-weight: bold;
+    color: blue;
+}
 
-    .sideBarButton {
-        border: none;
-        background: none;
-        font-size: 2rem;
-    }
+.open {
+    z-index: 11;
+    position: fixed;
+    top: 7vh;
+    left: 0vw;
+}
 
-    .open {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 0vw;
-    }
-
-    .close {
-        z-index: 11;
-        position: fixed;
-        top: 7vh;
-        left: 14vw;
-    }
+.close {
+    z-index: 11;
+    position: fixed;
+    top: 7vh;
+    left: 14vw;
 }

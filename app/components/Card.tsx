@@ -1,79 +1,60 @@
 import { FaTrash, FaCog, FaAngleUp, FaRegFolderOpen, FaStar, FaAngleDown } from "react-icons/fa";
 import { Link, useFetcher } from "@remix-run/react";
 
-export const Card = (props: any) => {
+export const Card = ({ children, ...props }) => {
     return (
-        <>
-            {
-                props.dishes.map((dish: any) => {
-                    return (
-                        <div key={dish.name} className="card ms-2 cardStyle">
-                            {CatalogControls(dish, props.fetcher, props.setDishToModify)}
-                            <div className="imgContainer">
-                                <img
-                                    src={`https://images.weserv.nl/?url=${dish.image}&w=150&h=150`}
-                                    className="card-img-top"
-                                    alt={dish.name} />
-                            </div>
-                            <div className="card-body">
-                                <h5 className="card-title">{dish.name}</h5>
-                                <div className="innerBody">
-                                    <p className="card-text">{dish.description}</p>
-                                </div>
-                                <p className="card-text">${dish.price}</p>
-                            </div>
-                        </div>
-                    );
-                })
-            }
-        </>
+        <div className="card-wrapper" {...props}>
+            <div className="card-container">
+                {children}
+            </div>
+        </div>
     )
 }
 
-const CatalogRowButtons = (props: any) => {
+const CatalogRowButtons = ({ fetcher, method, title, style, icon, action, ...props }: any) => {
     return (
         <span
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            title={props.title}
-            className={`d-inline-block border ms-1 topButtons ${props.styleButton}`}
-            onClick={() => props.fetcher ? props.fetcher.submit({ ...props }, { method: props.method }) : props.action(props.item)}
+            title={title}
+            style={style}
+            onClick={() => fetcher ? fetcher.submit({ ...props }, { method }) : action(props.item)}
         >
-            {props.icon}
-        </span>
+            {icon}
+        </span >
     )
 }
 
 export const CatalogControls = (
     item: any,
     fetcher: any,
-    setDishToModify: Function
+    dishToModify: any,
+    setDishToModify: Function,
+    isOpen: boolean,
+    setIsOpen: Function,
 ) => {
     return (
-        <div className="mt-3 mb-3">
+        <div className='control'>
             <CatalogRowButtons
                 title="Delete"
                 icon={<FaTrash />}
-                styleButton='red'
                 fetcher={fetcher}
                 dishId={item.id}
                 method={'DELETE'}
             />
             <CatalogRowButtons
                 title="Modify"
-                icon={<FaCog data-bs-toggle="modal" data-bs-target="#CatalogModal" />}
+                icon={<FaCog onClick={() => setIsOpen(isOpen => !isOpen)} />}
                 action={() => {
-                    setDishToModify(item)
+                    setDishToModify(dishToModify => item)
                 }}
                 item={item}
             />
             <CatalogRowButtons
                 title={item?.forToday ? "Desactivar" : "Activar"}
                 icon={item?.forToday ? <FaAngleDown /> : <FaAngleUp />}
-                styleButton={item?.forToday ? "red" : "green"}
+                style={{ color: item?.forToday ? 'green' : 'red' }}
                 fetcher={fetcher}
                 dishId={item.id}
-                state={!item.forToday}
+                forToday={!item.forToday}
                 method={'PATCH'}
                 type={'forToday'}
             />
@@ -161,70 +142,4 @@ const CardControls = (id: string, status: string) => {
         "default": () => undefined
     }
     return renderButtons[status ?? 'default'](id);
-}
-
-export const SkillCard = ({ item, index }: any) => {
-    return (
-        <div
-            className="card ms-3 mb-3 d-inline-block skills"
-            key={index}
-        >
-            <div className="row g-0">
-                <div className="col-md-4">
-                    <img
-                        src={
-                            item.icon
-                                ? `https://images.weserv.nl/?url=${item.icon}&w=250&h=250`
-                                : 'https://images.weserv.nl/?url=https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png&w=250&h=250'
-                        }
-                        className="img-fluid rounded-start"
-                        alt={item.name}
-                    // loading="lazy"
-                    />
-                </div>
-                <div className="col-md-8">
-                    <div className="card-body">
-                        <h5 className="card-title">{item.name ?? <div className="">_________</div>}</h5>
-                        <div className="progress">
-                            {/* @ts-ignore */}
-                            <div className="progress-bar progress-bar-striped" role="progressbar" style={{ width: `${item.level}%` }} aria-valuenow={item.level} aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <p className="card-text">{item.description}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-export const CertCard = ({ item, index }: any) => {
-    return (
-        <Link to={item.link ?? ''} key={index}>
-            <div
-                className="card ms-3 mb-3 d-inline-block skills"
-                key={index}
-            >
-                <div className="row g-0">
-                    <div className="col-md-4">
-                        <img
-                            src={
-                                item.icon
-                                    ? `https://images.weserv.nl/?url=${item.icon}&w=250&h=250`
-                                    : 'https://images.weserv.nl/?url=https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png&w=250&h=250'
-                            }
-                            className="img-fluid rounded-start"
-                            alt={item.name}
-                        // loading="lazy"
-                        />
-                    </div>
-                    <div className="col-md-8">
-                        <div className="card-body">
-                            <h5 className="card-title">{item.name ?? <div className="">_________</div>}</h5>
-                            <p className="card-text">{item.description}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Link>
-    );
 }

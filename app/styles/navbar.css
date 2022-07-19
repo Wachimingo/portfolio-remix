@@ -1,0 +1,160 @@
+.header-wrapper {
+  min-height: 50px;
+  z-index: 1;
+  height: 60px;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  display: block;
+  padding: 0 16px;
+  top: 0;
+  background-color: black;
+  border-bottom: gray;
+}
+
+.menu {
+  z-index: 1;
+  height: 60px;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  display: block;
+  left: 0;
+  top: 0;
+  margin: auto 0 auto auto;
+  justify-content: space-between;
+  flex-flow: column-reverse;
+  padding: 0 16px;
+  top: 0;
+  background-color: black;
+  border-bottom: #212224;
+}
+
+.menu>.menu-child-div {
+  background-color: black;
+  width: 100vw;
+  margin-left: -5vw;
+  height: auto;
+  position: relative;
+}
+
+.link {
+  display: block;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  margin: auto 0;
+  font-weight: normal;
+  color: white;
+  text-decoration: none;
+}
+
+.link:hover {
+  cursor: pointer;
+  font-weight: bold;
+  color: blue;
+}
+
+.hamburger-menu {
+  margin: auto 0 auto auto;
+  width: 25px;
+  min-width: 35px;
+  padding: 5px;
+  position: absolute;
+  display: block;
+  z-index: 10;
+  top: 1vh;
+  right: 2vw;
+}
+
+.hamburger-menu>.ham-divs {
+  height: 3px;
+  background-color: white;
+  border: 1px solid black;
+  margin: 5px 0;
+  width: 100%;
+}
+
+.hamburger-menu>div:hover {
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 758px) {
+  .header-wrapper {
+    min-height: 50px;
+    z-index: 1;
+    height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    display: block;
+    padding: 0 16px;
+    top: 0;
+    background-color: black;
+    border-bottom: gray;
+  }
+
+  .menu {
+    z-index: 1;
+    height: 60px;
+    width: 100%;
+    box-sizing: border-box;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    padding: 0 16px;
+    top: 0;
+    background-color: #212224;
+    border-bottom: gray;
+  }
+
+  .menu>.menu-child-div {
+    background-color: transparent;
+    width: auto;
+    height: inherit;
+    position: relative;
+    top: 2vh;
+    margin-left: 0;
+  }
+
+  .link {
+    padding: 4px 8px;
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box;
+    margin: auto 0;
+    font-weight: normal;
+    color: white;
+    text-decoration: none;
+  }
+
+  .link:hover {
+    cursor: pointer;
+    font-weight: bold;
+    color: blue;
+  }
+
+  .hamburger-menu {
+    margin: auto 0 auto auto;
+    width: 25px;
+    min-width: 35px;
+    padding: 5px;
+    position: absolute;
+    display: none;
+    z-index: 10;
+    top: 1vh;
+    right: 2vw;
+  }
+
+  .hamburger-menu>.ham-divs {
+    height: 3px;
+    background-color: white;
+    border: 1px solid black;
+    margin: 5px 0;
+    width: 100%;
+  }
+
+  .hamburger-menu>div:hover {
+    cursor: pointer;
+  }
+}

@@ -48,41 +48,45 @@ export const actions: any = {
             requestErrorHandler(error);
         }
     },
-    "PATCH": {
-        "forToday": async (body: any) => {
-            try {
-                await dbConnect();
-                const res = await Dishes.findByIdAndUpdate({ _id: body.dishId[0] }, { forToday: body.state[0] })
-                if (!res) throw 'No ID provided';
-                return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
-            } catch (error) {
-                requestErrorHandler(error);
-            }
-        },
-        "update": async (body: any) => {
-            try {
-                await dbConnect();
-                if (body.price[0]) {
-                    await stripe.prices.update(
-                        body.externalId,
-                        { unit_amount: body.price[0] }
-                    );
-                }
-                const res = await Dishes.findByIdAndUpdate({ _id: body.dishId[0] },
-                    {
-                        name: body.name[0],
-                        description: body.description[0],
-                        price: body.price[0],
-                        image: body.image[0]
-                    }
-                )
-                if (!res) throw 'No ID provided';
-                return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
-            } catch (error) {
-                requestErrorHandler(error);
-            }
-        },
+    "PATCH": async ({ dishId, type, ...props }) => {
+        try {
+            // if (props.price && type === 'update') {
+            //     await stripe.prices.update(
+            //         props.externalId,
+            //         { unit_amount: props.price }
+            //     );
+            // }
+            await dbConnect();
+            const res = await Dishes.findByIdAndUpdate({ _id: dishId }, props)
+            if (!res) throw 'No ID provided';
+            return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
+        } catch (error) {
+            requestErrorHandler(error);
+        }
     },
+    // "update": async (body: any) => {
+    //     try {
+    //         await dbConnect();
+    //         if (body.price[0]) {
+    //             await stripe.prices.update(
+    //                 body.externalId,
+    //                 { unit_amount: body.price[0] }
+    //             );
+    //         }
+    //         const res = await Dishes.findByIdAndUpdate({ _id: body.dishId[0] },
+    //             {
+    //                 name: body.name[0],
+    //                 description: body.description[0],
+    //                 price: body.price[0],
+    //                 image: body.image[0]
+    //             }
+    //         )
+    //         if (!res) throw 'No ID provided';
+    //         return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
+    //     } catch (error) {
+    //         requestErrorHandler(error);
+    //     }
+    // },
     "DELETE": async (body: any) => {
         try {
             await dbConnect();

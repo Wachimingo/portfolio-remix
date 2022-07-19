@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import { json } from "@remix-run/node";
-import { useSubmit, useActionData, useLoaderData } from "@remix-run/react";
-import { Card } from "~/components/billingComponents";
+// import { toast } from "react-toastify";
+// import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
+// import { ToastContainer } from "react-toastify";
+import {
+    // useSubmit, 
+    useActionData, useLoaderData
+} from "@remix-run/react";
 import { getForToday } from "~/controllers/dishes";
 import transactionStyles from "~/styles/transaction.css";
-// const TransactionModal = lazy(() => import("~/components/modals/TransactionModal"));
+import formStyles from "~/styles/form.css";
+import { Card } from "~/components";
+// import TransacionModal from "~/components/modals/TransacionModal";
+import { FaCartPlus, FaTrash } from "react-icons/fa";
+import { increaseCount, decreaseCount } from "~/controllers/billing";
 
 export const meta = () => {
     return {
@@ -16,7 +25,9 @@ export const meta = () => {
 
 export const links = () => {
     return [
-        { rel: 'stylesheet', href: transactionStyles }
+        { rel: 'stylesheet', href: transactionStyles },
+        { rel: 'stylesheet', href: formStyles },
+        // { rel: "stylesheet", href: toastStyle }
     ]
 }
 
@@ -57,11 +68,24 @@ export function ErrorBoundary({ error }: any) {
 const Transaction = () => {
     const dishes = useLoaderData();
     const results = useActionData();
-    const submit = useSubmit();
+    // const submit = useSubmit();
     const [dishCounters, setDishCounters] = useState(() => dishes.map((dish: any) => 0));
     const [selectedDishes, setSelectedDishes] = useState<any>([]);
     const [totalDishes, setTotalDishes] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
+
+    // const itemsProps = {
+    //     dishes,
+    //     dishCounters,
+    //     setDishCounters,
+    //     selectedDishes,
+    //     setSelectedDishes,
+    //     totalDishes,
+    //     setTotalDishes,
+    //     totalPrice,
+    //     setTotalPrice
+    // }
+
     useEffect(() => {
         if (results) {
             window.open(results.session.url, '_blank');
@@ -70,21 +94,68 @@ const Transaction = () => {
 
     return (
         <>
-            <h3>Billing</h3>
-            <section id="cardsSection" className="d-inline-block">
-                <Card
-                    dishes={dishes ?? []}
-                    dishCounters={dishCounters}
-                    setDishCounters={setDishCounters}
-                    selectedDishes={selectedDishes}
-                    setSelectedDishes={setSelectedDishes}
-                    totalDishes={totalDishes}
-                    setTotalDishes={setTotalDishes}
-                    totalPrice={totalPrice}
-                    setTotalPrice={setTotalPrice}
-                />
+            <main>
+                <h3>Billing</h3>
+            </main>
+            <section id="cardsSection" className="items-container">
+                {
+                    dishes.map((dish, i) => {
+                        return <Card key={dish.name}>
+                            <img
+                                src={`https://images.weserv.nl/?url=${dish.image}&w=150&h=150`}
+                                alt={dish.name}
+                            />
+                            <div className="content">
+                                <h1>{dish.name}</h1>
+                                <p>{dish.description}</p>
+                                <p>${dish.price}</p>
+                                <h4>Amount: {dishCounters[i]}</h4>
+                            </div>
+                            <div className="control">
+                                <button
+                                    type="button"
+                                    className="increase-amount-button"
+                                    onClick={() => increaseCount(
+                                        i,
+                                        JSON.parse(JSON.stringify(dish)),
+                                        dishCounters[i],
+                                        dishCounters,
+                                        setDishCounters,
+                                        totalDishes,
+                                        setTotalDishes,
+                                        selectedDishes,
+                                        setSelectedDishes,
+                                        totalPrice,
+                                        setTotalPrice
+                                    )}
+                                >
+                                    <FaCartPlus />
+                                </button>
+                                <button
+                                    type="button"
+                                    className="decrease-amount-button"
+                                    onClick={() => decreaseCount(
+                                        i,
+                                        JSON.parse(JSON.stringify(dish)),
+                                        dishCounters[i],
+                                        dishCounters,
+                                        setDishCounters,
+                                        totalDishes,
+                                        setTotalDishes,
+                                        selectedDishes,
+                                        setSelectedDishes,
+                                        totalPrice,
+                                        setTotalPrice
+                                    )}
+                                >
+                                    <FaTrash />
+                                </button>
+                            </div>
+                        </Card>
+                    })
+                }
             </section>
-            <button
+            {/* <button
                 className="btn btn-info my-4 mx-2"
                 onClick={() => {
                     const formData = new FormData();
@@ -110,7 +181,7 @@ const Transaction = () => {
             <section>
                 <p>This is a test enviroment, you can test the payments using any of the test cards from the link below</p>
                 <a href="https://stripe.com/docs/testing#cards">Stripe Test Cards</a>
-            </section>
+            </section> */}
         </>
     )
 }

@@ -1,0 +1,81 @@
+button {
+    padding: 15px 32px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button {
+    padding: 15px 32px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.success {
+    background-color: white;
+    color: black;
+    border: 2px solid var(--success);
+}
+
+.success:hover {
+    background-color: var(--success);
+    color: black;
+    border: 2px solid var(--success);
+}
+
+.info {
+    background-color: white;
+    color: black;
+    border: 2px solid var(--info);
+}
+
+.info:hover {
+    background-color: var(--info);
+    color: black;
+    border: 2px solid var(--info);
+}
+
+.error {
+    background-color: white;
+    color: black;
+    border: 2px solid var(--error);
+}
+
+.error:hover {
+    background-color: var(--error);
+    color: black;
+    border: 2px solid var(--error);
+}
+
+.disabled {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
+.disabled:hover {
+    background-color: #e7e7e7;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
+.dark {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+}
+
+.dark:hover {
+    background-color: #555555;
+    color: black;
+    border: 2px solid #555555;
+}
