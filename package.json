@@ -4,15 +4,11 @@
   "description": "",
   "license": "",
   "sideEffects": false,
-  "engines": {
-    "node": ">=14"
-  },
   "scripts": {
     "build": "remix build",
     "dev": "remix dev"
   },
   "dependencies": {
-    "@builder.io/partytown": "^0.6.2",
     "@remix-run/node": "^1.6.3",
     "@remix-run/react": "^1.6.3",
     "@remix-run/vercel": "^1.6.3",
