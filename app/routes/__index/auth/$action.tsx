@@ -7,6 +7,7 @@ import { useActionData, useLoaderData } from '@remix-run/react';
 import { authForm } from "~/components/authComponents";
 import { actions } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
+import formStyles from "~/styles/form.css";
 //@ts-ignore
 import Cookies from 'js-cookie';
 
@@ -21,6 +22,7 @@ export const meta = () => {
 export function links() {
     return [
         { rel: "stylesheet", href: authStyles },
+        { rel: "stylesheet", href: formStyles },
         { rel: "stylesheet", href: toastStyle }
     ]
 }
@@ -29,21 +31,29 @@ export const loader = async ({ params }: any) => {
     return json(params)
 }
 
-export const action = async ({ request, params }: any) => {
+export const action = async ({ request, params }) => {
+    /* Taking the form data from the request and putting it into an object. */
     const body = await request.formData();
+    const data: any = {
+        params
+    };
+
+    for (const pair of body.entries()) {
+        data[pair[0]] = pair[1]
+    }
     // If there is a nested action inside a HTTP method, then the object will have a type property
-    if (params) {
-        const handler = actions[request.method][params.action];
-        if (!handler) return json({ status: "error", message: "No method or action found" });
-        //first property or [] is the HTTP method (POST,PUT,DELETE), the second property or [] is for the nested action
-        return await actions[request.method][params.action]({ ...body._fields });
-    }
-    else {
-        const handler = actions[request.method];
-        if (!handler) return json({ status: "error", message: "No method or action found" }, { status: 404 });
-        //Properties for the object are HTTP methods (POST,PUT,DELETE)
-        return await actions[request.method]({ ...body._fields });
-    }
+    // if (params) {
+    //     const handler = actions[request.method][params.action];
+    //     if (!handler) return json({ status: "error", message: "No method or action found" });
+    //     //first property or [] is the HTTP method (POST,PUT,DELETE), the second property or [] is for the nested action
+    //     return await actions[request.method][params.action]({ ...body._fields });
+    // }
+    // else {
+    const handler = actions[request.method];
+    if (!handler) return json({ status: "error", message: "No method or action found" }, { status: 404 });
+    //Properties for the object are HTTP methods (POST,PUT,DELETE)
+    return await actions[request.method](data);
+    // }
     // return json({})
 }
 
@@ -83,18 +93,14 @@ const Auth = () => {
     }, [result, data.action])
 
     return (
-        <section className="container mb-4 mt-4">
-            <div className="row d-flex justify-content-center align-items-center">
-                <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div className="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
-                        <div className="card-body p-5 text-center">
-                            {authForm(data.action)}
-                        </div>
-                    </div>
-                </div>
+        <>
+            <main>
+            </main>
+            <div className="items-container">
+                {authForm(data.action)}
             </div>
             <ToastContainer />
-        </section>
+        </>
     )
 }
 

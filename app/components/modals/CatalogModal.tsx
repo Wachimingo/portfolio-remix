@@ -5,7 +5,7 @@ const CatalogModal = (props: any) => {
     return (
         <Modal isOpen={props.isModalOpen} closeModal={props.setIsModalOpen} wrapperId='catalog-modal'>
             <h1>{props.dishToModify ? 'Modify dish' : 'Add dish'}</h1>
-            <Form method={props.dishToModify ? 'patch' : 'post'} action="/projects/restaurant/catalog">
+            <Form method={props.dishToModify ? 'patch' : 'post'} action="/projects/restaurant/catalog" className="gray">
                 <section>
                     <div>
                         <label htmlFor="dishName" className="form-label">Dish Name</label>

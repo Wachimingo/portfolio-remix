@@ -8,3 +8,255 @@ body {
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
 }
+
+main {
+    padding: 0;
+    margin: 0;
+    text-align: justify;
+    align-items: center;
+}
+
+.items-container {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    top: 10vh;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    flex-direction: row wrap;
+    justify-content: space-around;
+    margin-bottom: 15vh;
+}
+
+.card-wrapper {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    height: fit-content;
+    padding: 4vh 0;
+    margin-bottom: 4vh;
+    width: 85vw;
+}
+
+.card-wrapper:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: justify;
+    align-items: center;
+}
+
+.card-container>img {
+    width: 100%;
+    min-height: 38vh;
+    display: inline-block;
+    position: relative;
+    left: 0;
+}
+
+.card-container>h1 {
+    font-size: 1.5rem;
+    margin-top: 5vh;
+    margin-bottom: 2vh;
+}
+
+.card-container>div {
+    width: auto;
+    height: auto;
+    position: relative;
+    left: 2%;
+}
+
+.card-container>div>p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.card-container>div>h1 {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.control {
+    display: flex;
+    width: 100%;
+    flex-direction: row wrap;
+    justify-content: space-between;
+}
+
+.control>span {
+    display: block;
+    /* border: 1px solid black; */
+    margin: 0 3vw;
+}
+
+.control>span>a>svg {
+    height: 42px;
+    width: 42px;
+}
+
+.control>span>svg {
+    height: 42px;
+    width: 42px;
+}
+
+.control>span>a>svg:hover {
+    color: var(--info);
+    cursor: pointer;
+}
+
+.control>span>svg:hover {
+    color: var(--info);
+    cursor: pointer;
+}
+
+.bubble-btn {
+    position: sticky;
+    z-index: 1;
+    bottom: 10vh;
+    left: 90%;
+    width: 60px;
+    min-height: 60px;
+    border-radius: 100%;
+}
+
+.bubble-btn:hover {
+    cursor: pointer;
+    background-color: var(--info);
+}
+
+@media only screen and (min-width: 758px) {
+    main {
+        position: relative;
+        /* display: flex; */
+        top: 9vh;
+        padding: 0;
+        margin: 0;
+        text-align: justify;
+        align-items: center;
+    }
+
+    .items-container {
+        position: relative;
+        width: 100%;
+        height: fit-content;
+        top: 10vh;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        flex-direction: row wrap;
+        justify-content: space-around;
+        margin-bottom: 15vh;
+    }
+
+    .card-wrapper {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        height: fit-content;
+        padding: 2vh 0;
+        width: 30vw;
+    }
+
+    .card-wrapper:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .card-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: justify;
+        align-items: center;
+    }
+
+    .card-container>img {
+        width: 100%;
+        display: inline-block;
+        position: relative;
+        left: 0;
+    }
+
+    .card-container>h1 {
+        font-size: 1.5rem;
+        margin-top: 5vh;
+        margin-bottom: 2vh;
+    }
+
+    .card-container>div {
+        width: auto;
+        height: auto;
+        position: relative;
+        left: 2%;
+    }
+
+    .card-container>div>p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* number of lines to show */
+        -webkit-box-orient: vertical;
+    }
+
+    .card-container>div>h1 {
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+    .control {
+        display: flex;
+        width: 100%;
+        flex-direction: row wrap;
+        justify-content: space-between;
+    }
+
+    .control>span {
+        display: block;
+        /* border: 1px solid black; */
+        margin: 0 1vw;
+        padding: 1vh 1vw;
+    }
+
+    .control>span>a>svg {
+        height: 1.5em;
+        width: 1.5em;
+    }
+
+    .control>span>svg {
+        height: 1.5em;
+        width: 1.5em;
+    }
+
+    .control>span>a>svg:hover {
+        color: var(--info);
+        cursor: pointer;
+    }
+
+    .control>span>svg:hover {
+        color: var(--info);
+        cursor: pointer;
+    }
+
+    .bubble-btn {
+        position: sticky;
+        z-index: 1;
+        bottom: 10vh;
+        left: 90%;
+        width: 60px;
+        min-height: 60px;
+        border-radius: 100%;
+    }
+
+    .bubble-btn:hover {
+        cursor: pointer;
+        background-color: var(--info);
+    }
+}

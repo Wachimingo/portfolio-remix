@@ -3,109 +3,101 @@ import { Form, Link } from "@remix-run/react";
 const renderForm: any = {
     "signin": (action: string) => {
         return (
-            <Form method="post" action='/auth/signin' className="mb-md-5 pb-5">
-                <h2 className="fw-bold mb-2 text-uppercase">{action}</h2>
-                <p className="text-white-50">Please enter your login and password!</p>
-                <div className="form-outline form-white">
+            <Form method="post" action='/auth/signin' className="dark form-width-90vw">
+                <h1>{action}</h1>
+                <p >Please enter your login and password!</p>
+                <div>
                     <input
                         type="email"
                         name='email'
-                        id="typeEmailX"
-                        className="form-control form-control-lg"
+                        id="email"
                         required={true}
                     // value='joshuaguillen.adoc@live.com'
                     />
-                    <label className="form-label" htmlFor="typeEmailX">Email</label>
+                    <label htmlFor="email">Email</label>
                 </div>
-                <div className="form-outline form-white">
+                <div>
                     <input
                         type="password"
                         name="password"
-                        id="typePasswordX"
-                        className="form-control form-control-lg"
+                        id="password"
                         required={true}
                     // value='123456'
                     />
-                    <label className="form-label" htmlFor="typePasswordX">Password</label>
-                </div>
-                <div className="d-flex justify-content-center text-center pt-1">
-
+                    <label htmlFor="password">Password</label>
                 </div>
                 <div>
-                    <p className="mb-0">Don't have an account? <Link to="/auth/signup" className="text-white-50 fw-bold">Sign Up</Link>
-                    </p>
+                    <p>Don't have an account? <Link to="/auth/signup">Sign Up</Link></p>
                 </div>
-                {/* <p className="small mb-5 pb-lg-2"><a className="text-white-50" href="#!">Forgot password?</a></p> */}
-                <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                <div>
+                    <input type="submit" value='Login' />
+                </div>
             </Form>
         )
     },
     "signup": (action: string) => {
         return (
-            <Form method="post" action='/auth/signup' className="md-5">
-                <h2 className="fw-bold mb-2 text-uppercase">{action}</h2>
-                <p className="text-white-50">Please enter your login and password!</p>
-                <div className="form-outline form-white">
-                    <label className="form-label" htmlFor="typeEmailX">Name</label>
+            <Form method="post" action='/auth/signup' className="dark form-width-90vw">
+                <h2>{action}</h2>
+                <p>Please enter your login and password!</p>
+                <div>
+                    <label htmlFor="name">Name</label>
                     <input
                         type="text"
                         name='name'
                         id="name"
-                        className="form-control form-control-lg"
                         required={true}
                     // value='test'
                     />
                 </div>
-                <div className="form-outline form-white">
-                    <label className="form-label" htmlFor="typeEmailX">Email</label>
+                <div>
+                    <label htmlFor="email">Email</label>
                     <input
                         type="email"
                         name='email'
-                        id="typeEmailX"
-                        className="form-control form-control-lg"
+                        id="email"
                         required={true}
                     // value='alexanderguillen.adoc@gmail.com'
                     />
                 </div>
-                <div className="form-outline form-white">
-                    <label className="form-label" htmlFor="typePasswordX">Password</label>
+                <div>
+                    <label htmlFor="password">Password</label>
                     <input
                         type="password"
                         name="password"
-                        id="typePasswordX"
-                        className="form-control form-control-lg"
+                        id="password"
                         required={true}
                     // value='123456'
                     />
                 </div>
-                <div className="form-outline form-white mb-4">
-                    <label className="form-label" htmlFor="typeConfrimPasswordX">Confirm Password</label>
+                <div>
+                    <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
                         type="password"
                         name="confirmPassword"
-                        id="typeConfrimPasswordX"
-                        className="form-control form-control-lg"
+                        id="confirmPassword"
                         required={true}
                     // value='123456'
                     />
                 </div>
-                <div className="d-flex justify-content-center text-center pt-1">
-
+                <div>
+                    <input type="submit" value='Sign Up' />
                 </div>
-                <button className="btn btn-outline-light btn-lg px-5" type="submit">Sign Up</button>
             </Form>
         )
     },
     "confirmationEmailSent": (action: string) => {
         return (
-            <div className="md-5">
-                <>Confirmation email sent.</>
+            <div>
+                <h1>Confirmation email sent.</h1>
             </div>
         )
     },
     "signout": () => {
         return (
-            <>You've been logged off.</>
+            <div>
+                <h1>You've been logged off.</h1>
+            </div>
         )
     }
 }

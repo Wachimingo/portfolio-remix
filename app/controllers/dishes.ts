@@ -3,10 +3,6 @@ import Dishes from '../models/dishes';
 import dbConnect from '../utils/dbConnection';
 import { requestErrorHandler } from './errors';
 
-// Set your secret key. Remember to switch to your live secret key in production.
-// See your keys here: https://dashboard.stripe.com/apikeys
-const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
-
 export const getForToday = async (props: any) => {
     await dbConnect();
     return await Dishes.find({ forToday: true }).limit(props.limit)
@@ -27,21 +23,15 @@ export const actions: any = {
             requestErrorHandler(error);
         }
     },
-    "POST": async (body: any) => {
+    "POST": async (data: any) => {
         try {
-            const [, product] = await Promise.all([dbConnect(), stripe.products.create({ name: body.name[0] })])
-            const price = await stripe.prices.create({
-                product: product.id,
-                unit_amount: body.price[0],
-                currency: 'usd',
-            });
-            const newDish = new Dishes({
-                name: body.name[0],
-                description: body.description[0],
-                price: body.price[0],
-                image: body.image[0],
-                externalId: price.id
-            });
+            await dbConnect();
+            // const price = await stripe.prices.create({
+            //     product: product.id,
+            //     unit_amount: body.price[0],
+            //     currency: 'usd',
+            // });
+            const newDish = new Dishes(data);
             await newDish.save();
             return json({ status: 'success', message: 'Posted succesfuly', newDish }, { status: 201 });
         } catch (error) {
@@ -64,33 +54,10 @@ export const actions: any = {
             requestErrorHandler(error);
         }
     },
-    // "update": async (body: any) => {
-    //     try {
-    //         await dbConnect();
-    //         if (body.price[0]) {
-    //             await stripe.prices.update(
-    //                 body.externalId,
-    //                 { unit_amount: body.price[0] }
-    //             );
-    //         }
-    //         const res = await Dishes.findByIdAndUpdate({ _id: body.dishId[0] },
-    //             {
-    //                 name: body.name[0],
-    //                 description: body.description[0],
-    //                 price: body.price[0],
-    //                 image: body.image[0]
-    //             }
-    //         )
-    //         if (!res) throw 'No ID provided';
-    //         return json({ status: 'success', message: 'Updated succesfuly' }, { status: 201 });
-    //     } catch (error) {
-    //         requestErrorHandler(error);
-    //     }
-    // },
-    "DELETE": async (body: any) => {
+    "DELETE": async ({ dishId }: any) => {
         try {
             await dbConnect();
-            const res = await Dishes.findByIdAndDelete({ _id: body.dishId[0] })
+            const res = await Dishes.findByIdAndDelete({ _id: dishId })
             if (!res) throw 'No ID provided';
             return json({ status: 'success', message: 'Deleted succesfuly' }, { status: 201 });
         } catch (error) {

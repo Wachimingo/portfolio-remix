@@ -25,48 +25,47 @@ export const activateUser = async (email: string) => {
 }
 
 export const actions: any = {
-    "POST": {
-        "signin": async (body: any) => {
-            try {
-                await dbConnect();
-                const jwt = require('jsonwebtoken');
-                const user = await User.findOne({ email: body.email[0] }).select('+password');
+    "POST": async ({ params, ...props }) => {
+        try {
+            await dbConnect();
+            const jwt = require('jsonwebtoken');
+            if (params.action === 'signin') {
+                const user = await User.findOne({ email: props.email }).select('+password');
+                console.log("TCL: user", user)
 
-                if (!user || user.password === undefined || !(await user.correctPassword(body.password[0], user.password))) {
-                    return json({ status: 'error', message: 'Not found' }, { status: 404 });
+                if (!user || user.password === undefined || !(await user.correctPassword(props.password, user.password))) {
+                    return json({ status: 'error', message: 'User doesn\'t exists' }, { status: 404 });
                 }
                 //remove password from output
                 user.password = undefined;
                 const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN,
                 });
+                console.log('got here')
                 return json({ status: 'success', user, token }, { status: 200 });
-            } catch (error) {
-                requestErrorHandler(error);
             }
-        },
-        "signup": async (body: any) => {
-            try {
-                if (body.password[0] !== body.confirmPassword[0]) throw "Passwords don't match";
+            if (params.action === 'signup') {
+                if (props.password !== props.confirmPassword) throw "Passwords don't match";
                 const [, stripeUser, pass] = await Promise.all([dbConnect(), stripe.customers.create({
-                    name: body.name[0],
-                    email: body.email[0],
+                    name: props.name,
+                    email: props.email,
                     description: 'Test Customer',
-                }), bcrypt.hash(body.password[0], 2)])
+                }), bcrypt.hash(props.password, 2)])
                 const newUser = new User({
-                    name: body.name[0],
-                    email: body.email[0],
+                    name: props.name,
+                    email: props.email,
                     password: pass,
                     role: 'user',
                     isActive: false,
                     externalId: stripeUser.id
                 })
                 await newUser.save();
-                mail(body.email[0]).catch(console.error);
+                mail(props.email).catch(console.error);
                 return json({ status: 'success', message: 'Success', user: {} }, { status: 201 });
-            } catch (error) {
-                requestErrorHandler(error);
             }
-        },
-    },
+            return json({});
+        } catch (error) {
+            requestErrorHandler(error);
+        }
+    }
 }

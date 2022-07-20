@@ -2,6 +2,7 @@
   --success: rgb(47, 209, 42);
   --error: rgb(255, 73, 73);
   --info: rgb(81, 135, 253);
+  --font-color: black;
 }
 
 html,
