@@ -103,6 +103,30 @@
         margin-bottom: 2vh;
     }
 
+    .card-modify-btn {
+        z-index: 1;
+        position: relative;
+        top: -9vh;
+        margin: 0 0.2vw;
+        font-size: 1.2em;
+    }
+
+    .card-modify-btn:hover {
+        color: gray;
+    }
+
+    .card-remove-btn {
+        z-index: 1;
+        position: relative;
+        top: -9vh;
+        margin: 0 0.2vw;
+        font-size: 1.2em;
+    }
+
+    .card-remove-btn:hover {
+        color: red;
+    }
+
     progress {
         width: 100%;
     }

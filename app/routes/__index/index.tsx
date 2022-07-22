@@ -52,6 +52,7 @@ export default function Index() {
           className="profile-pic"
           src="https://media-exp2.licdn.com/dms/image/C5603AQES3-9HfjZVfw/profile-displayphoto-shrink_800_800/0/1657112157152?e=1663200000&v=beta&t=yIGWZeFSz7QTg_7N3SJ6xG-Se1GB_6y16UkouWvONTw"
           alt="profile"
+          loading="lazy"
         />
       </div>
       <div className="items-container">

@@ -1,7 +1,7 @@
 {
   "name": "portfolio-remix",
   "private": true,
-  "description": "",
+  "description": "This is my personal portafolio built with remix.run to showcase different projects and skills",
   "license": "",
   "sideEffects": false,
   "scripts": {
@@ -17,9 +17,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.7",
     "nodemailer": "^6.7.3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-icons": "^4.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
     "react-toastify": "^8.2.0",
     "stripe": "^9.11.0",
     "validator": "^13.7.0"

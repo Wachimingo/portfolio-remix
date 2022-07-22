@@ -1,6 +1,5 @@
 import { Outlet } from "@remix-run/react";
 import { SideBar } from "~/components/sideBar";
-
 import sidebarStyles from "~/styles/sidebar.css";
 
 export function links() {

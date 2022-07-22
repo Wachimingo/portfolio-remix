@@ -93,7 +93,7 @@ const renderForm: any = {
             </div>
         )
     },
-    "signout": () => {
+    "logout": () => {
         return (
             <div>
                 <h1>You've been logged off.</h1>

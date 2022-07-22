@@ -64,6 +64,10 @@ a {
   cursor: pointer;
 }
 
+.none {
+  display: none;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 12px;

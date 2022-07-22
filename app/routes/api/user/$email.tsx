@@ -41,27 +41,19 @@ const EmailConfirmation = () => {
         }
     })
     return (
-        <section className="container mb-4 mt-4">
-            <div className="row d-flex justify-content-center align-items-center">
-                <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div className="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
-                        <div className="card-body p-5 text-center">
-                            {
-                                result.error
-                                    ? <>
-                                        <p>{result.error}</p>
-                                        <Link to="/">Go to Home</Link>
-                                    </>
-                                    : <>
-                                        <p>Thanks for confirming your account.</p>
-                                        <p>You can close this page.</p>
-                                        <Link to="/">Go to Home</Link>
-                                    </>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section>
+            {
+                result.error
+                    ? <>
+                        <p>{result.error}</p>
+                        <Link to="/">Go to Home</Link>
+                    </>
+                    : <>
+                        <p>Thanks for confirming your account.</p>
+                        <p>You can close this page.</p>
+                        <Link to="/">Go to Home</Link>
+                    </>
+            }
         </section>
     )
 }

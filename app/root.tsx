@@ -4,6 +4,7 @@ import {
   Meta,
   Outlet,
   Scripts,
+  useMatches,
   ScrollRestoration,
 } from "@remix-run/react";
 import type { MetaFunction } from "@remix-run/node";
@@ -27,6 +28,12 @@ export function links() {
 }
 
 export default function App() {
+  const matches = useMatches();
+
+  const includesScripts = matches.some(
+    (match) => match.handle?.hydrate
+  )
+
   return (
     <html lang="en">
       <head>
@@ -35,9 +42,10 @@ export default function App() {
       </head>
       <body>
         <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        {includesScripts ? <Scripts /> : null}
+        {process.env.NODE_ENV === "development" ? <ScrollRestoration /> : undefined}
+        {/* <Scripts /> */}
+        {process.env.NODE_ENV === "development" ? <LiveReload /> : undefined}
       </body>
     </html >
   );

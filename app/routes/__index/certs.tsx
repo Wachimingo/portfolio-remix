@@ -34,8 +34,8 @@ export default function Index() {
     return (
         <>
             <main>
-                <div className=''>
-                    <h1 className="">Certifications</h1>
+                <div>
+                    <h1>Certifications</h1>
                     <p>Keeping up with the ever changing technologies and knowledge.</p>
                 </div>
                 <div className="items-container2">

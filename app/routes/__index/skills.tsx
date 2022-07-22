@@ -34,8 +34,8 @@ export default function Index() {
     return (
         <>
             <main>
-                <div className=''>
-                    <h1 className="">Skillset</h1>
+                <div>
+                    <h1>Skillset</h1>
                     <p>This is a evergrowing collection of current skillsets I handle.</p>
                 </div>
                 <div className="items-container2">

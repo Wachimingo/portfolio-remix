@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer } from "react-toastify";
 import { json } from "@remix-run/node";
@@ -8,8 +7,8 @@ import { authForm } from "~/components/authComponents";
 import { actions } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
 import formStyles from "~/styles/form.css";
-//@ts-ignore
-import Cookies from 'js-cookie';
+
+// export const handle = { hydrate: true };
 
 export const meta = () => {
     return {
@@ -41,64 +40,45 @@ export const action = async ({ request, params }) => {
     for (const pair of body.entries()) {
         data[pair[0]] = pair[1]
     }
-    // If there is a nested action inside a HTTP method, then the object will have a type property
-    // if (params) {
-    //     const handler = actions[request.method][params.action];
-    //     if (!handler) return json({ status: "error", message: "No method or action found" });
-    //     //first property or [] is the HTTP method (POST,PUT,DELETE), the second property or [] is for the nested action
-    //     return await actions[request.method][params.action]({ ...body._fields });
-    // }
-    // else {
+
     const handler = actions[request.method];
     if (!handler) return json({ status: "error", message: "No method or action found" }, { status: 404 });
     //Properties for the object are HTTP methods (POST,PUT,DELETE)
     return await actions[request.method](data);
-    // }
     // return json({})
 }
 
 const Auth = () => {
     const data = useLoaderData();
     const result = useActionData();
-    useEffect(() => {
-        if (data.action === 'signout') {
-            if (Cookies.get('token')) {
-                Cookies.remove('name');
-                Cookies.remove('email');
-                Cookies.remove('token');
-                Cookies.remove('role');
-                window.location.href = "/";
-            }
-        }
-        if (result) {
-            if (result.status === 'success') {
-                if (data.action === 'signup') {
-                    window.location.href = "/auth/confirmationEmailSent"
-                } else {
-                    Cookies.set('name', result.user?.name);
-                    Cookies.set('email', result.user?.email);
-                    Cookies.set('token', result?.token);
-                    Cookies.set('role', result.user?.role);
-                    window.location.href = "/";
-                    // //@ts-ignore
-                    // toast[result.status](`Succes! Welcome ${result.user.name}!`);
-                }
-            } else {
-                if (result.status) {
-                    //@ts-ignore
-                    toast[result.status](result.message)
-                }
-            }
-        }
-    }, [result, data.action])
 
     return (
         <>
-            <main>
-            </main>
             <div className="items-container">
                 {authForm(data.action)}
             </div>
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        if('${result?.status}' === 'success'){
+                            if('${data?.action}' === 'signin'){
+                                document.cookie ="name=${result?.user?.name}; path=/";
+                                document.cookie ="email=${result?.user?.email}; path=/";
+                                document.cookie ="token=${result?.token}; path=/";
+                                document.cookie ="role=${result?.user?.role}; path=/";
+                                window.location.href = "/";
+                            }                                                  
+                        }
+                        if('${data?.action}' == 'logout'){
+                            document.cookie ="name=; expires='Thu, 01 Jan 1970 00:00:00 UTC'; path=/;";
+                            document.cookie ="email=; expires='Thu, 01 Jan 1970 00:00:00 UTC'; path=/;";
+                            document.cookie ="token=; expires='Thu, 01 Jan 1970 00:00:00 UTC'; path=/;";
+                            document.cookie ="role=; expires='Thu, 01 Jan 1970 00:00:00 UTC'; path=/;";
+                            window.location.href = "/"; 
+                        }                      
+                    `,
+                }}
+            />
             <ToastContainer />
         </>
     )

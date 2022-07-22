@@ -31,7 +31,6 @@ export const actions: any = {
             const jwt = require('jsonwebtoken');
             if (params.action === 'signin') {
                 const user = await User.findOne({ email: props.email }).select('+password');
-                console.log("TCL: user", user)
 
                 if (!user || user.password === undefined || !(await user.correctPassword(props.password, user.password))) {
                     return json({ status: 'error', message: 'User doesn\'t exists' }, { status: 404 });
@@ -41,7 +40,6 @@ export const actions: any = {
                 const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
                     expiresIn: process.env.JWT_EXPIRES_IN,
                 });
-                console.log('got here')
                 return json({ status: 'success', user, token }, { status: 200 });
             }
             if (params.action === 'signup') {
