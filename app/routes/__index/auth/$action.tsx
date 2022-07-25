@@ -1,6 +1,6 @@
 // import { toast } from "react-toastify";
-import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
-import { ToastContainer } from "react-toastify";
+// import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
+// import { ToastContainer } from "react-toastify";
 import { json } from "@remix-run/node";
 import { useActionData, useLoaderData } from '@remix-run/react';
 import { authForm } from "~/components/authComponents";
@@ -22,7 +22,7 @@ export function links() {
     return [
         { rel: "stylesheet", href: authStyles },
         { rel: "stylesheet", href: formStyles },
-        { rel: "stylesheet", href: toastStyle }
+        // { rel: "stylesheet", href: toastStyle }
     ]
 }
 
@@ -64,7 +64,7 @@ const Auth = () => {
                 action={data.action}
                 status={result?.status}
             />
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </>
     )
 }

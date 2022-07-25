@@ -1,5 +1,6 @@
 {
   "name": "portfolio-remix",
+  "type": "module",
   "private": true,
   "description": "This is my personal portafolio built with remix.run to showcase different projects and skills",
   "license": "",
