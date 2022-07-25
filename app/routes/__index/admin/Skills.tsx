@@ -1,19 +1,18 @@
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import { getSkills } from '~/controllers/skills';
+import { actions, getSkills } from '~/controllers/skills';
 import { Card, SkillsModal } from '~/components';
+import { FaCog, FaTrash } from 'react-icons/fa';
+import { getCategories } from '~/controllers/categories';
 import rootStyles from '~/styles/root.css';
 import formStyles from '~/styles/form.css';
 import cardStyles from '~/styles/card.css'
-import { FaCog, FaTrash } from 'react-icons/fa';
-
 
 export const links = () => {
     return [
         { rel: "stylesheet", href: rootStyles },
         { rel: "stylesheet", href: cardStyles },
         { rel: "stylesheet", href: formStyles },
-
     ]
 }
 
@@ -40,10 +39,38 @@ export const loader = async ({ request }) => {
     if (name === 'Joshua Herrera' && token) {
         const skills = await getSkills({
             locale: 'en'
-        })
-        return json(skills)
+        });
+        const categories = await getCategories({
+            locale: "en",
+            relatedTo: 'skills',
+        });
+        return json({ skills, categories })
     }
     throw new Error('No authorize user');
+}
+
+export const action = async ({ request }) => {
+    const url = new URL(request.url);
+
+    const method: any = url.searchParams.get("method")?.toUpperCase();
+
+    if (!actions[method]) return json({});
+    let formData: any;
+    let data: any = {
+        _id: url.searchParams.get("_id"),
+        locale: 'en'
+    };
+
+    try {
+        formData = await request?.formData();
+        for (const pair of formData.entries()) {
+            data[pair[0]] = pair[1]
+        }
+    } catch (error) {
+
+    }
+
+    return await actions[method](data);
 }
 
 export function ErrorBoundary({ error }) {
@@ -55,7 +82,7 @@ export function ErrorBoundary({ error }) {
 }
 
 const Skills = () => {
-    const skills = useLoaderData<any>();
+    const { skills, categories } = useLoaderData<any>();
 
     return <>
         <main>
@@ -78,57 +105,37 @@ const Skills = () => {
                         </p>
                         <progress value={skill.level} max="100"> {skill.level}%</progress>
                     </div>
-                    <FaCog id={`${skill.name}_modify_btn`} className='card-modify-btn'>
+                    <FaCog
+                        id={`${skill.name}_modify_btn`}
+                        className='card-modify-btn'
+                        data-skill-id={skill._id}
+                        data-skill-name={skill.name}
+                        data-skill-description={skill.description}
+                        data-skill-category={skill.category}
+                        data-skill-level={skill.level}
+                        data-skill-icon={skill.icon}
+                    >
                         Modify
                     </FaCog>
-                    <FaTrash id={`${skill.name}_remove_btn`} className='card-remove-btn'>
+                    <FaTrash
+                        id={`${skill.name}_remove_btn`}
+                        className='card-remove-btn'
+                        data-skill-id={skill._id}
+                    >
                         Remove
                     </FaTrash>
                 </Card>)
             }
+            <button
+                id='addNewSkillBtn'
+                type='button'
+                className="bubble-btn"
+            >
+                +
+            </button>
         </section>
-        <SkillsModal />
-        <script
-            dangerouslySetInnerHTML={{
-                __html: `
-                    // const skills = JSON.parse(JSON.stringify(${JSON.stringify(skills)}));
-                    const modifyBtns = document.querySelectorAll('[class*="card-modify-btn"]');
-                    const modal = document.getElementById('skills-modal');
-                    const formCancelBtn = document.getElementById('formCancelBtn');
-                    const skillNameInput = document.getElementById('skillNameInput');
-					console.log("TCL: Skills -> skillNameInput", skillNameInput);
-
-                    // const getSelectedSkill = () => {
-                    //     skills.forEach()
-                    // }
-                    getSelectedSkill();
-                    
-                    const openModal = () => {
-                        skillNameInput.value = 'Hola'
-                        modal.classList.remove('none');
-                        window.addEventListener('click', closeWhenClickOutside);
-                    }
-
-                    const closeModal = () => {
-                        modal.classList.add('none');
-                    }
-
-                    function closeWhenClickOutside(event) {
-                        if (event.target == modal) {
-                            window.removeEventListener('click', closeWhenClickOutside);
-                            closeModal(false);
-                        }
-                    }
-                    window.addEventListener('click', closeWhenClickOutside);
-
-					modifyBtns.forEach(btn => {
-                        btn.onclick = openModal;
-                    });
-                    modal.firstChild.firstChild.addEventListener('click', closeModal);
-                    formCancelBtn.addEventListener('click', closeModal);
-        `,
-            }}
-        />
+        <SkillsModal categories={categories} />
+        <script async src='/scripts/min/skills-min.js' />
     </>
 }
 

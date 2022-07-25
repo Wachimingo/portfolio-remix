@@ -1,10 +1,10 @@
 import { Form } from "@remix-run/react";
 import { Modal } from "~/components/Modal";
 
-export const SkillsModal = (props) => {
+export const SkillsModal = ({ categories }) => {
     return <Modal id='skills'>
-        <h1>Modify</h1>
-        <Form id='skillsForm' method={props.dishToModify ? 'patch' : 'post'} action="/admin/skills" className="gray">
+        <h1 id='formTitle'></h1>
+        <Form id='skillsForm' method="post" action="/admin/skills" className="gray">
             <section>
                 <div>
                     <label htmlFor="skillNameInput" className="form-label">Skill Name</label>
@@ -22,11 +22,16 @@ export const SkillsModal = (props) => {
                         className="form-control"
                         name="description"
                         id="skillDescriptionInput"
-                    //@ts-ignore
                     />
                 </div>
                 <div>
-                    <label htmlFor="skillLevelInput" className="form-label">Price</label>
+                    <label htmlFor="skillCategoriesInput" className="form-label">Category</label>
+                    <select id='skillCategoriesInput' name="category">
+                        {categories.map(cat => <option key={cat._id} value={cat._id}>{cat.name}</option>)}
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor="skillLevelInput" className="form-label">Level</label>
                     <input
                         type="number"
                         className="form-control"
@@ -45,27 +50,17 @@ export const SkillsModal = (props) => {
                     />
                     <div id="imageHelp" className="form-text">Please search for images online</div>
                 </div>
-                {/* {
-                    props.dishToModify
-                        ?
-                        <>
-                            <input type="text" name="_id" value={props.dishToModify?.id} style={{ display: "none" }} />
-                            <input type="text" name="type" value='update' style={{ display: "none" }} />
-                        </>
-                        :
-                        undefined
-                } */}
+                <input type="text" name="_id" id='skillIdInput' style={{ display: "none" }} />
             </section>
             <div className="form-controls">
                 <button
                     id='formCancelBtn'
                     type="button"
                     className="form-cancel-button"
-                    onClick={() => props.setIsModalOpen(false)}
                 >
                     Cancel
                 </button>
-                <input type="submit" />
+                <input id='formSubmitBtn' type="submit" value='Submit' />
             </div>
         </Form>
     </Modal>

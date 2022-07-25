@@ -47,6 +47,21 @@
     -webkit-box-orient: vertical;
 }
 
+.bubble-btn {
+    position: sticky;
+    z-index: 1;
+    bottom: 10vh;
+    left: 90%;
+    width: 60px;
+    min-height: 60px;
+    border-radius: 100%;
+}
+
+.bubble-btn:hover {
+    cursor: pointer;
+    background-color: var(--info);
+}
+
 
 @media only screen and (min-width: 758px) {
     .card-wrapper {
@@ -104,7 +119,6 @@
     }
 
     .card-modify-btn {
-        z-index: 1;
         position: relative;
         top: -9vh;
         margin: 0 0.2vw;
@@ -116,7 +130,6 @@
     }
 
     .card-remove-btn {
-        z-index: 1;
         position: relative;
         top: -9vh;
         margin: 0 0.2vw;
@@ -129,5 +142,20 @@
 
     progress {
         width: 100%;
+    }
+
+    .bubble-btn {
+        position: sticky;
+        z-index: 1;
+        bottom: 10vh;
+        left: 90%;
+        width: 60px;
+        min-height: 60px;
+        border-radius: 100%;
+    }
+
+    .bubble-btn:hover {
+        cursor: pointer;
+        background-color: var(--info);
     }
 }
