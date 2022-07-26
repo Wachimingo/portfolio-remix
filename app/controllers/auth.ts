@@ -4,9 +4,7 @@ import dbConnect from '~/utils/dbConnection';
 import mail from '~/controllers/mail';
 import { requestErrorHandler } from './errors';
 const bcrypt = require('bcryptjs');
-// Set your secret key. Remember to switch to your live secret key in production.
-// See your keys here: https://dashboard.stripe.com/apikeys
-const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
+
 export const activateUser = async (email: string) => {
     try {
         await dbConnect();
@@ -44,11 +42,7 @@ export const actions: any = {
             }
             if (params.action === 'signup') {
                 if (props.password !== props.confirmPassword) throw "Passwords don't match";
-                const [, stripeUser, pass] = await Promise.all([dbConnect(), stripe.customers.create({
-                    name: props.name,
-                    email: props.email,
-                    description: 'Test Customer',
-                }), bcrypt.hash(props.password, 2)])
+                const [, pass] = await Promise.all([dbConnect(), bcrypt.hash(props.password, 2)])
                 const newUser = new User({
                     name: props.name,
                     email: props.email,

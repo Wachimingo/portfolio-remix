@@ -3,8 +3,6 @@ import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { activateUser } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
-//@ts-ignore
-import Cookies from 'js-cookie';
 
 export function links() {
     return [

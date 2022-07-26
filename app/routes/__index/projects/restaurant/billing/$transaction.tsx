@@ -36,21 +36,21 @@ export const loader = async () => {
     return json(dishes)
 }
 
-export const action = async ({ request }: any) => {
-    if (request.method === 'POST') {
-        // Set your secret key. Remember to switch to your live secret key in production.
-        // See your keys here: https://dashboard.stripe.com/apikeys
-        const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
-        const formData = await request.formData();
-        const session = await stripe.checkout.sessions.create({
-            line_items: JSON.parse(formData.get('selectedDishes')),
-            mode: 'payment',
-            success_url: `https://wachimingo.vercel.app?success=true`,
-            cancel_url: `https://wachimingo.vercel.app?canceled=true`,
-        });
-        return json({ session })
-    }
-}
+// export const action = async ({ request }: any) => {
+//     if (request.method === 'POST') {
+//         // Set your secret key. Remember to switch to your live secret key in production.
+//         // See your keys here: https://dashboard.stripe.com/apikeys
+//         const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
+//         const formData = await request.formData();
+//         // const session = await stripe.checkout.sessions.create({
+//         //     line_items: JSON.parse(formData.get('selectedDishes')),
+//         //     mode: 'payment',
+//         //     success_url: `https://wachimingo.vercel.app?success=true`,
+//         //     cancel_url: `https://wachimingo.vercel.app?canceled=true`,
+//         // });
+//         return json({ session })
+//     }
+// }
 
 export function ErrorBoundary({ error }: any) {
     console.error(error);
