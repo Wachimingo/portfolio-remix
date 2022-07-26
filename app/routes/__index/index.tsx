@@ -50,7 +50,7 @@ export default function Index() {
         <h1 className="">Wachimingo</h1>
         <img
           className="profile-pic"
-          src="https://media-exp2.licdn.com/dms/image/C5603AQES3-9HfjZVfw/profile-displayphoto-shrink_800_800/0/1657112157152?e=1663200000&v=beta&t=yIGWZeFSz7QTg_7N3SJ6xG-Se1GB_6y16UkouWvONTw"
+          src="./assets/profile/profile-pic.webp"
           alt="profile"
           loading="lazy"
         />
@@ -67,11 +67,9 @@ export default function Index() {
                     skills.filter((skill: any) => skill.category === cat._id).map((item: any, i: number) => {
                       return (
                         <Card key={i} index={i}>
-                          <img src={
-                            item.icon
-                              ? `https://images.weserv.nl/?url=${item.icon}&w=250&h=250`
-                              : 'https://images.weserv.nl/?url=https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png&w=250&h=250'
-                          }
+                          <img
+                            loading="lazy"
+                            src={item.icon ? item.icon : './assets/skills/default.webp'}
                             alt={item.name}
                           />
                           <div>
@@ -108,11 +106,8 @@ export default function Index() {
             certs.map((item: any, i: number) => {
               return (
                 <Card key={i} index={i}>
-                  <img src={
-                    item.icon
-                      ? `https://images.weserv.nl/?url=${item.icon}&w=250&h=250`
-                      : 'https://images.weserv.nl/?url=https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png&w=250&h=250'
-                  }
+                  <img
+                    src={item.icon ? item.icon : './assets/skills/default.webp'}
                     alt={item.name}
                   />
                   <h3>{item.name}</h3>

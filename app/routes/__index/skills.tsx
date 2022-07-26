@@ -43,11 +43,8 @@ export default function Index() {
                         skills.map((item: any, i: number) => {
                             return (
                                 <Card key={i} index={i}>
-                                    <img src={
-                                        item.icon
-                                            ? `https://images.weserv.nl/?url=${item.icon}&w=250&h=250`
-                                            : 'https://images.weserv.nl/?url=https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png&w=250&h=250'
-                                    }
+                                    <img
+                                        src={item.icon ? item.icon : './assets/skills/default.webp'}
                                         alt={item.name}
                                     />
                                     <div>

@@ -8,7 +8,7 @@ const Portfolio = () => {
             <NavBar />
             <Outlet />
             <Footer />
-            <script async src='/scripts/min/index-min.js' />
+            <script defer={true} src='/scripts/min/index-min.js' />
         </>
     )
 }

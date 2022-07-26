@@ -58,11 +58,12 @@ const Auth = () => {
                 {authForm(data.action)}
             </div>
             <script
-                async
-                src='/scripts/min/auth-min.js'
+                defer={true}
                 //@ts-ignore
-                action={data.action}
+                action={data?.action}
                 status={result?.status}
+                src='/scripts/min/auth-min.js'
+            // src='/scripts/auth.js'
             />
             {/* <ToastContainer /> */}
         </>

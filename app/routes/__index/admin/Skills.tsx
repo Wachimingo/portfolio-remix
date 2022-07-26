@@ -135,7 +135,7 @@ const Skills = () => {
             </button>
         </section>
         <SkillsModal categories={categories} />
-        <script async src='/scripts/min/skills-min.js' />
+        <script defer={true} src='/scripts/min/skills-min.js' />
     </>
 }
 
