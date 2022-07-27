@@ -1,7 +1,7 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Card } from "~/components/Card";
 import { getSkills } from '~/controllers/skills';
+import { SkillCardList } from "~/components/skills";
 import type { Skill } from "~/types/skillsAndCerts";
 import rootStyles from '~/styles/root.css';
 import cardStyle from '~/styles/card.css';
@@ -40,27 +40,7 @@ export default function Index() {
                     <p>This is a evergrowing collection of current skillsets I handle.</p>
                 </div>
                 <div className="items-container2">
-                    {
-                        skills.map((skill: Skill, i: number) => {
-                            return (
-                                <Card key={i} index={i}>
-                                    <img
-                                        loading="lazy"
-                                        src={skill.icon ? skill.icon : './assets/skills/default.webp'}
-                                        alt={skill.name}
-                                    />
-                                    <div>
-                                        <h1>{skill.name}</h1>
-                                        <p>
-                                            {skill.description}
-                                        </p>
-                                        <progress value={skill.level} max="100"> {skill.level}%</progress>
-                                    </div>
-                                </Card>
-                            )
-                        })
-
-                    }
+                    <SkillCardList skills={skills} />
                 </div>
             </main>
         </>
