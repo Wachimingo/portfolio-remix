@@ -4,7 +4,7 @@ import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer } from "react-toastify";
 import { json } from "@remix-run/node";
 import { useActionData, useFetcher, useLoaderData } from "@remix-run/react";
-import { Card, CatalogControls } from "~/components/Card";
+import { Card, CatalogControls } from "~/components";
 import { getAllDishes, actions } from "~/controllers/dishes";
 import catalogStyles from "~/styles/catalog.css";
 import formStyles from "~/styles/form.css";
@@ -20,9 +20,9 @@ export const meta = () => {
 
 export const links = () => {
     return [
-        { rel: 'stylesheet', href: catalogStyles },
-        { rel: 'stylesheet', href: formStyles },
-        { rel: "stylesheet", href: toastStyle }
+        { rel: 'stylesheet', href: catalogStyles, media: "none" },
+        { rel: 'stylesheet', href: formStyles, media: "none" },
+        { rel: "stylesheet", href: toastStyle, media: "none" }
     ]
 }
 
@@ -88,6 +88,9 @@ const Catalog = () => {
                                 <img
                                     src={`https://images.weserv.nl/?url=${dish.image}&w=150&h=150`}
                                     alt={dish.name}
+                                    loading="lazy"
+                                    width="auto"
+                                    height="auto"
                                 />
                                 <div>
                                     <h1>{dish.name}</h1>

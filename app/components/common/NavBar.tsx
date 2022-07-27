@@ -15,7 +15,6 @@ export const NavBar = (props: any) => {
             <div
                 id="menu-child-div"
                 className='menu-child-div navbar-item-none'
-            // style={{ display: props.isOpen ? 'block' : 'none' }}
             >
                 <Link className="link" to="/">Home</Link>
                 <Link className="link" to="/projects">Projects</Link>
@@ -27,7 +26,6 @@ export const NavBar = (props: any) => {
                 className='menu-child-div navbar-item-none'
             >
                 <Link id='signup' className="link" to="/auth/signup">Sign Up</Link>
-                {/* <Link id='login-logout' className="link" to="/auth/signout">Sign Out</Link> */}
                 <Link id='login_logout' className="link" to="/auth/signin">Sign In</Link>
             </div>
         </nav>

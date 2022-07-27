@@ -3,7 +3,7 @@
 // import { ToastContainer } from "react-toastify";
 import { json } from "@remix-run/node";
 import { useActionData, useLoaderData } from '@remix-run/react';
-import { authForm } from "~/components/authComponents";
+import { authForm } from "~/components/common/authComponents";
 import { actions } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
 import formStyles from "~/styles/form.css";
@@ -20,8 +20,8 @@ export const meta = () => {
 
 export function links() {
     return [
-        { rel: "stylesheet", href: authStyles },
-        { rel: "stylesheet", href: formStyles },
+        { rel: "stylesheet", href: authStyles, media: "none" },
+        { rel: "stylesheet", href: formStyles, media: "none" },
         // { rel: "stylesheet", href: toastStyle }
     ]
 }
@@ -30,12 +30,11 @@ export const loader = async ({ params }: any) => {
     return json(params)
 }
 
+
 export const action = async ({ request, params }) => {
     /* Taking the form data from the request and putting it into an object. */
     const body = await request.formData();
-    const data: any = {
-        params
-    };
+    const data: any = { params };
 
     for (const pair of body.entries()) {
         data[pair[0]] = pair[1]

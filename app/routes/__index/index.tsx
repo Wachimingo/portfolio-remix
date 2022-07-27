@@ -5,7 +5,7 @@ import { getCategories } from '~/controllers/categories';
 import { getCerts } from "~/controllers/certs";
 import { CertCardList } from "~/components/certs";
 import { SeeMoreLinks } from "~/components/landingPage";
-import { SkillCardListByCategory } from "~/components/skills";
+import { SkillListByCategory } from "~/components/skills/list";
 import type { Category, Certification, Skill } from "~/types/skillsAndCerts";
 import rootStyles from '~/styles/root.css';
 import cardStyle from '~/styles/card.css';
@@ -62,7 +62,7 @@ export default function Index() {
   return (
     <main>
       <div className='welcome curve'>
-        <h1 className="">Wachimingo</h1>
+        <h1>Wachimingo</h1>
         <img
           className="profile-pic"
           src="./assets/profile/profile-pic.webp"
@@ -71,12 +71,12 @@ export default function Index() {
         />
       </div>
       <div className="items-container">
-        <SkillCardListByCategory categories={categories} skills={skills} />
+        <SkillListByCategory categories={categories} skills={skills} />
         <SeeMoreLinks link='/skills' />
 
-        <section className="">
+        <section>
           <div className="semicircle">
-            <h2 className=''>Certifications</h2>
+            <h2>Certifications</h2>
           </div>
           <CertCardList certs={certs} />
           <SeeMoreLinks link='/certs' />

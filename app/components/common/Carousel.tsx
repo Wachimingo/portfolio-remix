@@ -1,4 +1,4 @@
-const Carousel = ({ items }: any) => {
+export const Carousel = ({ items }: any) => {
     return (
         <div className='slider'>
             <br />
@@ -18,7 +18,14 @@ const Carousel = ({ items }: any) => {
                     items.map((item: any, i: number) => {
                         return (
                             <div key={`slide${i}`} id={`slide-${i}`}>
-                                <img className='img' src={item.image} alt={item.name} />
+                                <img
+                                    className='img'
+                                    src={item.image}
+                                    alt={item.name}
+                                    loading="lazy"
+                                    width="auto"
+                                    height="auto"
+                                />
                             </div>
                         )
                     })
@@ -27,5 +34,3 @@ const Carousel = ({ items }: any) => {
         </div>
     )
 }
-
-export default Carousel;

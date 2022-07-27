@@ -1,6 +1,5 @@
 import { Outlet } from "@remix-run/react";
-import Footer from "~/components/Footer";
-import { NavBar } from "~/components/NavBar";
+import { NavBar, Footer } from "~/components";
 
 const Portfolio = () => {
     return (

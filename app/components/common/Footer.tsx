@@ -1,6 +1,6 @@
 import { FaFacebookF, FaGithubAlt, FaLinkedinIn, FaRegEnvelope } from "react-icons/fa";
 
-const Footer = () => {
+export const Footer = () => {
     return (
         <footer className="footer-wrapper">
             <div className="footer-container">
@@ -22,5 +22,3 @@ const Footer = () => {
         </footer>
     )
 }
-
-export default Footer;

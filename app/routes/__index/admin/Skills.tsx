@@ -1,23 +1,23 @@
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { actions, getSkills } from '~/controllers/skills';
-import { Card, SkillsModal } from '~/components';
-import { FaCog, FaTrash } from 'react-icons/fa';
+import Card from '~/components/skills/card';
+import Modal from '~/components/skills/modal';
 import { getCategories } from '~/controllers/categories';
+import type { Category, Skill } from '~/types/skillsAndCerts';
 import rootStyles from '~/styles/root.css';
 import formStyles from '~/styles/form.css';
 import cardStyles from '~/styles/card.css'
-import type { Category, Skill } from '~/types/skillsAndCerts';
 
 export const links = () => {
     return [
-        { rel: "stylesheet", href: rootStyles },
-        { rel: "stylesheet", href: cardStyles },
-        { rel: "stylesheet", href: formStyles },
+        { rel: "stylesheet", href: rootStyles, media: "none" },
+        { rel: "stylesheet", href: cardStyles, media: "none" },
+        { rel: "stylesheet", href: formStyles, media: "none" },
     ]
 }
 
-const getCookie = (cname, cookie) => {
+const getCookie = (cname: string, cookie: string) => {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(cookie);
     let ca = decodedCookie.split(';');
@@ -95,50 +95,10 @@ const Skills = () => {
             <h1>Manage skills</h1>
         </main>
         <section className='items-container2'>
-            {
-                skills.map((skill: Skill) => <Card key={skill.name}>
-                    <img
-                        loading="lazy"
-                        src={skill.icon ? skill.icon : '/assets/skills/default.webp'}
-                        alt={skill.name}
-                    />
-                    <div>
-                        <h1>{skill.name}</h1>
-                        <p>
-                            {skill.description}
-                        </p>
-                        <progress value={skill.level} max="100"> {skill.level}%</progress>
-                    </div>
-                    <FaCog
-                        id={`${skill.name}_modify_btn`}
-                        className='card-modify-btn'
-                        data-skill-id={skill._id}
-                        data-skill-name={skill.name}
-                        data-skill-description={skill.description}
-                        data-skill-category={skill.category}
-                        data-skill-level={skill.level}
-                        data-skill-icon={skill.icon}
-                    >
-                        Modify
-                    </FaCog>
-                    <FaTrash
-                        id={`${skill.name}_remove_btn`}
-                        className='card-remove-btn'
-                        data-skill-id={skill._id}
-                    >
-                        Remove
-                    </FaTrash>
-                </Card>)
-            }
-            <button
-                id='addNewSkillBtn'
-                type='button'
-                className="bubble-btn"
-            >
-                +
-            </button>
+            <Card skills={skills} admin />
+            <button id='addNewSkillBtn' type='button' className="bubble-btn">+</button>
         </section>
-        <SkillsModal categories={categories} />
+        <Modal categories={categories} />
         <script defer={true} src='/scripts/min/skills-min.js' />
     </>
 }

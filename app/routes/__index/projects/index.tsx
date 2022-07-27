@@ -14,8 +14,8 @@ export const meta = () => {
 
 export function links() {
     return [
-        { rel: "stylesheet", href: projectsStyle },
-        { rel: "stylesheet", href: buttonsStyle },
+        { rel: "stylesheet", href: projectsStyle, media: "none" },
+        { rel: "stylesheet", href: buttonsStyle, media: "none" },
     ]
 }
 
@@ -38,7 +38,10 @@ const Projects = () => {
                             <Card key={project.name}>
                                 <img
                                     src={project.image}
-                                    alt={project.name} />
+                                    alt={project.name}
+                                    width="auto"
+                                    height="auto"
+                                />
                                 <div>
                                     <h1>{project.name}</h1>
                                     <p>{project.description}</p>

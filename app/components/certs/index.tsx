@@ -1,4 +1,4 @@
-import { Card } from "../Card"
+import { Card } from "~/components";
 import type { Certification } from "~/types/skillsAndCerts"
 
 export const CertCardList = ({ certs }) => {

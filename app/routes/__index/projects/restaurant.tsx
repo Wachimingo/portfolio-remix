@@ -1,10 +1,10 @@
 import { Outlet } from "@remix-run/react";
-import { SideBar } from "~/components/sideBar";
+import { SideBar } from "~/components";
 import sidebarStyles from "~/styles/sidebar.css";
 
 export function links() {
     return [
-        { rel: "stylesheet", href: sidebarStyles }
+        { rel: "stylesheet", href: sidebarStyles, media: "none" }
     ]
 }
 

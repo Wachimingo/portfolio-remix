@@ -25,8 +25,8 @@ export const meta = () => {
 
 export const links = () => {
     return [
-        { rel: 'stylesheet', href: transactionStyles },
-        { rel: 'stylesheet', href: formStyles },
+        { rel: 'stylesheet', href: transactionStyles, media: "none" },
+        { rel: 'stylesheet', href: formStyles, media: "none" },
         // { rel: "stylesheet", href: toastStyle }
     ]
 }

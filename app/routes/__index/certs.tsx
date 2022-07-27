@@ -1,9 +1,9 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Card } from "~/components/Card";
 import rootStyles from '~/styles/root.css'
 import cardStyle from '~/styles/card.css';
 import { getCerts } from "~/controllers/certs";
+import { CertCardList } from "~/components/certs";
 
 export const meta = () => {
     return {
@@ -15,8 +15,8 @@ export const meta = () => {
 
 export function links() {
     return [
-        { rel: "stylesheet", href: rootStyles },
-        { rel: "stylesheet", href: cardStyle },
+        { rel: "stylesheet", href: rootStyles, media: "none" },
+        { rel: "stylesheet", href: cardStyle, media: "none" },
     ]
 }
 
@@ -39,20 +39,7 @@ export default function Index() {
                     <p>Keeping up with the ever changing technologies and knowledge.</p>
                 </div>
                 <div className="items-container2">
-                    {
-                        certs.map((item: any, i: number) => {
-                            return (
-                                <Card key={i} index={i}>
-                                    <img
-                                        loading="lazy"
-                                        src={item.icon ? item.icon : './assets/skills/default.webp'}
-                                        alt={item.name}
-                                    />
-                                    <h1>{item.name}</h1>
-                                </Card>
-                            )
-                        })
-                    }
+                    <CertCardList certs={certs} />
                 </div>
             </main>
         </>

@@ -1,7 +1,7 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getSkills } from '~/controllers/skills';
-import { SkillCardList } from "~/components/skills";
+import Card from "~/components/skills/card";
 import type { Skill } from "~/types/skillsAndCerts";
 import rootStyles from '~/styles/root.css';
 import cardStyle from '~/styles/card.css';
@@ -16,8 +16,8 @@ export const meta = () => {
 
 export function links() {
     return [
-        { rel: "stylesheet", href: rootStyles },
-        { rel: "stylesheet", href: cardStyle },
+        { rel: "stylesheet", href: rootStyles, media: "none" },
+        { rel: "stylesheet", href: cardStyle, media: "none" },
     ]
 }
 
@@ -40,7 +40,7 @@ export default function Index() {
                     <p>This is a evergrowing collection of current skillsets I handle.</p>
                 </div>
                 <div className="items-container2">
-                    <SkillCardList skills={skills} />
+                    <Card skills={skills} />
                 </div>
             </main>
         </>

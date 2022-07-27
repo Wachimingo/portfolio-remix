@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData } from '@remix-run/react'
-import { OrderCard } from "~/components/Card";
+import { OrderCard } from "~/components";
 import { getOrders, actions } from "~/controllers/orders";
 
 export const meta = () => {

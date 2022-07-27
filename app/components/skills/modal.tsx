@@ -1,7 +1,8 @@
+/* eslint-disable react/display-name */
 import { Form } from "@remix-run/react";
-import { Modal } from "~/components/Modal";
+import { Modal } from "~/components";
 
-export const SkillsModal = ({ categories }) => {
+export default ({ categories }) => {
     return <Modal id='skills'>
         <h1 id='formTitle'></h1>
         <Form id='skillsForm' method="post" action="/admin/skills" className="gray">
