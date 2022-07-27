@@ -57,14 +57,24 @@ const Auth = () => {
             <div className="items-container">
                 {authForm(data.action)}
             </div>
-            <script
-                defer={true}
-                //@ts-ignore
-                action={data?.action}
-                status={result?.status}
-                src='/scripts/min/auth-min.js'
-            // src='/scripts/auth.js'
-            />
+            {process.env.NODE_ENV === 'development'
+                ? <script
+                    defer={true}
+                    //@ts-ignore
+                    action={data?.action}
+                    status={result?.status}
+                    user={JSON.stringify(result?.user)}
+                    token={result?.token}
+                    src='/scripts/auth.js'
+                />
+                : <script
+                    defer={true}
+                    //@ts-ignore
+                    action={data?.action}
+                    status={result?.status}
+                    src='/scripts/min/auth-min.js'
+                />
+            }
             {/* <ToastContainer /> */}
         </>
     )

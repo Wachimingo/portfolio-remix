@@ -8,7 +8,11 @@ const Portfolio = () => {
             <NavBar />
             <Outlet />
             <Footer />
-            <script defer={true} src='/scripts/min/index-min.js' />
+            {
+                process.env.NODE_ENV === 'development'
+                    ? <script defer={true} src='/scripts/index.js' />
+                    : <script defer={true} src='/scripts/min/index-min.js' />
+            }
         </>
     )
 }

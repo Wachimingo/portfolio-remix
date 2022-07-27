@@ -44,6 +44,7 @@ export default function Index() {
                             return (
                                 <Card key={i} index={i}>
                                     <img
+                                        loading="lazy"
                                         src={item.icon ? item.icon : './assets/skills/default.webp'}
                                         alt={item.name}
                                     />

@@ -3,6 +3,15 @@ const x = window.matchMedia("(min-width: 768px)");
 const signupLink = document.getElementById('signup');
 const login_logoutLink = document.getElementById('login_logout');
 
+const cssList = document.styleSheets;
+
+const listLength = cssList.length;
+let listIterator = 0;
+
+for (listIterator; listIterator < listLength; listIterator++) {
+    cssList[listIterator].media.mediaText = 'all';
+}
+
 const getCookie = (cname) => {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);

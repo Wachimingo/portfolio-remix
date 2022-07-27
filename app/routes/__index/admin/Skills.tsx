@@ -7,6 +7,7 @@ import { getCategories } from '~/controllers/categories';
 import rootStyles from '~/styles/root.css';
 import formStyles from '~/styles/form.css';
 import cardStyles from '~/styles/card.css'
+import type { Category, Skill } from '~/types/skillsAndCerts';
 
 export const links = () => {
     return [
@@ -52,7 +53,7 @@ export const loader = async ({ request }) => {
 export const action = async ({ request }) => {
     const url = new URL(request.url);
 
-    const method: any = url.searchParams.get("method")?.toUpperCase();
+    const method: string = url.searchParams.get("method")?.toUpperCase() ?? 'none';
 
     if (!actions[method]) return json({});
     let formData: any;
@@ -81,8 +82,13 @@ export function ErrorBoundary({ error }) {
     );
 }
 
+type Loader = {
+    skills: Skill[],
+    categories: Category[],
+}
+
 const Skills = () => {
-    const { skills, categories } = useLoaderData<any>();
+    const { skills, categories } = useLoaderData<Loader>();
 
     return <>
         <main>
@@ -90,12 +96,10 @@ const Skills = () => {
         </main>
         <section className='items-container2'>
             {
-                skills.map(skill => <Card key={skill.name}>
-                    <img src={
-                        skill.icon
-                            ? `https://images.weserv.nl/?url=${skill.icon}&w=250&h=250`
-                            : 'https://images.weserv.nl/?url=https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/symbol_questionmark.png&w=250&h=250'
-                    }
+                skills.map((skill: Skill) => <Card key={skill.name}>
+                    <img
+                        loading="lazy"
+                        src={skill.icon ? skill.icon : '/assets/skills/default.webp'}
                         alt={skill.name}
                     />
                     <div>

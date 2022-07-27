@@ -2,6 +2,7 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Card } from "~/components/Card";
 import { getSkills } from '~/controllers/skills';
+import type { Skill } from "~/types/skillsAndCerts";
 import rootStyles from '~/styles/root.css';
 import cardStyle from '~/styles/card.css';
 
@@ -30,7 +31,7 @@ export const loader = async () => {
 };
 
 export default function Index() {
-    const skills = useLoaderData<any>();
+    const skills = useLoaderData<Skill[]>();
     return (
         <>
             <main>
@@ -40,19 +41,20 @@ export default function Index() {
                 </div>
                 <div className="items-container2">
                     {
-                        skills.map((item: any, i: number) => {
+                        skills.map((skill: Skill, i: number) => {
                             return (
                                 <Card key={i} index={i}>
                                     <img
-                                        src={item.icon ? item.icon : './assets/skills/default.webp'}
-                                        alt={item.name}
+                                        loading="lazy"
+                                        src={skill.icon ? skill.icon : './assets/skills/default.webp'}
+                                        alt={skill.name}
                                     />
                                     <div>
-                                        <h1>{item.name}</h1>
+                                        <h1>{skill.name}</h1>
                                         <p>
-                                            {item.description}
+                                            {skill.description}
                                         </p>
-                                        <progress value={item.level} max="100"> {item.level}%</progress>
+                                        <progress value={skill.level} max="100"> {skill.level}%</progress>
                                     </div>
                                 </Card>
                             )
