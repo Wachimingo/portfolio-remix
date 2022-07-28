@@ -14,8 +14,8 @@ export const meta = () => {
 
 export function links() {
     return [
-        { rel: "stylesheet", href: projectsStyle, media: "none" },
-        { rel: "stylesheet", href: buttonsStyle, media: "none" },
+        { rel: "stylesheet", href: projectsStyle, media: process.env.MEDIA_CSS },
+        { rel: "stylesheet", href: buttonsStyle, media: process.env.MEDIA_CSS },
     ]
 }
 

@@ -1,9 +1,9 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import rootStyles from '~/styles/root.css'
-import cardStyle from '~/styles/card.css';
 import { getCerts } from "~/controllers/certs";
-import { CertCardList } from "~/components/certs";
+import Certs from "~/components/certs/card";
+import rootStyles from '~/styles/root.css';
+import cardStyle from '~/styles/card.css';
 
 export const meta = () => {
     return {
@@ -15,8 +15,8 @@ export const meta = () => {
 
 export function links() {
     return [
-        { rel: "stylesheet", href: rootStyles, media: "none" },
-        { rel: "stylesheet", href: cardStyle, media: "none" },
+        { rel: "stylesheet", href: rootStyles, media: process.env.MEDIA_CSS },
+        { rel: "stylesheet", href: cardStyle, media: process.env.MEDIA_CSS },
     ]
 }
 
@@ -38,10 +38,11 @@ export default function Index() {
                     <h1>Certifications</h1>
                     <p>Keeping up with the ever changing technologies and knowledge.</p>
                 </div>
-                <div className="items-container2">
-                    <CertCardList certs={certs} />
-                </div>
+
             </main>
+            <div className="items-container2">
+                <Certs certs={certs} />
+            </div>
         </>
     );
 }

@@ -3,9 +3,9 @@ import { useLoaderData } from "@remix-run/react";
 import { getSkills } from '~/controllers/skills';
 import { getCategories } from '~/controllers/categories';
 import { getCerts } from "~/controllers/certs";
-import { CertCardList } from "~/components/certs";
+import Certs from "~/components/certs/card";
 import { SeeMoreLinks } from "~/components/landingPage";
-import { SkillListByCategory } from "~/components/skills/list";
+import { SkillListByCategory as Skills } from "~/components/skills/list";
 import type { Category, Certification, Skill } from "~/types/skillsAndCerts";
 import rootStyles from '~/styles/root.css';
 import cardStyle from '~/styles/card.css';
@@ -20,8 +20,8 @@ export const meta = () => {
 
 export function links() {
   return [
-    { rel: "stylesheet", href: rootStyles, media: "none" },
-    { rel: "stylesheet", href: cardStyle, media: "none" },
+    { rel: "stylesheet", href: rootStyles, media: process.env.MEDIA_CSS },
+    { rel: "stylesheet", href: cardStyle, media: process.env.MEDIA_CSS },
   ]
 }
 
@@ -71,14 +71,14 @@ export default function Index() {
         />
       </div>
       <div className="items-container">
-        <SkillListByCategory categories={categories} skills={skills} />
+        <Skills categories={categories} skills={skills} />
         <SeeMoreLinks link='/skills' />
 
         <section>
           <div className="semicircle">
             <h2>Certifications</h2>
           </div>
-          <CertCardList certs={certs} />
+          <Certs certs={certs} />
           <SeeMoreLinks link='/certs' />
         </section>
       </div>

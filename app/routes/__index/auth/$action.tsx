@@ -1,6 +1,3 @@
-// import { toast } from "react-toastify";
-// import toastStyle from 'react-toastify/dist/ReactToastify.min.css';
-// import { ToastContainer } from "react-toastify";
 import { json } from "@remix-run/node";
 import { useActionData, useLoaderData } from '@remix-run/react';
 import { authForm } from "~/components/common/authComponents";
@@ -20,9 +17,8 @@ export const meta = () => {
 
 export function links() {
     return [
-        { rel: "stylesheet", href: authStyles, media: "none" },
-        { rel: "stylesheet", href: formStyles, media: "none" },
-        // { rel: "stylesheet", href: toastStyle }
+        { rel: "stylesheet", href: authStyles, media: process.env.MEDIA_CSS },
+        { rel: "stylesheet", href: formStyles, media: process.env.MEDIA_CSS },
     ]
 }
 
@@ -74,7 +70,6 @@ const Auth = () => {
                     src='/scripts/min/auth-min.js'
                 />
             }
-            {/* <ToastContainer /> */}
         </>
     )
 }

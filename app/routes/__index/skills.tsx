@@ -16,8 +16,8 @@ export const meta = () => {
 
 export function links() {
     return [
-        { rel: "stylesheet", href: rootStyles, media: "none" },
-        { rel: "stylesheet", href: cardStyle, media: "none" },
+        { rel: "stylesheet", href: rootStyles, media: process.env.MEDIA_CSS },
+        { rel: "stylesheet", href: cardStyle, media: process.env.MEDIA_CSS },
     ]
 }
 

@@ -9,8 +9,10 @@ const Portfolio = () => {
             <Footer />
             {
                 process.env.NODE_ENV === 'development'
-                    ? <script defer={true} src='/scripts/index.js' />
-                    : <script defer={true} src='/scripts/min/index-min.js' />
+                    //@ts-ignore
+                    ? <script defer={true} src='/scripts/index.js' media={process.env.MEDIA_CSS} />
+                    //@ts-ignore
+                    : <script defer={true} src='/scripts/min/index-min.js' media={process.env.MEDIA_CSS} />
             }
         </>
     )

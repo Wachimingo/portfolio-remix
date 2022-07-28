@@ -1,13 +1,11 @@
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import { actions, getSkills } from '~/controllers/skills';
-import Card from '~/components/skills/card';
-import Modal from '~/components/skills/modal';
-import { getCategories } from '~/controllers/categories';
-import type { Category, Skill } from '~/types/skillsAndCerts';
+import Card from '~/components/certs/card';
+import Modal from '~/components/certs/modal';
+import { actions, getCerts } from '~/controllers/certs';
 import rootStyles from '~/styles/root.css';
 import formStyles from '~/styles/form.css';
-import cardStyles from '~/styles/card.css'
+import cardStyles from '~/styles/card.css';
 
 export const links = () => {
     return [
@@ -34,19 +32,15 @@ const getCookie = (cname: string, cookie: string) => {
 }
 
 export const loader = async ({ request }) => {
-    const cookie = request.headers.get("cookie");
-    const name = getCookie("name", cookie);
-    const token = getCookie("token", cookie);
+    const cookie = request.headers.get('cookie');
+    const name = getCookie('name', cookie);
+    const token = getCookie('token', cookie);
 
     if (name === 'Joshua Herrera' && token) {
-        const skills = await getSkills({
+        const certs = await getCerts({
             locale: 'en'
         });
-        const categories = await getCategories({
-            locale: "en",
-            relatedTo: 'skills',
-        });
-        return json({ skills, categories })
+        return json(certs)
     }
     throw new Error('No authorize user');
 }
@@ -83,29 +77,23 @@ export function ErrorBoundary({ error }) {
     );
 }
 
-type Loader = {
-    skills: Skill[],
-    categories: Category[],
-}
-
-const Skills = () => {
-    const { skills, categories } = useLoaderData<Loader>();
-
+const Certs = () => {
+    const certs = useLoaderData();
     return <>
         <main>
-            <h1>Manage skills</h1>
+            <h1>Manage certifications</h1>
         </main>
         <section className='items-container2'>
-            <Card skills={skills} admin />
-            <button id='addNewSkillBtn' type='button' className="bubble-btn">+</button>
+            <Card certs={certs} admin />
+            <button id='addNewCertBtn' type='button' className="bubble-btn">+</button>
         </section>
-        <Modal categories={categories} />
+        <Modal />
         {
             process.env.NODE_ENV === 'development'
-                ? <script defer={true} src='/scripts/skills.js' />
-                : <script defer={true} src='/scripts/min/skills-min.js' />
+                ? <script defer={true} src='/scripts/certs.js' />
+                : <script defer={true} src='/scripts/min/certs-min.js' />
         }
     </>
 }
 
-export default Skills;
+export default Certs;

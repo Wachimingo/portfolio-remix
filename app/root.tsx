@@ -21,9 +21,9 @@ export const meta: MetaFunction = () => ({
 
 export function links() {
   return [
-    { rel: "stylesheet", href: appStyle, media: "none" },
-    { rel: "stylesheet", href: navBarStyle, media: "none" },
-    { rel: "stylesheet", href: footerStyle, media: "none" },
+    { rel: "stylesheet", href: appStyle, media: process.env.MEDIA_CSS },
+    { rel: "stylesheet", href: navBarStyle, media: process.env.MEDIA_CSS },
+    { rel: "stylesheet", href: footerStyle, media: process.env.MEDIA_CSS },
   ]
 }
 
