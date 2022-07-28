@@ -1,6 +1,6 @@
 import { json } from "@remix-run/node";
 import { useActionData, useLoaderData } from '@remix-run/react';
-import { authForm } from "~/components/common/authComponents";
+import AuthForm from "~/components/auth/form";
 import { actions } from "~/controllers/auth";
 import authStyles from "~/styles/auth.css";
 import formStyles from "~/styles/form.css";
@@ -50,7 +50,7 @@ const Auth = () => {
     return (
         <>
             <div className="items-container">
-                {authForm(data.action)}
+                {AuthForm(data.action)}
             </div>
             {process.env.NODE_ENV === 'development'
                 ? <script

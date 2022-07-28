@@ -1,10 +1,11 @@
+/* eslint-disable react/display-name */
 import { Form, Link } from "@remix-run/react";
 
 const renderForm: any = {
-    "signin": (action: string) => {
+    "signin": (action: string, title: string) => {
         return (
             <Form method="post" action='/auth/signin' className="dark form-width-90vw">
-                <h1>{action}</h1>
+                <h1>{title}</h1>
                 <p >Please enter your login and password!</p>
                 <div>
                     <input
@@ -12,7 +13,6 @@ const renderForm: any = {
                         name='email'
                         id="email"
                         required={true}
-                    // value='joshuaguillen.adoc@live.com'
                     />
                     <label htmlFor="email">Email</label>
                 </div>
@@ -22,7 +22,6 @@ const renderForm: any = {
                         name="password"
                         id="password"
                         required={true}
-                    // value='123456'
                     />
                     <label htmlFor="password">Password</label>
                 </div>
@@ -35,10 +34,10 @@ const renderForm: any = {
             </Form>
         )
     },
-    "signup": (action: string) => {
+    "signup": (action: string, title: string) => {
         return (
             <Form method="post" action='/auth/signup' className="dark form-width-90vw">
-                <h2>{action}</h2>
+                <h2>{title}</h2>
                 <p>Please enter your login and password!</p>
                 <div>
                     <label htmlFor="name">Name</label>
@@ -93,18 +92,20 @@ const renderForm: any = {
             </div>
         )
     },
-    "logout": () => {
+    "logout": (action: string, title: string) => {
         return (
             <div>
-                <h1>You've been logged off.</h1>
+                <h2>{title}</h2>
+                <h3>You've been logged off.</h3>
             </div>
         )
     }
 }
 
-export const authForm = (action: string) => {
+export default (action: string) => {
+    const title = action.charAt(0).toUpperCase() + action.slice(1);
     if (!action) return <>No action provided</>
     const handler = renderForm[action]
     if (!handler) return <>Not found</>
-    return renderForm[action](action)
+    return renderForm[action](action, title)
 }

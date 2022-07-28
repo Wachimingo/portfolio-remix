@@ -4,7 +4,7 @@ import { getSkills } from '~/controllers/skills';
 import { getCategories } from '~/controllers/categories';
 import { getCerts } from "~/controllers/certs";
 import Certs from "~/components/certs/card";
-import { SeeMoreLinks } from "~/components/landingPage";
+import { SeeMoreLinks } from "~/components/landingPage/seeMoreLink";
 import { SkillListByCategory as Skills } from "~/components/skills/list";
 import type { Category, Certification, Skill } from "~/types/skillsAndCerts";
 import rootStyles from '~/styles/root.css';
