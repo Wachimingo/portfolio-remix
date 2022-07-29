@@ -1,11 +1,13 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getCerts } from "~/controllers/certs";
-import Certs from "~/components/certs/card";
-import rootStyles from '~/styles/root.css';
-import cardStyle from '~/styles/card.css';
+import Card from "~/components/certs/card";
+import type { MetaFunction, LinksFunction, LoaderFunction } from '@remix-run/node';
+import type { FC } from "react";
+import rootStyles from '~/styles/min/root.css';
+import cardStyle from '~/styles/min/card.css';
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
     return {
         title: "Certifications",
         description:
@@ -13,14 +15,14 @@ export const meta = () => {
     };
 };
 
-export function links() {
+export const links: LinksFunction = () => {
     return [
         { rel: "stylesheet", href: rootStyles, media: process.env.MEDIA_CSS },
         { rel: "stylesheet", href: cardStyle, media: process.env.MEDIA_CSS },
     ]
 }
 
-export const loader = async () => {
+export const loader: LoaderFunction = async () => {
     const [skills] = await Promise.all([
         getCerts({
             locale: "en"
@@ -29,7 +31,7 @@ export const loader = async () => {
     return json(skills);
 };
 
-export default function Index() {
+const Certs: FC = () => {
     const certs = useLoaderData<any>();
     return (
         <>
@@ -41,8 +43,9 @@ export default function Index() {
 
             </main>
             <div className="items-container2">
-                <Certs certs={certs} />
+                <Card certs={certs} />
             </div>
         </>
     );
 }
+export default Certs;

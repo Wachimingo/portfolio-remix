@@ -2,11 +2,13 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getSkills } from '~/controllers/skills';
 import Card from "~/components/skills/card";
+import type { MetaFunction, LinksFunction, LoaderFunction } from '@remix-run/node';
+import type { FC } from "react";
 import type { Skill } from "~/types/skillsAndCerts";
-import rootStyles from '~/styles/root.css';
-import cardStyle from '~/styles/card.css';
+import rootStyles from '~/styles/min/root.css';
+import cardStyle from '~/styles/min/card.css';
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
     return {
         title: "Skills",
         description:
@@ -14,14 +16,14 @@ export const meta = () => {
     };
 };
 
-export function links() {
+export const links: LinksFunction = () => {
     return [
         { rel: "stylesheet", href: rootStyles, media: process.env.MEDIA_CSS },
         { rel: "stylesheet", href: cardStyle, media: process.env.MEDIA_CSS },
     ]
 }
 
-export const loader = async () => {
+export const loader: LoaderFunction = async () => {
     const [skills] = await Promise.all([
         getSkills({
             locale: "en"
@@ -30,7 +32,7 @@ export const loader = async () => {
     return json(skills);
 };
 
-const Skills = () => {
+const Skills: FC = () => {
     const skills = useLoaderData<Skill[]>();
     return (
         <>

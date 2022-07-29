@@ -1,16 +1,13 @@
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
-  Scripts,
-  useMatches,
-  ScrollRestoration,
 } from "@remix-run/react";
-import type { MetaFunction } from "@remix-run/node";
-import appStyle from '~/styles/app.css';
-import navBarStyle from '~/styles/navbar.css';
-import footerStyle from '~/styles/footer.css';
+import type { MetaFunction, LinksFunction } from "@remix-run/node";
+import type { FC } from "react";
+import appStyle from '~/styles/min/app.css';
+import navBarStyle from '~/styles/min/navbar.css';
+import footerStyle from '~/styles/min/footer.css';
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -19,7 +16,7 @@ export const meta: MetaFunction = () => ({
 });
 
 
-export function links() {
+export const links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: appStyle, media: process.env.MEDIA_CSS },
     { rel: "stylesheet", href: navBarStyle, media: process.env.MEDIA_CSS },
@@ -27,13 +24,7 @@ export function links() {
   ]
 }
 
-export default function App() {
-  const matches = useMatches();
-
-  const includesScripts = matches.some(
-    (match) => match.handle?.hydrate
-  )
-
+export const App: FC = () => {
   return (
     <html lang="en">
       <head>
@@ -42,11 +33,8 @@ export default function App() {
       </head>
       <body>
         <Outlet />
-        {includesScripts ? <Scripts /> : null}
-        {process.env.NODE_ENV === "development" ? <ScrollRestoration /> : undefined}
-        {/* <Scripts /> */}
-        {process.env.NODE_ENV === "development" ? <LiveReload /> : undefined}
       </body>
     </html >
   );
 }
+export default App;

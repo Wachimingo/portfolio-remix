@@ -2,29 +2,31 @@ import { json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { Card } from "~/components";
 import { getProjects } from "~/controllers/projects";
-import projectsStyle from '~/styles/projects.css';
-import buttonsStyle from '~/styles/buttons.css';
+import type { MetaFunction, LinksFunction, LoaderFunction } from '@remix-run/node';
+import type { FC } from "react";
+import projectsStyle from '~/styles/min/projects.css';
+import buttonsStyle from '~/styles/min/buttons.css';
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
     return {
         title: "Projects",
         description: "Catalog of projects", "og:title": "Projects",
     };
 };
 
-export function links() {
+export const links: LinksFunction = () => {
     return [
         { rel: "stylesheet", href: projectsStyle, media: process.env.MEDIA_CSS },
         { rel: "stylesheet", href: buttonsStyle, media: process.env.MEDIA_CSS },
     ]
 }
 
-export const loader = async () => {
+export const loader: LoaderFunction = async () => {
     const projects = await getProjects({ locale: 'en' })
     return json(projects)
 }
 
-const Projects = () => {
+const Projects: FC = () => {
     const projects = useLoaderData();
     return (
         <>

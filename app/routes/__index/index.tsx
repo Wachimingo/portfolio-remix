@@ -7,10 +7,12 @@ import Certs from "~/components/certs/card";
 import { SeeMoreLinks } from "~/components/landingPage/seeMoreLink";
 import { SkillListByCategory as Skills } from "~/components/skills/list";
 import type { Category, Certification, Skill } from "~/types/skillsAndCerts";
-import rootStyles from '~/styles/root.css';
-import cardStyle from '~/styles/card.css';
+import type { MetaFunction, LinksFunction, LoaderFunction, ErrorBoundaryComponent } from '@remix-run/node';
+import type { FC } from "react";
+import rootStyles from '~/styles/min/root.css';
+import cardStyle from '~/styles/min/card.css';
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
   return {
     title: "Welcome",
     description:
@@ -18,14 +20,14 @@ export const meta = () => {
   };
 };
 
-export function links() {
+export const links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: rootStyles, media: process.env.MEDIA_CSS },
     { rel: "stylesheet", href: cardStyle, media: process.env.MEDIA_CSS },
   ]
 }
 
-export const loader = async () => {
+export const loader: LoaderFunction = async () => {
   const [categories, skills, certs] = await Promise.all([
     getCategories({
       locale: "en",
@@ -43,7 +45,7 @@ export const loader = async () => {
   return json({ categories, skills, certs });
 };
 
-export function ErrorBoundary({ error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return (
     <main>
       <h1>{error.message}</h1>
@@ -57,7 +59,7 @@ type Loader = {
   certs: Certification[]
 }
 
-export default function Index() {
+export const Index: FC = () => {
   const { categories, skills, certs } = useLoaderData<Loader>();
   return (
     <main>
@@ -85,3 +87,5 @@ export default function Index() {
     </main>
   );
 }
+
+export default Index;

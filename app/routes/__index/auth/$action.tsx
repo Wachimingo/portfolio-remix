@@ -1,13 +1,15 @@
 import { json } from "@remix-run/node";
 import { useActionData, useLoaderData } from '@remix-run/react';
+import type { MetaFunction, LinksFunction, LoaderFunction, ActionFunction } from '@remix-run/node';
+import type { FC } from "react";
 import AuthForm from "~/components/auth/form";
 import { actions } from "~/controllers/auth";
-import authStyles from "~/styles/auth.css";
-import formStyles from "~/styles/form.css";
+import authStyles from "~/styles/min/auth.css";
+import formStyles from "~/styles/min/form.css";
 
 // export const handle = { hydrate: true };
 
-export const meta = () => {
+export const meta: MetaFunction = () => {
     return {
         title: "Wachimingo | Auth",
         description:
@@ -15,19 +17,19 @@ export const meta = () => {
     };
 };
 
-export function links() {
+export const links: LinksFunction = () => {
     return [
         { rel: "stylesheet", href: authStyles, media: process.env.MEDIA_CSS },
         { rel: "stylesheet", href: formStyles, media: process.env.MEDIA_CSS },
     ]
 }
 
-export const loader = async ({ params }: any) => {
+export const loader: LoaderFunction = async ({ params }: any) => {
     return json(params)
 }
 
 
-export const action = async ({ request, params }) => {
+export const action: ActionFunction = async ({ request, params }) => {
     /* Taking the form data from the request and putting it into an object. */
     const body = await request.formData();
     const data: any = { params };
@@ -43,7 +45,7 @@ export const action = async ({ request, params }) => {
     // return json({})
 }
 
-const Auth = () => {
+const Auth: FC = () => {
     const data = useLoaderData();
     const result = useActionData();
 

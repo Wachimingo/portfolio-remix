@@ -3,11 +3,13 @@ import { useLoaderData } from '@remix-run/react';
 import Card from '~/components/certs/card';
 import Modal from '~/components/certs/modal';
 import { actions, getCerts } from '~/controllers/certs';
-import rootStyles from '~/styles/root.css';
-import formStyles from '~/styles/form.css';
-import cardStyles from '~/styles/card.css';
+import type { LinksFunction, LoaderFunction, ActionFunction, ErrorBoundaryComponent } from '@remix-run/node';
+import type { FC } from "react";
+import rootStyles from '~/styles/min/root.css';
+import formStyles from '~/styles/min/form.css';
+import cardStyles from '~/styles/min/card.css';
 
-export const links = () => {
+export const links: LinksFunction = () => {
     return [
         { rel: "stylesheet", href: rootStyles, media: process.env.MEDIA_CSS },
         { rel: "stylesheet", href: cardStyles, media: process.env.MEDIA_CSS },
@@ -15,9 +17,9 @@ export const links = () => {
     ]
 }
 
-const getCookie = (cname: string, cookie: string) => {
+const getCookie = (cname: string | null, cookie: string | null) => {
     let name = cname + "=";
-    let decodedCookie = decodeURIComponent(cookie);
+    let decodedCookie = decodeURIComponent(cookie ?? '');
     let ca = decodedCookie.split(';');
     for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
@@ -31,7 +33,7 @@ const getCookie = (cname: string, cookie: string) => {
     return undefined;
 }
 
-export const loader = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
     const cookie = request.headers.get('cookie');
     const name = getCookie('name', cookie);
     const token = getCookie('token', cookie);
@@ -45,7 +47,7 @@ export const loader = async ({ request }) => {
     throw new Error('No authorize user');
 }
 
-export const action = async ({ request }) => {
+export const action: ActionFunction = async ({ request }) => {
     const url = new URL(request.url);
 
     const method: string = url.searchParams.get("method")?.toUpperCase() ?? 'none';
@@ -69,7 +71,7 @@ export const action = async ({ request }) => {
     return await actions[method](data);
 }
 
-export function ErrorBoundary({ error }) {
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
     return (
         <main>
             <h1>{error.message}</h1>
@@ -77,7 +79,7 @@ export function ErrorBoundary({ error }) {
     );
 }
 
-const Certs = () => {
+const Certs: FC = () => {
     const certs = useLoaderData();
     return <>
         <main>

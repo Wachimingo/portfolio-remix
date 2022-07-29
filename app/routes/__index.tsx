@@ -1,7 +1,8 @@
 import { Outlet } from "@remix-run/react";
+import type { FC } from "react";
 import { NavBar, Footer } from "~/components";
 
-const Portfolio = () => {
+const Portfolio: FC = () => {
     return (
         <>
             <NavBar />
