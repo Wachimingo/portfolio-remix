@@ -1,7 +1,7 @@
 
 import { Link } from "@remix-run/react";
 
-export const NavBar = (props: any) => {
+export const NavBar = () => {
     return (
         <nav className="menu">
             <div

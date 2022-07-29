@@ -50,6 +50,7 @@ export default ({ categories }) => {
                         name="icon"
                     />
                     <div id="imageHelp" className="form-text">Please search for images online</div>
+                    <img src='' id="imgPreview" alt="preview" width={100} height={100} />
                 </div>
                 <input type="text" name="_id" id='skillIdInput' style={{ display: "none" }} />
             </section>

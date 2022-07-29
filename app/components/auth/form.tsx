@@ -46,7 +46,6 @@ const renderForm: any = {
                         name='name'
                         id="name"
                         required={true}
-                    // value='test'
                     />
                 </div>
                 <div>
@@ -56,7 +55,6 @@ const renderForm: any = {
                         name='email'
                         id="email"
                         required={true}
-                    // value='alexanderguillen.adoc@gmail.com'
                     />
                 </div>
                 <div>
@@ -66,7 +64,6 @@ const renderForm: any = {
                         name="password"
                         id="password"
                         required={true}
-                    // value='123456'
                     />
                 </div>
                 <div>
@@ -76,7 +73,6 @@ const renderForm: any = {
                         name="confirmPassword"
                         id="confirmPassword"
                         required={true}
-                    // value='123456'
                     />
                 </div>
                 <div>

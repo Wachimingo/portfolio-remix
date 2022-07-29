@@ -42,6 +42,8 @@ export default ({ certs, admin }: Props) => {
                             loading="lazy"
                             src={cert.icon ? cert.icon : '/assets/skills/default.webp'}
                             alt={cert.name}
+                            width='auto'
+                            height='auto'
                         />
                         <h3>{cert.name}</h3>
                         {controls(cert)}

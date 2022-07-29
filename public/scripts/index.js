@@ -1,5 +1,5 @@
 const childDivs = document.querySelectorAll('[class*="menu-child-div"]');
-const x = window.matchMedia("(min-width: 768px)");
+const x = window.matchMedia("(min-width: 400px)");
 const signupLink = document.getElementById('signup');
 const login_logoutLink = document.getElementById('login_logout');
 const media = document.currentScript.getAttribute('media');

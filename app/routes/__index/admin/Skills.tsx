@@ -7,7 +7,7 @@ import { getCategories } from '~/controllers/categories';
 import type { Category, Skill } from '~/types/skillsAndCerts';
 import rootStyles from '~/styles/root.css';
 import formStyles from '~/styles/form.css';
-import cardStyles from '~/styles/card.css'
+import cardStyles from '~/styles/card.css';
 
 export const links = () => {
     return [
@@ -91,6 +91,12 @@ type Loader = {
 const Skills = () => {
     const { skills, categories } = useLoaderData<Loader>();
 
+    const renderScript = () => {
+        if (process.env.NODE_ENV === 'development') return <script defer={true} src='/scripts/skills.js' />;
+
+        return <script defer={true} src='/scripts/min/skills-min.js' />
+    }
+
     return <>
         <main>
             <h1>Manage skills</h1>
@@ -99,12 +105,8 @@ const Skills = () => {
             <Card skills={skills} admin />
             <button id='addNewSkillBtn' type='button' className="bubble-btn">+</button>
         </section>
+        {renderScript()}
         <Modal categories={categories} />
-        {
-            process.env.NODE_ENV === 'development'
-                ? <script defer={true} src='/scripts/skills.js' />
-                : <script defer={true} src='/scripts/min/skills-min.js' />
-        }
     </>
 }
 

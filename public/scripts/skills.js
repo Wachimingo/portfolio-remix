@@ -12,6 +12,7 @@ const skillDescriptionInput = document.getElementById('skillDescriptionInput');
 const skillCategoriesInput = document.getElementById('skillCategoriesInput');
 const skillLevelInput = document.getElementById('skillLevelInput');
 const skillIconInput = document.getElementById('skillIconInput');
+const imgPreview = document.getElementById('imgPreview');
 
 function openModal(type) {
     form.action = '/admin/skills?method=post';
@@ -21,9 +22,9 @@ function openModal(type) {
     skillDescriptionInput.value = '';
     skillLevelInput.value = '';
     skillIconInput.value = '';
-    skillIconInput.value = '';
     skillCategoriesInput.value = '';
     skillIdInput.value = '';
+    imgPreview.src = '/assets/skills/default.webp';
 
     if (type === 'update') {
         form.action = '/admin/skills?method=patch';
@@ -35,6 +36,7 @@ function openModal(type) {
         skillLevelInput.value = this.getAttribute('data-skill-level');
         skillIconInput.value = this.getAttribute('data-skill-icon');
         skillCategoriesInput.value = this.getAttribute('data-skill-category');
+        imgPreview.src = this.getAttribute('data-skill-icon') !== '' ? this.getAttribute('data-skill-icon') : '/assets/skills/default.webp';
     }
     modal.classList.remove('none');
     window.addEventListener('click', closeWhenClickOutside);

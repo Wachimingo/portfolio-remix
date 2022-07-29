@@ -30,7 +30,7 @@ export const loader = async () => {
     return json(skills);
 };
 
-export default function Index() {
+const Skills = () => {
     const skills = useLoaderData<Skill[]>();
     return (
         <>
@@ -46,3 +46,5 @@ export default function Index() {
         </>
     );
 }
+
+export default Skills;
