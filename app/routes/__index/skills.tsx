@@ -34,6 +34,9 @@ export const loader: LoaderFunction = async () => {
 
 const Skills: FC = () => {
     const skills = useLoaderData<Skill[]>();
+    const List = skills.map((skill: Skill) => {
+        return <Card key={skill.name} skill={skill} />
+    })
     return (
         <>
             <main>
@@ -42,7 +45,7 @@ const Skills: FC = () => {
                     <p>This is a evergrowing collection of current skillsets I handle.</p>
                 </div>
                 <div className="items-container2">
-                    <Card skills={skills} />
+                    {List}
                 </div>
             </main>
         </>

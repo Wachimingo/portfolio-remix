@@ -1,6 +1,6 @@
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
-import Card from '~/components/certs/card';
+import { AdminCertCard as Card } from '~/components/certs/card';
 import Modal from '~/components/certs/modal';
 import { actions, getCerts } from '~/controllers/certs';
 import type { LinksFunction, LoaderFunction, ActionFunction, ErrorBoundaryComponent } from '@remix-run/node';
@@ -8,6 +8,8 @@ import type { FC } from "react";
 import rootStyles from '~/styles/min/root.css';
 import formStyles from '~/styles/min/form.css';
 import cardStyles from '~/styles/min/card.css';
+import { getCookie } from '~/utils/cookie';
+import type { Certification } from '~/types/skillsAndCerts';
 
 export const links: LinksFunction = () => {
     return [
@@ -15,22 +17,6 @@ export const links: LinksFunction = () => {
         { rel: "stylesheet", href: cardStyles, media: process.env.MEDIA_CSS },
         { rel: "stylesheet", href: formStyles, media: process.env.MEDIA_CSS },
     ]
-}
-
-const getCookie = (cname: string | null, cookie: string | null) => {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(cookie ?? '');
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return undefined;
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -81,12 +67,15 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
 
 const Certs: FC = () => {
     const certs = useLoaderData();
+    const List = certs.map((cert: Certification) => {
+        return <Card key={cert.name} cert={cert} />
+    })
     return <>
         <main>
             <h1>Manage certifications</h1>
         </main>
         <section className='items-container2'>
-            <Card certs={certs} admin />
+            {List}
             <button id='addNewCertBtn' type='button' className="bubble-btn">+</button>
         </section>
         <Modal />

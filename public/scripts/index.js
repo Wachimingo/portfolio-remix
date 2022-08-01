@@ -1,3 +1,4 @@
+'use strict';
 const childDivs = document.querySelectorAll('[class*="menu-child-div"]');
 const x = window.matchMedia("(min-width: 400px)");
 const signupLink = document.getElementById('signup');

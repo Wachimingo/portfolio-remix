@@ -1,7 +1,7 @@
 import { json } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { actions, getSkills } from '~/controllers/skills';
-import Card from '~/components/skills/card';
+import { adminSkillCard as Card } from '~/components/skills/card';
 import Modal from '~/components/skills/modal';
 import { getCategories } from '~/controllers/categories';
 import type { Category, Skill } from '~/types/skillsAndCerts';
@@ -10,6 +10,7 @@ import type { FC } from "react";
 import rootStyles from '~/styles/min/root.css';
 import formStyles from '~/styles/min/form.css';
 import cardStyles from '~/styles/min/card.css';
+import { getCookie } from '~/utils/cookie';
 
 export const links: LinksFunction = () => {
     return [
@@ -17,22 +18,6 @@ export const links: LinksFunction = () => {
         { rel: "stylesheet", href: cardStyles, media: process.env.MEDIA_CSS },
         { rel: "stylesheet", href: formStyles, media: process.env.MEDIA_CSS },
     ]
-}
-
-const getCookie = (cname: string | null, cookie: string | null) => {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(cookie ?? '');
-    let ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return undefined;
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -93,6 +78,10 @@ type Loader = {
 const Skills: FC = () => {
     const { skills, categories } = useLoaderData<Loader>();
 
+    const List = skills.map((skill: Skill) => {
+        return <Card key={skill.name} skill={skill} />
+    })
+
     const renderScript = () => {
         if (process.env.NODE_ENV === 'development') return <script defer={true} src='/scripts/skills.js' />;
 
@@ -104,7 +93,7 @@ const Skills: FC = () => {
             <h1>Manage skills</h1>
         </main>
         <section className='items-container2'>
-            <Card skills={skills} admin />
+            {List}
             <button id='addNewSkillBtn' type='button' className="bubble-btn">+</button>
         </section>
         {renderScript()}

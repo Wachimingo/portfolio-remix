@@ -7,18 +7,19 @@ type Props = {
 }
 
 export const SkillListByCategory = ({ skills, categories }: Props) => {
-    return <>
-        {
-            categories.map((cat: Category) => {
-                if (cat.relatedTo === 'skills') {
-                    return (
-                        <section key={cat.name}>
-                            <h2>{cat.name}</h2>
-                            <Card skills={skills.filter((skill: Skill) => skill.category === cat._id)} />
-                        </section>
-                    )
-                } else return undefined
-            })
-        }
-    </>
+    const List = categories.map((cat: Category) => {
+        if (cat.relatedTo === 'skills') {
+            return (
+                <section key={cat.name}>
+                    <h2>{cat.name}</h2>
+                    {
+                        skills.filter((skill: Skill) => skill.category === cat._id).map((skill: Skill) => {
+                            return <Card skill={skill} key={skill.name} />
+                        })
+                    }
+                </section>
+            )
+        } else return undefined;
+    })
+    return List;
 }

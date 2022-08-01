@@ -4,6 +4,7 @@ import { getCerts } from "~/controllers/certs";
 import Card from "~/components/certs/card";
 import type { MetaFunction, LinksFunction, LoaderFunction } from '@remix-run/node';
 import type { FC } from "react";
+import type { Certification } from "~/types/skillsAndCerts";
 import rootStyles from '~/styles/min/root.css';
 import cardStyle from '~/styles/min/card.css';
 
@@ -33,6 +34,9 @@ export const loader: LoaderFunction = async () => {
 
 const Certs: FC = () => {
     const certs = useLoaderData<any>();
+    const List = certs.map((cert: Certification) => {
+        return <Card key={cert.name} cert={cert} />
+    });
     return (
         <>
             <main>
@@ -43,7 +47,7 @@ const Certs: FC = () => {
 
             </main>
             <div className="items-container2">
-                <Card certs={certs} />
+                {List}
             </div>
         </>
     );

@@ -3,7 +3,7 @@ import { useLoaderData } from "@remix-run/react";
 import { getSkills } from '~/controllers/skills';
 import { getCategories } from '~/controllers/categories';
 import { getCerts } from "~/controllers/certs";
-import Certs from "~/components/certs/card";
+import CertCard from "~/components/certs/card";
 import { SeeMoreLinks } from "~/components/landingPage/seeMoreLink";
 import { SkillListByCategory as Skills } from "~/components/skills/list";
 import type { Category, Certification, Skill } from "~/types/skillsAndCerts";
@@ -27,7 +27,7 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
   const [categories, skills, certs] = await Promise.all([
     getCategories({
       locale: "en",
@@ -61,31 +61,34 @@ type Loader = {
 
 export const Index: FC = () => {
   const { categories, skills, certs } = useLoaderData<Loader>();
-  return (
+  const certList = certs.map((cert: Certification) => {
+    return <CertCard key={cert.name} cert={cert} />
+  })
+  return <>
     <main>
       <div className='welcome curve'>
         <h1>Wachimingo</h1>
         <img
           className="profile-pic"
-          src="./assets/profile/profile-pic.webp"
+          src="/assets/profile/profile-pic.webp"
           alt="profile"
           loading="lazy"
         />
       </div>
       <div className="items-container">
+        {/* @ts-ignore */}
         <Skills categories={categories} skills={skills} />
         <SeeMoreLinks link='/skills' />
-
         <section>
           <div className="semicircle">
             <h2>Certifications</h2>
           </div>
-          <Certs certs={certs} />
+          {certList}
           <SeeMoreLinks link='/certs' />
         </section>
       </div>
     </main>
-  );
+  </>
 }
 
 export default Index;
