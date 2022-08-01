@@ -10,7 +10,7 @@ type Props = {
 
 export default ({ skills, admin }: Props) => {
     const controls = (skill: Skill) => {
-        if (!admin) return undefined;
+        if (!admin) return <></>;
         return (
             <>
                 <FaCog
@@ -39,13 +39,14 @@ export default ({ skills, admin }: Props) => {
         {
             skills.map((skill: Skill, i: number) => {
                 return (
+                    //@ts-ignore
                     <Card key={i} index={i}>
                         <img
                             loading="lazy"
                             src={skill.icon ? skill.icon : '/assets/skills/default.webp'}
                             alt={skill.name}
-                            width="auto"
-                            height="auto"
+                            width="150px"
+                            height="150px"
                         />
                         <div>
                             <h1>{skill.name}</h1>

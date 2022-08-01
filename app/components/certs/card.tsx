@@ -10,7 +10,7 @@ type Props = {
 
 export default ({ certs, admin }: Props) => {
     const controls = (cert: Certification) => {
-        if (!admin) return undefined;
+        if (!admin) return <></>;
         return (
             <>
                 <FaCog
@@ -37,13 +37,14 @@ export default ({ certs, admin }: Props) => {
         {
             certs.map((cert: Certification, i: number) => {
                 return (
+                    //@ts-ignore
                     <Card key={i} index={i}>
                         <img
                             loading="lazy"
                             src={cert.icon ? cert.icon : '/assets/skills/default.webp'}
                             alt={cert.name}
-                            width='auto'
-                            height='auto'
+                            width='150px'
+                            height='150px'
                         />
                         <h3>{cert.name}</h3>
                         {controls(cert)}
