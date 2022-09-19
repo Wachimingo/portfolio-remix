@@ -24,11 +24,9 @@ export const links: LinksFunction = () => {
 }
 
 export const loader: LoaderFunction = async () => {
-    const [skills] = await Promise.all([
-        getSkills({
-            locale: "en"
-        }),
-    ])
+    const skills = await getSkills({
+        locale: "en"
+    });
     return json(skills);
 };
 

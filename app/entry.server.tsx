@@ -13,6 +13,7 @@ export default function handleRequest(
   );
 
   responseHeaders.set("Content-Type", "text/html");
+  responseHeaders.set('Cache-Control', 'fresh shared Cache-Control: max-age=31536000, immutable');
 
   return new Response("<!DOCTYPE html>" + markup, {
     status: responseStatusCode,
