@@ -8,7 +8,7 @@ export const Footer = () => {
                     <a href="https://www.facebook.com/halex007/" target="_blank" rel='noreferrer' role="button">
                         <FaFacebookF />
                     </a>
-                    <a href="https://www.linkedin.com/in/joshua-guillen-755143a7/" target="_blank" rel='noreferrer' role="button">
+                    <a href="https://www.linkedin.com/in/joshua-herrera-755143a7/" target="_blank" rel='noreferrer' role="button">
                         <FaLinkedinIn />
                     </a>
                     <a href="https://github.com/Wachimingo" target="_blank" rel='noreferrer' role="button">
