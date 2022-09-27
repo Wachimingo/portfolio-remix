@@ -19,7 +19,7 @@ const SkillCard = ({ children, skill }: Props) => {
             height="150px"
         />
         <div>
-            <h1>{skill.name}</h1>
+            <h1 className="notranslate">{skill.name}</h1>
             <p>
                 {skill.description}
             </p>

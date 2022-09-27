@@ -11,7 +11,7 @@ export const SkillListByCategory = ({ skills, categories }: Props) => {
         if (cat.relatedTo === 'skills') {
             return (
                 <section key={cat.name}>
-                    <h2>{cat.name}</h2>
+                    <h2 className="notranslate">{cat.name}</h2>
                     {
                         skills.filter((skill: Skill) => skill.category === cat._id).map((skill: Skill) => {
                             return <Card skill={skill} key={skill.name} />

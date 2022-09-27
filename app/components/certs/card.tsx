@@ -21,7 +21,7 @@ export const CertCard = ({ children, cert }: Props) => {
             height='150px'
         />
         <div>
-            <h3>{cert.name}</h3>
+            <h3 className="notranslate">{cert.name}</h3>
         </div>
         <>
             {children}
