@@ -1,55 +1,52 @@
-import { json } from "@remix-run/node";
+import { json, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getCerts } from "~/controllers/certs";
-import Card from "~/components/certs/card";
-import type { MetaFunction, LinksFunction, LoaderFunction } from '@remix-run/node';
-import type { FC } from "react";
-import type { Certification } from "~/types/skillsAndCerts";
-import rootStyles from '~/styles/min/root.css';
-import cardStyle from '~/styles/min/card.css';
-
-export const meta: MetaFunction = () => {
-    return {
-        title: "Certifications",
-        description:
-            "Learning path",
-    };
-};
+import { CertCard } from "~/components/certs/Card";
+import { Div } from "~/components/common/containers/Div";
+import { Main } from "~/components/common/containers/Main";
+import { Section } from "~/components/common/containers/Section";
+import DatabaseServer from "~/utils/db/mongodb/dbConfig";
+import certStyles from "~/styles/certCards.css";
+import containerStyles from "~/styles/containers.css";
+import buttonsStyles from "~/styles/button.css";
+import { LinksFunction } from "@remix-run/react/dist/routeModules";
 
 export const links: LinksFunction = () => {
-    return [
-        { rel: "stylesheet", href: rootStyles, media: process.env.MEDIA_CSS },
-        { rel: "stylesheet", href: cardStyle, media: process.env.MEDIA_CSS },
-    ]
-}
-
-export const loader: LoaderFunction = async () => {
-    const [skills] = await Promise.all([
-        getCerts({
-            locale: "en"
-        }),
-    ])
-    return json(skills);
+  return [
+    {
+      rel: "stylesheet",
+      href: certStyles
+    },
+    {
+      rel: "stylesheet",
+      href: containerStyles
+    },
+    {
+      rel: "stylesheet",
+      href: buttonsStyles
+    }
+  ];
 };
 
-const Certs: FC = () => {
-    const certs = useLoaderData<any>();
-    const List = certs.map((cert: Certification) => {
-        return <Card key={cert.name} cert={cert} />
-    });
-    return (
-        <>
-            <main>
-                <div>
-                    <h1>Certifications</h1>
-                    <p>Keeping up with the ever changing technologies and knowledge.</p>
-                </div>
+export const loader: LoaderFunction = async ({ request }) => {
+  DatabaseServer.getInstance();
+  const certs = await DatabaseServer.getDocuments("certifications", { locale: "en" }, undefined, 0);
+  return json(certs);
+};
 
-            </main>
-            <div className="items-container2">
-                {List}
-            </div>
-        </>
-    );
+export default function Certs() {
+  const certs = useLoaderData();
+  return (
+    <>
+      <Main>
+        <h1>Certifications</h1>
+      </Main>
+      <Section row>
+        <Div row>
+          {certs.map((cert: any) => (
+            <CertCard key={cert.name} cert={cert} />
+          ))}
+        </Div>
+      </Section>
+    </>
+  );
 }
-export default Certs;

@@ -1,0 +1,94 @@
+form {
+    /* background-color: rgb(238, 236, 236); */
+    display: flex;
+    flex-direction: column;
+    padding: 2vh 0;
+    margin: 2vh 0;
+    color: var(--font-color);
+}
+
+.form-width-auto {
+    width: auto;
+}
+
+.form-width-90vw {
+    width: 90vw;
+}
+
+.gray {
+    background-color: rgb(238, 236, 236);
+}
+
+.dark {
+    background-color: rgb(51, 50, 50);
+    color: white;
+}
+
+.medium {
+    width: 50%;
+}
+
+label {
+    display: block;
+}
+
+input[type=text],
+input[type=number],
+input[type=email],
+input[type=password],
+select {
+    width: 85%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    padding: 15px 32px;
+    width: 90%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--success);
+    border: 2px solid var(--success);
+}
+
+input[type=submit]:hover {
+    background-color: var(--success);
+    color: black;
+    font-weight: bold;
+    border: 2px solid var(--success);
+}
+
+.form-controls {
+    display: flex;
+    flex-direction: row wrap;
+    width: 100%;
+}
+
+.form-cancel-button {
+    padding: 15px 32px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+    border: 2px solid var(--error);
+}
+
+.form-cancel-button:hover {
+    background-color: var(--error);
+    color: black;
+    border: 2px solid var(--error);
+}

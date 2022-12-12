@@ -1,66 +1,52 @@
-import { json } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
-import { Card } from "~/components";
-import { getProjects } from "~/controllers/projects";
-import type { MetaFunction, LinksFunction, LoaderFunction } from '@remix-run/node';
-import type { FC } from "react";
-import projectsStyle from '~/styles/min/projects.css';
-import buttonsStyle from '~/styles/min/buttons.css';
-
-export const meta: MetaFunction = () => {
-    return {
-        title: "Projects",
-        description: "Catalog of projects", "og:title": "Projects",
-    };
-};
+import { json, LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { Div } from "~/components/common/containers/Div";
+import { Main } from "~/components/common/containers/Main";
+import { Section } from "~/components/common/containers/Section";
+import DatabaseServer from "~/utils/db/mongodb/dbConfig";
+import projectStyles from "~/styles/projectCards.css";
+import containerStyles from "~/styles/containers.css";
+import buttonsStyles from "~/styles/button.css";
+import { LinksFunction } from "@remix-run/react/dist/routeModules";
+import { ProjectCard } from "~/components/projects/ProjectsCard";
 
 export const links: LinksFunction = () => {
-    return [
-        { rel: "stylesheet", href: projectsStyle, media: process.env.MEDIA_CSS },
-        { rel: "stylesheet", href: buttonsStyle, media: process.env.MEDIA_CSS },
-    ]
-}
+  return [
+    {
+      rel: "stylesheet",
+      href: projectStyles
+    },
+    {
+      rel: "stylesheet",
+      href: containerStyles
+    },
+    {
+      rel: "stylesheet",
+      href: buttonsStyles
+    }
+  ];
+};
 
-export const loader: LoaderFunction = async () => {
-    const projects = await getProjects({ locale: 'en' })
-    return json(projects)
-}
+export const loader: LoaderFunction = async ({ request }) => {
+  DatabaseServer.getInstance();
+  const projects = await DatabaseServer.getDocuments("projects", { locale: "en" }, undefined, 0);
+  return json(projects);
+};
 
-const Projects: FC = () => {
-    const projects = useLoaderData();
-    return (
-        <>
-            <main>
-                <h1>Projects</h1>
-            </main>
-            <section className="items-container">
-                {
-                    projects.map((project: any, i: number) => {
-                        return (
-                            <Card key={project.name}>
-                                <img
-                                    src={project.image}
-                                    alt={project.name}
-                                    width="auto"
-                                    height="auto"
-                                />
-                                <div>
-                                    <h1>{project.name}</h1>
-                                    <p>{project.description}</p>
-                                </div>
-                                {
-                                    project.link.includes('http' || 'https') ?
-                                        <a href={project.link} className="button success" target="_blank" rel='noreferrer' role="button">Checkout</a>
-                                        :
-                                        <Link to={project.link} className="button success">Checkout</Link>
-                                }
-                            </Card>
-                        )
-                    })
-                }
-            </section>
-        </>
-    )
+export default function Projects() {
+  const projects = useLoaderData();
+  return (
+    <>
+      <Main>
+        <h1>Projects</h1>
+      </Main>
+      <Section row>
+        <Div row>
+          {projects.map((project: any) => (
+            <ProjectCard key={project.name} project={project} />
+          ))}
+        </Div>
+      </Section>
+    </>
+  );
 }
-
-export default Projects;

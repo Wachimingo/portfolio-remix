@@ -1,0 +1,7 @@
+@import "./card.css";
+.cert-card-title {
+}
+.cert-card-image {
+  margin-top: 1em;
+  border-radius: 100%;
+}
