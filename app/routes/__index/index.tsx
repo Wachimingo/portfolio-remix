@@ -1,17 +1,17 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import DatabaseServer from "~/utils/db/mongodb/dbConfig";
+import { LinkButton } from "~/components/common/buttons";
+import { Div, Main, Section } from "~/components/common/containers";
+import { SkillBubble } from "~/components/skills";
+import { CertCard } from "~/components/certs/card";
 import certStyles from "~/styles/certCards.css";
 import homeStyles from "~/styles/home.css";
 import skillStyles from "~/styles/skillBubbles.css";
 import containerStyles from "~/styles/containers.css";
 import buttonsStyles from "~/styles/button.css";
-import DatabaseServer from "~/utils/db/mongodb/dbConfig";
 import type { Certification, Skill } from "~/types/skillsAndCerts";
 import type { MetaFunction, LinksFunction, LoaderFunction, ErrorBoundaryComponent } from "@remix-run/node";
-import { LinkButton } from "~/components/common/buttons";
-import { Div, Main, Section } from "~/components/common/containers";
-import { SkillBubble } from "~/components/skills";
-import { CertCard } from "~/components/certs/card";
 
 export const meta: MetaFunction = () => {
   return {

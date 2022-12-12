@@ -1,28 +1,29 @@
+import { Link } from "@remix-run/react";
 export const LinkButton = ({ children, link, info, error, success, extendedClass, ...props }: any): any => {
   if (success) {
     return (
-      <a className={`button success ${extendedClass ?? ""}`} href={link} {...props}>
+      <Link className={`button success ${extendedClass ?? ""}`} to={link} {...props}>
         {children}
-      </a>
+      </Link>
     );
   }
   if (info) {
     return (
-      <a className={`button info ${extendedClass ?? ""}`} href={link} {...props}>
+      <Link className={`button info ${extendedClass ?? ""}`} to={link} {...props}>
         {children}
-      </a>
+      </Link>
     );
   }
   if (error) {
     return (
-      <a className={`button error ${extendedClass ?? ""}`} href={link} {...props}>
+      <Link className={`button error ${extendedClass ?? ""}`} to={link} {...props}>
         {children}
-      </a>
+      </Link>
     );
   }
   return (
-    <a className='button' href={link}>
+    <Link className='button' to={link}>
       {children}
-    </a>
+    </Link>
   );
 };

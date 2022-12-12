@@ -56,6 +56,8 @@ a {
     --error: rgb(255, 73, 73);
     --info: rgb(81, 135, 253);
     --font-color: white;
+    --primary: #212224;
+    --secondary: #2c2d30;
     --navbar-primary-bg-color: #2d2f31;
     --navbar-secondary-bg-color: gray;
   }

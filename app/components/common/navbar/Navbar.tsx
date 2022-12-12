@@ -1,3 +1,4 @@
+import { Link } from "@remix-run/react";
 export const NavBar = () => {
   return (
     <nav className='menu'>
@@ -11,15 +12,15 @@ export const NavBar = () => {
         <a className='menu-container-link' href='/'>
           Home
         </a>
-        <a className='menu-container-link' href='/projects'>
+        <Link className='menu-container-link' to='/projects'>
           Projects
-        </a>
-        <a className='menu-container-link' href='/skills'>
+        </Link>
+        <Link className='menu-container-link' to='/skills'>
           Skills
-        </a>
-        <a className='menu-container-link' href='/certs'>
+        </Link>
+        <Link className='menu-container-link' to='/certs'>
           Certifications
-        </a>
+        </Link>
         {/* <a id='signup' className='menu-container-link' href='/auth/signup'>
           Sign Up
         </a>
