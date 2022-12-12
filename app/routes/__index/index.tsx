@@ -92,7 +92,7 @@ export const Index = () => {
         <br />
         <Div row>
           {skills.map((skill: any) => {
-            return <SkillBubble skill={skill} />;
+            return <SkillBubble key={skill.name} skill={skill} />;
           })}
         </Div>
         <br />
@@ -110,7 +110,7 @@ export const Index = () => {
         <br />
         <Div row>
           {certs.map((cert: any) => (
-            <CertCard extendedClassName='hidden' cert={cert} />
+            <CertCard key={cert.name} extendedClassName='hidden' cert={cert} />
           ))}
         </Div>
         <br />
