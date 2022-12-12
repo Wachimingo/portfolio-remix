@@ -1,4 +1,4 @@
-import { Card } from "../common/card";
+import { Card } from "../common/card/index";
 export const CertCard = ({ cert, children, extendedClassName }: any) => {
   return (
     <Card key={cert.name} extendedClassName={extendedClassName ?? ""}>

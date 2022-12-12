@@ -11,7 +11,7 @@ import type { MetaFunction, LinksFunction, LoaderFunction, ErrorBoundaryComponen
 import { LinkButton } from "~/components/common/buttons";
 import { Div, Main, Section } from "~/components/common/containers";
 import { SkillBubble } from "~/components/skills";
-import { CertCard } from "~/components/certs/Card";
+import { CertCard } from "~/components/certs/card";
 
 export const meta: MetaFunction = () => {
   return {
