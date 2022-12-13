@@ -5,29 +5,14 @@ import { Main } from "~/components/common/containers/Main";
 import { Section } from "~/components/common/containers/Section";
 import DatabaseServer from "~/utils/db/mongodb/dbConfig";
 import projectStyles from "~/styles/projectCards.css";
-import containerStyles from "~/styles/containers.css";
-import buttonsStyles from "~/styles/button.css";
 import { LinksFunction } from "@remix-run/react/dist/routeModules";
 import { ProjectCard } from "~/components/projects/ProjectsCard";
 
 export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: projectStyles
-    },
-    {
-      rel: "stylesheet",
-      href: containerStyles
-    },
-    {
-      rel: "stylesheet",
-      href: buttonsStyles
-    }
-  ];
+  return [{ rel: "stylesheet", href: projectStyles }];
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   DatabaseServer.getInstance();
   const projects = await DatabaseServer.getDocuments("projects", { locale: "en" }, undefined, 0);
   return json(projects);
