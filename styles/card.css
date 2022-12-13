@@ -3,7 +3,7 @@
   border-radius: 2%;
   transition: 0.3s;
   width: 450px;
-  height: fit-content;
+  height: auto;
   background-color: var(--secondary);
   margin: 0.5rem 0.5rem;
   /* display: flex;

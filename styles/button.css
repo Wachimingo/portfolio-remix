@@ -1,8 +1,10 @@
 .button {
-  position: relative;
+  /* position: relative; */
+  display: block;
   background-color: transparent;
   padding: 1em 1.5em;
   top: 2vh;
+  border-radius: 2%;
 }
 .success {
   border: 2px solid var(--success);

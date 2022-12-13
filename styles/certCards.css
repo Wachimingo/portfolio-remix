@@ -1,4 +1,6 @@
 @import "./card.css";
+@import "./containers.css";
+@import "./button.css";
 .cert-card-title {
 }
 .cert-card-image {

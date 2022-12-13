@@ -5,29 +5,11 @@ import { Main } from "~/components/common/containers/Main";
 import { Section } from "~/components/common/containers/Section";
 import DatabaseServer from "~/utils/db/mongodb/dbConfig";
 import skillsStyles from "~/styles/skillCards.css";
-import containerStyles from "~/styles/containers.css";
-import buttonsStyles from "~/styles/button.css";
 import { LinksFunction } from "@remix-run/react/dist/routeModules";
 import { SkillCard } from "~/components/skills/index";
 
 export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: skillsStyles
-      //  media: process.env.MEDIA_CSS
-    },
-    {
-      rel: "stylesheet",
-      href: containerStyles
-      // media: process.env.MEDIA_CSS
-    },
-    {
-      rel: "stylesheet",
-      href: buttonsStyles
-      // media: process.env.MEDIA_CSS
-    }
-  ];
+  return [{ rel: "stylesheet", href: skillsStyles }];
 };
 
 export const loader: LoaderFunction = async ({ request }) => {

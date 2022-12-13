@@ -5,11 +5,7 @@ import { LinkButton } from "~/components/common/buttons";
 import { Div, Main, Section } from "~/components/common/containers";
 import { SkillBubble } from "~/components/skills";
 import { CertCard } from "~/components/certs/card";
-import certStyles from "~/styles/certCards.css";
 import homeStyles from "~/styles/home.css";
-import skillStyles from "~/styles/skillBubbles.css";
-import containerStyles from "~/styles/containers.css";
-import buttonsStyles from "~/styles/button.css";
 import type { Certification, Skill } from "~/types/skillsAndCerts";
 import type { MetaFunction, LinksFunction, LoaderFunction, ErrorBoundaryComponent } from "@remix-run/node";
 
@@ -21,36 +17,10 @@ export const meta: MetaFunction = () => {
 };
 
 export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: homeStyles
-      // media: process.env.MEDIA_CSS
-    },
-    {
-      rel: "stylesheet",
-      href: certStyles
-      //  media: process.env.MEDIA_CSS
-    },
-    {
-      rel: "stylesheet",
-      href: containerStyles
-      // media: process.env.MEDIA_CSS
-    },
-    {
-      rel: "stylesheet",
-      href: skillStyles
-      // media: process.env.MEDIA_CSS
-    },
-    {
-      rel: "stylesheet",
-      href: buttonsStyles
-      // media: process.env.MEDIA_CSS
-    }
-  ];
+  return [{ rel: "stylesheet", href: homeStyles }];
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   DatabaseServer.getInstance();
   const getSkills = DatabaseServer.getDocuments("skills", { locale: "en" }, undefined, 5);
   const getCerts = DatabaseServer.getDocuments("certifications", { locale: "en" }, undefined, 0);

@@ -1,21 +1,22 @@
 import { LinkButton } from "../common/buttons";
-export const ProjectCard = ({ project }: any) => {
+import { Card } from "../common/card/Card";
+export const ProjectCard = ({ project, extendedClassName }: any) => {
   return (
-    <div key={project.name} className='project-card'>
-      <img className='project-card-image' src={project.image} alt={project.name} width='auto' height='auto' />
-      <div className='project-card-data'>
+    <Card key={project.name} extendedClassName={extendedClassName ?? ""}>
+      <img className='card-image' src={project.image} alt={project.name} width='100%' height='250px' />
+      <div className='card-body'>
         <h3>{project.name}</h3>
         <p>{project.description}</p>
       </div>
       {project.link.includes("http" || "https") ? (
-        <LinkButton success link={project.link} extendedClass='project-card-footer' target='_blank' rel='noreferrer' role='button'>
+        <LinkButton success link={project.link} target='_blank' rel='noreferrer' role='button'>
           Checkout
         </LinkButton>
       ) : (
-        <LinkButton success link={project.link} extendedClass='project-card-footer'>
+        <LinkButton success link={project.link}>
           Checkout
         </LinkButton>
       )}
-    </div>
+    </Card>
   );
 };

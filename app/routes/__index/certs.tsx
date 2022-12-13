@@ -6,28 +6,13 @@ import { Main } from "~/components/common/containers/Main";
 import { Section } from "~/components/common/containers/Section";
 import DatabaseServer from "~/utils/db/mongodb/dbConfig";
 import certStyles from "~/styles/certCards.css";
-import containerStyles from "~/styles/containers.css";
-import buttonsStyles from "~/styles/button.css";
 import { LinksFunction } from "@remix-run/react/dist/routeModules";
 
 export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "stylesheet",
-      href: certStyles
-    },
-    {
-      rel: "stylesheet",
-      href: containerStyles
-    },
-    {
-      rel: "stylesheet",
-      href: buttonsStyles
-    }
-  ];
+  return [{ rel: "stylesheet", href: certStyles }];
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async () => {
   DatabaseServer.getInstance();
   const certs = await DatabaseServer.getDocuments("certifications", { locale: "en" }, undefined, 0);
   return json(certs);

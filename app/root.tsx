@@ -2,8 +2,6 @@ import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@re
 import type { MetaFunction, LinksFunction } from "@remix-run/node";
 import type { FC } from "react";
 import globalStyle from "~/styles/global.css";
-import navBarStyle from "~/styles/navbar.css";
-import footerStyle from "~/styles/footer.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -16,16 +14,6 @@ export const links: LinksFunction = () => {
     {
       rel: "stylesheet",
       href: globalStyle
-      // media: process.env.MEDIA_CSS
-    },
-    {
-      rel: "stylesheet",
-      href: navBarStyle
-      // media: process.env.MEDIA_CSS
-    },
-    {
-      rel: "stylesheet",
-      href: footerStyle
       // media: process.env.MEDIA_CSS
     }
   ];

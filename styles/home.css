@@ -1,3 +1,7 @@
+@import "./certCards";
+@import "./skillBubbles";
+@import "./button";
+@import "./containers";
 .profile-pic {
   border-radius: 100%;
 }

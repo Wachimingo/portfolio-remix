@@ -1,1 +1,1 @@
-@import "./card.css";.cert-card-image{border-radius:100%;margin-top:1em}
+@import "./card.css";@import "./containers.css";@import "./button.css";.cert-card-image{border-radius:100%;margin-top:1em}
