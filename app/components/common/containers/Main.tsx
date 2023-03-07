@@ -5,3 +5,4 @@ export const Main = ({ children, row, extendedClassName, ...props }: any) => {
     </main>
   );
 };
+export default Main;

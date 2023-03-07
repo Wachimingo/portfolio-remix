@@ -1,6 +1,6 @@
 import { LinkButton } from "../common/buttons";
 import { Card } from "../common/card/Card";
-export const ProjectCard = ({ project, extendedClassName }: any) => {
+export const ProjectsCard = ({ project, extendedClassName }: any) => {
   return (
     <Card key={project.name} extendedClassName={extendedClassName ?? ""}>
       <img className='card-image' src={project.image} alt={project.name} width='150px' height='150px' />
@@ -14,3 +14,5 @@ export const ProjectCard = ({ project, extendedClassName }: any) => {
     </Card>
   );
 };
+
+export default ProjectsCard;

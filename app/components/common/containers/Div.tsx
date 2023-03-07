@@ -5,3 +5,5 @@ export const Div = ({ children, row, extendedClassName, ...props }: any) => {
     </div>
   );
 };
+
+export default Div;

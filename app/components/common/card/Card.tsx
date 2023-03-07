@@ -5,3 +5,5 @@ export const Card = ({ children, extendedClassName, ...props }: any) => {
     </div>
   );
 };
+
+export default Card;

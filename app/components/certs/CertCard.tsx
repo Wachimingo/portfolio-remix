@@ -8,3 +8,5 @@ export const CertCard = ({ cert, children, extendedClassName }: any) => {
     </Card>
   );
 };
+
+export default CertCard;

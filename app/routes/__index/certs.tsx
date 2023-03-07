@@ -1,6 +1,6 @@
 import { json, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { CertCard } from "~/components/certs/card";
+import { CertCard } from "~/components/certs/CertCard";
 import { Div } from "~/components/common/containers/Div";
 import { Main } from "~/components/common/containers/Main";
 import { Section } from "~/components/common/containers/Section";

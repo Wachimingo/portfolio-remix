@@ -5,3 +5,4 @@ export const Section = ({ children, row, extendedClassName, ...props }: any) => 
     </section>
   );
 };
+export default Section;

@@ -4,7 +4,7 @@ import DatabaseServer from "~/utils/db/mongodb/dbConfig";
 import { LinkButton } from "~/components/common/buttons";
 import { Div, Main, Section } from "~/components/common/containers";
 import { SkillBubble } from "~/components/skills";
-import { CertCard } from "~/components/certs/card";
+import { CertCard } from "~/components/certs/CertCard";
 import homeStyles from "~/styles/home.css";
 import type { Certification, Skill } from "~/types/skillsAndCerts";
 import type { MetaFunction, LinksFunction, LoaderFunction, ErrorBoundaryComponent } from "@remix-run/node";
